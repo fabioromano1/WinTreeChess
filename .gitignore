@@ -1,0 +1,14 @@
+# tablebase e reti
+*.nnue
+*.rtbw
+*.rtbz
+syzygy/
+# binari compilati
+*.o
+*.a
+*.class
+Stockfish-sf_19/src/stockfish
+# strumenti compilati (resta solo il README)
+tools/*
+!tools/README.md
+.claude/settings.local.json
