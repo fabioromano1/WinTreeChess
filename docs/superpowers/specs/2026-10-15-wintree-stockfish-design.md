@@ -8,7 +8,7 @@ Indice: 1 Sintesi · 2 WinTree verificato · 3 Stockfish 19 · 4 Diagrammi · 5 
 
 **Che cos'è WinTree, verificato sulle fonti.** Una ricerca AND/OR depth-first su grafi di gioco con cicli: ogni vertice è TRUE (vittoria dimostrata per il giocatore obiettivo `g`), FALSE (`g` non può forzare la vittoria), oppure NIL (irrisolto per ripetizioni sul cammino). Si arresta appena trova un testimone nei nodi di `g` e appena trova una confutazione nei nodi dell'avversario. I cicli valgono "ignoto" e i vertici irrisolti non sono mai memorizzati come definitivi: per questo i risultati TRUE/FALSE sono solidi anche con le trasposizioni e le ripetizioni (il problema GHI che Stockfish gestisce solo con palliativi, `search.cpp:891-893`, `1919-1953`). Il paper dimostra correttezza, completezza alla radice, limite superiore della distanza alla vittoria e un teorema per la strategia di patta (§2.4). Costo: esponenziale nel caso peggiore; nessun budget, nessuna euristica.
 
-**Tre risultati negativi, confermati eseguendo il codice (Appendice A).** (P1) La versione "ottimizzata" di Sez. 4.1 del paper, riprodotta dal Java, è **non solida**: un figlio risolto durante la ricorsione di un fratello viene ignorato, e il motore dichiara vittorie e non-vittorie false (viola i Thm 3.1 e Cor 3.3). (P2) L'ottimizzazione `dejavu` del Java perde la completezza alla radice e con essa la garanzia di "non perdere mai" (Thm 3.4/4.8), pur restando solida. (P3) `bestMove` ha un NPE latente. L'algoritmo base di Sez. 3 è corretto su tutti i casi. Il porting deve partire da Sez. 3 e reintrodurre le ottimizzazioni con le correzioni di §2.7; il dejavu va usato solo per cercare vittorie finché manca una dimostrazione.
+**Tre risultati negativi, confermati eseguendo il codice (Appendice A).** (P1) La versione "ottimizzata" di Sez. 4.1 del paper, riprodotta dal Java, è **non solida**: un figlio risolto durante la ricorsione di un fratello viene ignorato, e il motore dichiara vittorie e non-vittorie false (viola i Thm 3.1 e Cor 3.3). (P2) L'ottimizzazione `dejavu` del Java perde la completezza alla radice e con essa la garanzia di "non perdere mai" (Thm 3.4/4.8); combinata con il trattamento speciale della radice in `solve()` (figlio NIL ⇒ FALSE) produce anche un FALSE **non solido** alla radice (fuzzing di M0, seme 191). (P3) `bestMove` ha un NPE latente. L'algoritmo base di Sez. 3 è corretto su tutti i casi. Il porting deve partire da Sez. 3 e reintrodurre le ottimizzazioni con le correzioni di §2.7; il dejavu va usato solo per cercare vittorie finché manca una dimostrazione.
 
 **Che cosa WinTree può dare a Stockfish, e a che costo.** Non forza euristica: certificati. (i) Matti certificati (Stockfish riporta matti che sono minimax di alberi potati, non prove: §3.2). (ii) "L'avversario non può vincere" nei finali, con le tablebase come foglie: la classe delle fortezze, dove la valutazione di Stockfish è notoriamente sbagliata. (iii) Risultati incrementali che sopravvivono all'interruzione e alle mosse successive (conversione guidata dalla prova). Il prezzo è il tempo sottratto ad alpha-beta: nel mediogioco un budget dato al prover produce quasi sempre "ignoto", quindi tutto dipende da **quando** lo si invoca.
 
@@ -140,7 +140,7 @@ Tabella delle differenze:
 |---|---|---|---|---|
 | 1 | Ordine di visita | Sez. 4.1 (due cicli) | identico (154-219) | eredita il problema P1 (§2.7) |
 | 2 | dejavu | solo abbozzo (pag. 21), nessuna dimostrazione | implementato con `retainAll` | problema P2 (§2.7) |
-| 3 | Radice con l'avversario al tratto | stessa ricorsione | caso speciale, NIL ⇒ FALSE | la radice è sempre BLACK |
+| 3 | Radice con l'avversario al tratto | stessa ricorsione | caso speciale, NIL ⇒ FALSE | la radice è sempre BLACK; con P2 produce FALSE non solidi alla radice (P2b, §2.7) |
 | 4 | NIL | attributo | assenza in `evals` + WHITE; `Boolean null` nei locali | equivalente |
 | 5 | `d` | `ℕ ∪ {∞}` | `double` con `POSITIVE_INFINITY`, flyweight | equivalente |
 | 6 | `probability` | assente | media/max delle probabilità dei figli, 0.5 per i GRAY | euristica di spareggio in `bestMove` |
@@ -207,9 +207,21 @@ Output osservato:
   b   java=BLACK/Evaluation[win=false, depth=Infinity] base=BLACK/false ref(eval==g)=false
   notLosingMove = p0
 ```
-Viola il Thm 3.4 alla radice. Conseguenza pratica: `notLosingMove` (calcolato da un motore avversario sulla stessa struttura) sceglie `p0` come "non perdente", mentre `p0` è una posizione persa: la garanzia del Thm 4.8 cade. La solidità è preservata: il salto produce solo NIL, mai un valore BLACK (verificato per lettura: un OR diventa FALSE solo con tutti i figli FALSE definiti; un AND diventa TRUE solo con tutti i figli TRUE definiti). [FATTO VERIFICATO per lettura + esecuzione]
+Viola il Thm 3.4 alla radice. Conseguenza pratica: `notLosingMove` (calcolato da un motore avversario sulla stessa struttura) sceglie `p0` come "non perdente", mentre `p0` è una posizione persa: la garanzia del Thm 4.8 cade. Dentro `winTree` il salto produce solo NIL, mai un valore BLACK (un OR diventa FALSE solo con tutti i figli FALSE definiti; un AND diventa TRUE solo con tutti i figli TRUE definiti). **Alla radice no** (P2b): `solve()` con l'avversario al tratto tratta un figlio NIL come FALSE (riga 97; deviazione 3 di §2.6, giustificata dal Thm 3.4 che P2 invalida), quindi un figlio lasciato NIL dal dejavu pur avendo `eval = g` rende la radice BLACK FALSE: un FALSE **non solido**. Riprodotto dal fuzzing di M0 (`tests/wintree-java/run.sh 10000 1`, seme 191, goal PLAYER_1). [FATTO VERIFICATO per esecuzione]
 
 Correzione proposta [RACCOMANDAZIONE]: quando si salta un WHITE `q`, trattare il salto come "colpo virtuale" su ciascun bloccante `x ∈ dejavu(q)`: aggiungere `x` a `dejavu(next)` per ogni `next` sul path dal nodo corrente fino a `x` escluso. Resta un **obbligo di prova**: generalizzare il Lemma 4.7 alla variante con dejavu (il paper non lo fa). Congettura [IPOTESI]: con la propagazione, la completezza alla radice (Thm 3.4) sopravvive perché la catena a `d_g` decrescente non interseca gli antenati, mentre la completezza non-radice resta limitata (un nodo saltato potrebbe ora risolversi grazie a vertici diventati BLACK nel frattempo, come mostrato in §2.4). Verifica: test differenziale vs Sez. 3 su grafi casuali con cicli, con controllo di solidità, completezza alla radice e strategia di patta (§9).
+
+#### Risultati del fuzzing di M0 (2026-10-15) [FATTO VERIFICATO per esecuzione]
+
+`tests/wintree-java/run.sh 10000 1` (OpenJDK 25): 10^4 grafi casuali con seme (n ∈ [10,40], grado ∈ [1,3], densità di cicli ∈ [0, 0.7), sink ∈ [0.1, 0.4)), 2 goal per grafo = 20000 ricerche, `eval(radice) = g` in 4142. Ogni cella conta le ricerche con almeno una violazione; "NOWIN" = radice non TRUE.
+
+| Implementazione | NOWIN | TRUE non solido | FALSE non solido | radice incompleta (Thm 3.4) | patta (Thm 4.8) |
+|---|---:|---:|---:|---:|---:|
+| Java originale | 15942 | 7 | 45 | 89 | 129 |
+| Java con P1 corretto (copia di test) | 15859 | 0 | 1 | 1 | 2 |
+| trascrizione di Sez. 3 | 15858 | 0 | 0 | 0 | 0 |
+
+Lettura: (1) la Sez. 3 non viola mai nulla, quindi oracolo, trascrizione e model checker sono coerenti con i teoremi; (2) P1 compare spontaneamente nei grafi casuali (7 TRUE e 45 FALSE non solidi), e la correzione li elimina tutti tranne uno; (3) il FALSE residuo (seme 191) è P2b: dejavu + caso speciale della radice; in una copia di prova senza dejavu (WHITE sempre riesplorato) la versione con P1 corretto ha 0 violazioni; (4) il Thm 4.8 cade con il dejavu (seme 7058: radice NIL, ma il difensore può scegliere un figlio NIL con `eval = g`). Esempi riproducibili con `java Gen.java SEME`.
 
 #### P3 — NPE latente in `bestMove` (`Engine.java:282`) [INFERENZA, non riprodotto]
 
@@ -688,7 +700,7 @@ Grafi sintetici con esito noto (solver a punto fisso come oracolo), ciascuno in 
 7. Nodi già elaborati: la seconda chiamata su un grafo con PT piena non visita nulla di nuovo e dà lo stesso esito.
 8. Casi limite delle ottimizzazioni: P1a, P1b (O1), P2 (O2), grafi dove il dejavu salta un nodo che un vertice diventato BLACK avrebbe risolto (completezza non-radice persa: documentata, non errore), prefix-hash con collisione forzata.
 9. Interruzione prima di una conclusione: `stop` asincrono a istanti casuali; invarianti I1-I5.
-10. Strategia di patta (Thm 4.8): model checker che, dato il grafo e la PT finale di una ricerca completa in modalità NOWIN, verifica che dalla radice il difensore abbia sempre un figlio NIL/FALSE e che nessun sink vinto da `g` sia raggiungibile nel sottografo "difensore sceglie NIL/FALSE, attaccante sceglie qualsiasi".
+10. Strategia di patta (Thm 4.8): model checker che, dato il grafo e la PT finale di una ricerca completa in modalità NOWIN, verifica che dalla radice il difensore abbia sempre un figlio NIL/FALSE e che nessun sink vinto da `g` sia raggiungibile nel sottografo "difensore sceglie NIL/FALSE, attaccante sceglie qualsiasi". Precisazione emersa in M0: da un nodo FALSE il difensore sceglie solo figli FALSE (un figlio WHITE di un nodo FALSE può avere `eval = g`; il Thm 4.8 copre solo cammini interamente NIL); senza questa regola la trascrizione di Sez. 3 dà un falso allarme (seme 3240).
 
 Proprietà da imporre con asserzioni (anche in modalità release per i test): `PROVEN_WIN ⟹ oracolo = g`, `PROVEN_NOWIN ⟹ oracolo ≠ g`, radice completa senza tagli: `oracolo = g ⟹ PROVEN_WIN` (Thm 3.4), `d ≥ d_g` (Thm 3.6).
 
@@ -756,8 +768,8 @@ Decisione: M5 (thread prover) solo con G0-G2 superati e G3 non regressione super
 
 ### 12.1 Attività (in ordine)
 
-0. **Bootstrap** (autorizzato il 2026-10-15): scaricare la rete NNUE (`make net`), le Syzygy 5-man e 6-man, compilare fastchess/cutechess, `git init` del progetto. (mezza giornata più i download)
-1. **M0** — Estendere l'harness dell'Appendice A: generatore di grafi casuali con seme, model checker del Thm 4.8, Java con P1 corretto in copia di test, archivio dei casi P1/P2. (1-2 giorni)
+0. **Bootstrap** (autorizzato il 2026-10-15) — **fatto** lo stesso giorno: `git init` con commit `1103f81` e `93cf580`, rete NNUE verificata, Syzygy 5-man completo (939 MB), fastchess 1.8.2 in `tools/`; 6-man in download (~160 GB), checksum da verificare a fine download.
+1. **M0** — **fatto** il 2026-10-15 in `tests/wintree-java/` (`run.sh`, ~4 s, output riproducibile; commit `2aa2f12`); risultati in §2.7. Contenuto previsto: estendere l'harness dell'Appendice A: generatore di grafi casuali con seme, model checker del Thm 4.8, Java con P1 corretto in copia di test, archivio dei casi P1/P2. (1-2 giorni)
 2. **Dimostrazione o confutazione** del lemma per il dejavu con propagazione (generalizzazione del Lemma 4.7): non blocca nulla (§7.9), ma decide quanto spesso il prover trova i candidati nelle fortezze. (ricerca, tempo aperto, in parallelo a M1-M2)
 3. **M1** — Nucleo C++ generico + adapter a grafo esplicito + test differenziali e fuzzing. (1 settimana)
 4. **M2** — `wintree-chess` standalone sui sorgenti di Stockfish (senza modificarli): terminali, TB, ordinamento; suite di matti; confronto con WDL; baseline df-pn minimale. (2-3 settimane)
