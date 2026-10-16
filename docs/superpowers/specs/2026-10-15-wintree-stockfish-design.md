@@ -768,7 +768,7 @@ Decisione: M5 (thread prover) solo con G0-G2 superati e G3 non regressione super
 
 ### 12.1 Attività (in ordine)
 
-0. **Bootstrap** (autorizzato il 2026-10-15) — **fatto** lo stesso giorno: `git init` con commit `1103f81` e `93cf580`, rete NNUE verificata, Syzygy 5-man completo (939 MB), fastchess 1.8.2 in `tools/`; 6-man in download (~160 GB), checksum da verificare a fine download.
+0. **Bootstrap** (autorizzato il 2026-10-15) — **fatto** lo stesso giorno: `git init` con commit `1103f81` e `93cf580`, rete NNUE verificata, Syzygy 5-man completo (939 MB), fastchess 1.8.2 in `tools/`; Syzygy 6-man completo il 2026-10-16 (730 file, 150 GB in `~/syzygy/6man`, md5 verificati; commit `36735e2`). Percorsi in `tools/README.md`.
 1. **M0** — **fatto** il 2026-10-15 in `tests/wintree-java/` (`run.sh`, ~4 s, output riproducibile; commit `2aa2f12`); risultati in §2.7. Contenuto previsto: estendere l'harness dell'Appendice A: generatore di grafi casuali con seme, model checker del Thm 4.8, Java con P1 corretto in copia di test, archivio dei casi P1/P2. (1-2 giorni)
 2. **Dimostrazione o confutazione** del lemma per il dejavu con propagazione (generalizzazione del Lemma 4.7): non blocca nulla (§7.9), ma decide quanto spesso il prover trova i candidati nelle fortezze. (ricerca, tempo aperto, in parallelo a M1-M2)
 3. **M1** — Nucleo C++ generico + adapter a grafo esplicito + test differenziali e fuzzing. (1 settimana)
