@@ -12,3 +12,5 @@ Stockfish-sf_19/src/stockfish
 tools/*
 !tools/README.md
 .claude/settings.local.json
+# M1: binari e file di confronto
+src/wintree/build/

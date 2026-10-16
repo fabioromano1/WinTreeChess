@@ -13,6 +13,7 @@ Harness Java di riferimento per WinTree. Nessun file originale del progetto è m
 | `Test.java` | harness dell'Appendice A + colonna `p1fix=` e controlli `OK/FAIL` (exit 1 se falliscono). Contiene il solver a minimo punto fisso (`forced`) e la trascrizione di Sez. 3 (`Base`) |
 | `Gen.java` | generatore di grafi con seme e parser del formato testuale (con verifica di Def. 2.6) |
 | `Fuzz.java` | 10^4 grafi × 2 goal; solidità, completezza alla radice (Thm 3.4), model checker del Thm 4.8 |
+| `Cmp.java` | M1: esiti del Java con P1 corretto (stati, `d`, preordine) per il confronto con `src/wintree` (`make -C src/wintree test` lo esegue) |
 
 Formato del grafo (`java Gen.java SEME` oppure `java Gen.java SEME N GRADO CICLI SINK`): una riga `id turno esito figli...`, radice `0`, turno `1|2`, esito `.` (non-sink) / `1` / `2` / `0` (patta). `CICLI` = probabilità che un arco punti a un id minore. Distribuzione di Fuzz: n ∈ [10,40], grado ∈ [1,3], cicli ∈ [0,0.7), sink ∈ [0.1,0.4). Gli archi uniscono solo vertici di turno opposto, quindi non ci sono self-loop. Per riprodurre un caso: `java Gen.java 191`.
 
