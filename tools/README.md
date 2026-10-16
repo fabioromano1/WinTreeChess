@@ -19,14 +19,14 @@ Data: 2026-10-15. Tutto in questa cartella tranne questo file è ignorato da git
 | Cartella | Contenuto | Spazio | Stato |
 |---|---|---|---|
 | `~/syzygy/5man` | 3-4-5 WDL (145 `.rtbw`) + DTZ (145 `.rtbz`) | 939 MB | completo |
-| `~/syzygy/6man` | 6-man WDL (365) + DTZ (365) | ~73 GB WDL + ~87 GB DTZ = ~160 GB attesi | **in corso** (vedi sotto) |
+| `~/syzygy/6man` | 6-man WDL (365) + DTZ (365) | 365 `.rtbw` + 365 `.rtbz`, 150 GB | completo (16 ott 2026), md5 verificati |
 
 Comando (5-man; per 6-man sostituire `3-4-5-*` con `6-wdl`/`6-dtz`, WDL prima, poi DTZ, in background con `nohup`):
 ```
 wget -q -r -np -nd -nH -c -e robots=off -A rtbw,rtbz https://tablebase.lichess.ovh/tables/standard/3-4-5-wdl/
 ```
-- Velocità misurata ~7 MB/s ⇒ stima totale ~6,5 h (WDL ~3 h, poi DTZ ~3,5 h) dall'avvio (15 ott 2026 ~15:52). Disco: 372 GB liberi, bastano.
+- Download 6-man: 25591 s (~7 h 6 min), concluso senza errori (`wget.log` vuoto). Disco ora: 224 GB liberi.
 - Riprendere dopo un'interruzione: `-c` salta/continua i file; rilanciare lo stesso comando in `~/syzygy/6man`.
 - Stato: `du -sh ~/syzygy/6man; cat ~/syzygy/6man/.end` (il file `.end`, timestamp epoch, compare a download concluso; `wget.log` contiene gli errori).
 - Uso in Stockfish: `setoption name SyzygyPath value ~/syzygy/5man:~/syzygy/6man` (con percorsi assoluti).
-- Non verificati i checksum dei file 6-man (sul sito: `sha256`/`md5` in `/tables/standard/`).
+- Tutti i 730 file 6-man verificati con `md5sum -c` contro `/tables/standard/md5` del sito: 0 differenze.
