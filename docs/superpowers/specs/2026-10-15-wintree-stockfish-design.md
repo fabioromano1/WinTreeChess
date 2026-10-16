@@ -18,6 +18,8 @@ Indice: 1 Sintesi · 2 WinTree verificato · 3 Stockfish 19 · 4 Diagrammi · 5 
 
 **Come si decide.** Quattro gate quantitativi (§11): G0 zero errori rispetto a oracoli (punto fisso sui grafi; WDL sulle posizioni ≤ 5 pezzi); G1 matti: ≥ 90% di quelli risolti da `go mate` a pari tempo, nodi ≤ 3× df-pn; G2 fortezze: ≥ 25% certificate dove Stockfish sbaglia di oltre 150 cp; G3 SPRT di non regressione [−3, 1] con la stessa binaria e opzione di toggle, più SPRT [0, 5] su set di finali. Prime attività: harness di test (M0), nucleo generico con test differenziali (M1), solver scacchistico standalone sui sorgenti di Stockfish (M2); l'integrazione (M3) solo dopo G0-G1.
 
+**Esito del gate G1 e decisione (2026-10-16).** M0-M2 sono stati eseguiti (§12.1): G0 superato (0 errori su 10^4 grafi casuali e su 10^4 posizioni ≤ 5 pezzi contro le tablebase). G1 **non superato**: sulla suite intera `mates2000` (2000 posizioni, 10 s, un thread) WinTree a caldo certifica il 64,1 % dei matti che Stockfish `go mate` risolve (soglia 90 %), con mediana 7,1× e p90 332× i nodi del df-pn "da manuale" (soglie 3× e 10×), che invece arriva all'88,5 %. Decisione del committente: **df-pn diventa l'attraversamento del nucleo** (§8.1b); restano invariati architettura E, reticolo degli esiti, gestione dei cicli di WinTree (una ripetizione sul cammino non è mai una prova né una confutazione memorizzabile), verificatore e hook. Il contributo di WinTree al progetto è la semantica certificabile, non l'attraversamento.
+
 **Licenze (analisi tecnica, non consulenza legale).** Stockfish: GPL-3.0-or-later. Paper: CC BY-NC-SA 4.0 (testo). Codice Java: nessuna licenza ⇒ tutti i diritti riservati: serve una concessione o un'implementazione dal paper. Rete NNUE non inclusa nello zip; licenza del file di rete da verificare.
 ## 2. Proprietà verificate di WinTree e differenze tra paper e Java
 
@@ -422,7 +424,7 @@ Lettura [INFERENZA]: B è la variante che "richiama WinTree più spesso" ed è q
 
 ### 6.4 Cosa WinTree aggiunge rispetto a un df-pn nello stesso posto [INFERENZA]
 
-La semantica dei cicli di WinTree (GRAY ⇒ NIL, nessuna memoizzazione dei WHITE) è solida per costruzione e dimostrata; df-pn richiede trattamenti GHI dedicati e la sua stima di proof number va corretta sui cicli. In cambio df-pn sceglie il nodo "più promettente" globalmente, mentre WinTree è depth-first e dipende dall'ordinamento locale. L'architettura E non dipende dall'attraversamento: la PT, l'adapter, i trigger e gli hook restano identici se l'esperimento G1 (§11) imponesse di sostituire il DFS con un attraversamento best-first mantenendo gli stessi esiti e invarianti (§7.1).
+La semantica dei cicli di WinTree (GRAY ⇒ NIL, nessuna memoizzazione dei WHITE) è solida per costruzione e dimostrata; df-pn richiede trattamenti GHI dedicati e la sua stima di proof number va corretta sui cicli. In cambio df-pn sceglie il nodo "più promettente" globalmente, mentre WinTree è depth-first e dipende dall'ordinamento locale. L'architettura E non dipende dall'attraversamento: la PT, l'adapter, i trigger e gli hook restano identici se l'esperimento G1 (§11) imponesse di sostituire il DFS con un attraversamento best-first mantenendo gli stessi esiti e invarianti (§7.1). **È ciò che G1 ha imposto** (2026-10-16): l'attraversamento del nucleo è df-pn (§8.1b); la semantica dei cicli e degli esiti di WinTree è trasferita nel df-pn come "taint di ciclo" sulle confutazioni.
 ## 7. Correttezza e gestione dei risultati certi (semantica scacchistica)
 
 ### 7.1 Il reticolo degli esiti
@@ -591,6 +593,24 @@ Scelte e motivazioni:
 - **Risultati**: `PROVEN_*` scritti nella PT subito; `UNKNOWN_*` scritti con la profondità residua tentata e, in modalità WIN, con il dejavu compatto.
 - **Interruzione cooperativa**: controllo di `stop`, nodi e deadline ogni 1024 nodi (come `check_time`, `search.cpp:2109`); all'arresto la ricorsione si svolge restituendo `UNKNOWN_BUDGET` con `cut = true`; tutto ciò che è già BLACK resta.
 
+### 8.1b Attraversamento df-pn (decisione del 2026-10-16, gate G1)
+
+Il nucleo depth-first di §8.1 resta nel repository come riferimento e per i test sintetici; il nucleo di produzione usa **df-pn** (Nagai 2002) con le stesse interfacce, la stessa PT, lo stesso verificatore e gli stessi invarianti. Base: `src/wintree-chess/dfpn.h` di M2b (MID con soglie proof/disproof, `1+ε`, tabella pn/dn separata). [RACCOMANDAZIONE]
+
+| Elemento | Regola |
+|---|---|
+| Selezione | nodo OR: figlio con pn minimo; nodo AND: figlio con dn minimo; soglie `min(th, max(second+1, second·(1+ε)))`, ε da misurare (0,25 in M2b) |
+| Inizializzazione di pn/dn | qui entra l'informazione di Stockfish (§8.4): pn iniziale più basso per scacchi, catture SEE ≥ 0, ttMove; dn iniziale = numero di risposte legali (mobilità) nei nodi AND; ordinamento a caldo come spareggio a parità di pn/dn (B4 ha mostrato che l'ordine conta anche in df-pn: 1583 vs 1572) |
+| Terminali e sink | identici a §7.4-7.6 (`classify`), con `rev/req` di §7.5 sulle entry |
+| **Taint di ciclo** (semantica di WinTree) | un figlio che ripete una posizione del cammino vale pn = ∞, dn = 0 per la **selezione** (l'attaccante non insiste), ma la confutazione che ne deriva è *tainted*: un nodo OR è tainted se una delle confutazioni dei figli lo è; un nodo AND sceglie una confutazione pulita se esiste, altrimenti è tainted. Le confutazioni tainted restano nella tabella pn/dn (uso interno) ma nella PT sono `UNKNOWN_CYCLE`, mai `PROVEN_NOWIN` (I1, I8). Le prove (pn = 0) non usano mai ripetizioni, quindi sono pulite per costruzione |
+| Taglio di budget | nodi/tempo/`stop` come oggi: all'arresto i nodi con pn, dn > 0 sono `UNKNOWN_BUDGET`; nessuna entry PROVEN deriva da un taglio |
+| Tetto di profondità | 245 in modalità WIN (valori di matto); oltre, confutazione tainted (come il limite di profondità dei risolutori di tsume) |
+| Tabella | una sola struttura: entry PT estesa con (pn, dn) per gli irrisolti al posto dei campi dejavu (§8.3); rimpiazzo "l'ultimo scrive" con protezione dei PROVEN (in M2b proteggere anche gli irrisolti bloccava il ciclo MID: misurato) |
+| Verificatore | invariato (§7.9): albero vincente dalla mossa di prova nei nodi OR; grafo di patta dalle confutazioni pulite |
+| O6 | implicito: df-pn abbandona un nodo AND appena un figlio ha dn alto; nessuna regola aggiuntiva |
+
+Cosa resta di WinTree nel nucleo di produzione: il reticolo degli esiti (§7.1), la regola "una ripetizione non è una prova né una confutazione memorizzabile" (GRAY ⇒ ignoto, ora "taint"), l'intervallo `rev/req`, il verificatore e i test differenziali sui grafi sintetici (dove il nucleo df-pn deve dare gli stessi PROVEN dell'oracolo e i PROVEN_NOWIN solo puliti). Cosa non resta: la ricorsione depth-first con arresto al primo testimone e il dejavu (B5: nessun effetto sui matti).
+
 ### 8.2 L'adapter per gli scacchi
 
 ```cpp
@@ -683,7 +703,8 @@ Budget e politica:
 |---|---|---|
 | M0 | Harness Java esteso (grafi sintetici, solver a punto fisso, trascrizione Sez. 3, correzione P1 in una copia del Java usata **solo come riferimento di test**), generatore di grafi casuali, model checker della strategia di patta | repository di test riproducibili; nessun C++ |
 | M1 | Nucleo C++ generico + adapter "grafo esplicito" per i test sintetici; test differenziali vs Java/Sez. 3/punto fisso; fuzzing | G0 (parte sintetica) |
-| M2 | Adapter scacchi standalone (binario `wintree-chess` che linka i sorgenti di Stockfish senza modificarli: di fatto quasi tutto il motore, perché `position.cpp` usa `UCIEngine` e `tbprobe.cpp` usa `OptionsMap`); verificatore di §7.9; suite di matti; confronto con WDL su posizioni ≤ 5 pezzi; baseline df-pn sullo stesso adapter; ordinamento "a caldo" ottenuto con una ricerca breve di Stockfish (TT e storie) prima del prover | G0 (scacchi), G1 |
+| M2 | Adapter scacchi standalone (binario `wintree-chess` che linka i sorgenti di Stockfish senza modificarli: di fatto quasi tutto il motore, perché `position.cpp` usa `UCIEngine` e `tbprobe.cpp` usa `OptionsMap`); verificatore di §7.9; suite di matti; confronto con WDL su posizioni ≤ 5 pezzi; baseline df-pn sullo stesso adapter; ordinamento "a caldo" ottenuto con una ricerca breve di Stockfish (TT e storie) prima del prover — **fatta** (M2a + M2b, 2026-10-16): G0 superato, G1 **non superato** (§11) | G0 (scacchi), G1 |
+| M2c | Nucleo con attraversamento df-pn (§8.1b): `dfpn.h` promosso a nucleo con tabella unica pn/dn + PT, taint di ciclo, `rev/req`, inizializzazione di pn/dn da scacchi/mobilità/ttMove, ordinamento a caldo come spareggio; verificatore invariato; ri-esecuzione di G0 (grafi sintetici e scacchi vs WDL) e G1 | G0, G1 con il nuovo nucleo (obiettivo ≥ 90 %) |
 | M3 | Integrazione sincrona in Stockfish (H1-H8), stessa binaria con opzione di toggle; `bench` invariato con `Prover=false` (signature identica) | G3 non regressione, G2 |
 | M4 | Benchmark completi, SPRT, suite di fortezze | decisione go/no-go |
 | M5 (condizionato) | Thread prover (H9), PT lockless, test di sanità con `--sanitizer-thread` (`tests/instrumented.py`) | |
@@ -756,7 +777,7 @@ Controesempi concreti già disponibili: P1a, P1b, P2 (Appendice A). Controesempi
 | Gate | Misura | Soglia per proseguire | Se fallisce |
 |---|---|---|---|
 | G0 correttezza | grafi casuali (≥ 10^5, con cicli e budget); posizioni ≤ 5 pezzi senza TB risolte dal prover vs WDL (≥ 10^4) | **0** risultati `PROVEN_*` in contrasto con l'oracolo; 100% Thm 3.4 sulle radici complete | stop fino alla correzione. Stato: parte sintetica superata in M1 (10^4 grafi × 2 goal, 0 errori); parte scacchistica superata in M2a (10^4 posizioni ≤ 5 pezzi senza TB vs WDL: 0 disaccordi, ogni PROVEN estratto verificato) |
-| G1 efficienza nei matti | suite `mates2000`-like con il protocollo di B6: 10 s CPU, un thread, ordinamento a caldo, per ogni N; nodi-per-prova vs df-pn "da manuale" (Nagai 2002 con 1+ε, stesso adapter, terminali e ordinamento, ripetizione sul cammino = ignoto, senza trattamenti GHI avanzati: è il controllo minimo, **non** lo stato dell'arte) | ≥ 90% delle posizioni che Stockfish risolve, con certificato; mediana nodi ≤ 3× df-pn (coda ≤ 10×) | se ≤ 10× ma > 3×: cambiare attraversamento mantenendo E; se > 10×: fermarsi oppure adottare df-pn come nucleo mantenendo E e la semantica degli esiti; il committente ha autorizzato (2026-10-15) a prendere questa decisione al gate, con i dati di G1 |
+| G1 efficienza nei matti | suite `mates2000`-like con il protocollo di B6: 10 s CPU, un thread, ordinamento a caldo, per ogni N; nodi-per-prova vs df-pn "da manuale" (Nagai 2002 con 1+ε, stesso adapter, terminali e ordinamento, ripetizione sul cammino = ignoto, senza trattamenti GHI avanzati: è il controllo minimo, **non** lo stato dell'arte) | ≥ 90% delle posizioni che Stockfish risolve, con certificato; mediana nodi ≤ 3× df-pn (coda ≤ 10×) | se ≤ 10× ma > 3×: cambiare attraversamento mantenendo E; se > 10×: fermarsi oppure adottare df-pn come nucleo mantenendo E e la semantica degli esiti; il committente ha autorizzato (2026-10-15) a prendere questa decisione al gate, con i dati di G1. **Esito (2026-10-16, suite intera, 2000 posizioni, 10 s, un thread; `src/wintree-chess/README.md`, `tests/results/g1-full.csv`)**: WinTree a caldo 1147/1789 = 64,1 % (a freddo 59,4 %), mediana `do_move` 7,07× e p90 332× rispetto a df-pn a caldo (Σ 3,0×): **non superato**; df-pn da manuale 1583/1789 = 88,5 %. B5: O6 indispensabile (28 vs 121 risolte su 200 senza), dejavu ininfluente sui matti; B4: ordinamento casuale 49, freddo 120, caldo 127 su 200. **Decisione del committente: df-pn come attraversamento del nucleo (M2c, §8.1b)**; G1 da ripetere con il nuovo nucleo, stessa soglia |
 | G2 capacità unica (fortezze/patte) | corpus da costruire (§12.2): (a) posizioni a 6 pezzi estratte automaticamente con oracolo TB 6-man locale, dove `Prover=false` dà una valutazione di modulo > 150 cp mentre WDL dice patta (il prover usa solo sink ≤ 5 pezzi, quindi deve dimostrare, non consultare); (b) controlli a 7 pezzi con un oracolo esterno, se autorizzato; (c) fortezze da letteratura a 8-10 pezzi senza oracolo (set secondario); ≥ 100 posizioni in (a) | ≥ 25% certificate (verificatore §7.9) entro 10 s/1 thread sul set (a) (soglia iniziale, da rivedere con i primi dati) | capacità confinata ai matti: ridurre l'ambizione a "certificazione" |
 | G3 forza | SPRT `[-3,1]` a 10+0.1 e 60+0.6; SPRT `[0,5]` sui set di finali | non regressione superata; almeno un set con guadagno significativo | se regressione: trigger/budget da ridurre; se nessun guadagno: il progetto resta uno strumento di analisi, non un motore più forte |
 | G4 costo | overhead del probe sul `bench` (`Prover=true`, trigger spenti) | ≤ 1% di nps | ridurre il gating (`ProverProbeDepth`) |
@@ -773,9 +794,10 @@ Decisione: M5 (thread prover) solo con G0-G2 superati e G3 non regressione super
 1. **M0** — **fatto** il 2026-10-15 in `tests/wintree-java/` (`run.sh`, ~4 s, output riproducibile; commit `2aa2f12`); risultati in §2.7. Contenuto previsto: estendere l'harness dell'Appendice A: generatore di grafi casuali con seme, model checker del Thm 4.8, Java con P1 corretto in copia di test, archivio dei casi P1/P2. (1-2 giorni)
 2. **Dimostrazione o confutazione** del lemma per il dejavu con propagazione (generalizzazione del Lemma 4.7): non blocca nulla (§7.9), ma decide quanto spesso il prover trova i candidati nelle fortezze. (ricerca, tempo aperto, in parallelo a M1-M2)
 3. **M1** — **fatto** il 2026-10-16 (commit `a54d719`, `src/wintree/`, `make -C src/wintree test` ~10 s): nucleo C++17 con O1 corretto, esiti a quattro livelli, budget e stop cooperativo, tabella a due parole, dejavu con propagazione (corretta come in §8.3); fuzzing su 10^4 grafi: 0 PROVEN in contrasto con l'oracolo, 0 radici incomplete, 0 tagli nascosti, Thm 4.8 mai violato; grafi aciclici identici al Java con P1 corretto (stati, `d`, preordine). Scostamenti e cose non fatte (`rev/req`, generazione nella tabella, collisione forzata, `key_after`) in `src/wintree/README.md`. G0, parte sintetica: superato.
-4. **M2** — prima metà (**M2a**) **fatta** il 2026-10-16 (`src/wintree-chess/`): binario che linka Stockfish 19 intatto, adapter §8.2, verificatore §7.9, `rev/req` e modalità Goal nel nucleo, CLI, regressioni (le 4 posizioni di matto/stallo del bench di Stockfish certificate, con `d` uguale alla DTM: matto in 5 e in 4), G0 scacchistico su 10^4 posizioni a 3-5 pezzi senza TB contro le WDL 5-man: **0 disaccordi**, 39,7% risolte entro 2·10^5 nodi, 789/798 alberi vincenti e 2883/3167 strategie di patta certificate. Scostamenti in `src/wintree-chess/README.md`, recepiti in §7.5, §7.9 e §8.4. Seconda metà (**M2b**): ordinamento a caldo, suite di matti, baseline df-pn, G1. (1-2 settimane)
-5. **B1-B7** su M2; verdetto G0-G1.
-6. **M3** — Integrazione sincrona (H1-H8) con opzione di toggle; `bench` invariato con `Prover=false`; `tests/instrumented.py` esteso.
+4. **M2** — prima metà (**M2a**) **fatta** il 2026-10-16 (`src/wintree-chess/`): binario che linka Stockfish 19 intatto, adapter §8.2, verificatore §7.9, `rev/req` e modalità Goal nel nucleo, CLI, regressioni (le 4 posizioni di matto/stallo del bench di Stockfish certificate, con `d` uguale alla DTM: matto in 5 e in 4), G0 scacchistico su 10^4 posizioni a 3-5 pezzi senza TB contro le WDL 5-man: **0 disaccordi**, 39,7% risolte entro 2·10^5 nodi, 789/798 alberi vincenti e 2883/3167 strategie di patta certificate. Scostamenti in `src/wintree-chess/README.md`, recepiti in §7.5, §7.9 e §8.4. Seconda metà (**M2b**) **fatta** il 2026-10-16: ordinamento a caldo, suite `mates2000` (`tests/suites/`), baseline df-pn (`dfpn.h`), B2/B4/B5/B6 (`tests/results/`), verdetto G1 **non superato** (§11).
+4b. **M2c** — Nucleo df-pn (§8.1b): tabella unica, taint di ciclo, `rev/req`, inizializzazione di pn/dn con le informazioni di Stockfish, ε misurato; test differenziali sui grafi sintetici (PROVEN uguali all'oracolo, NOWIN solo puliti) e G0 scacchistico ripetuti; G1 ripetuto con l'obiettivo ≥ 90 %. (1-2 settimane)
+5. **B1, B3, B7** (B2, B4, B5, B6 fatti in M2b) sul nucleo df-pn; verdetto G0-G1 definitivo.
+6. **M3** — Integrazione sincrona (H1-H8) con opzione di toggle, **solo dopo** M2c con G0-G1 superati; `bench` invariato con `Prover=false`; `tests/instrumented.py` esteso.
 7. **G2-G4**, SPRT; relazione dei risultati.
 8. **M5** solo se i gate lo consentono.
 
@@ -802,6 +824,7 @@ Decisioni già prese dal committente (2026-10-15), che chiudono le domande della
 | Oracolo esterno (API tablebase online, sola lettura) per i controlli a 7 pezzi di G2 | autorizzato |
 | Tempo-macchina per G3 | ~2 giorni sugli 8 core locali: 10+0.1 completo, 60+0.6 ridotto o esterno |
 | Corpus di G2 | costruito dal builder: estrazione automatica a 6 pezzi con oracolo locale, controlli a 7 pezzi con l'oracolo esterno, fortezze da letteratura come set secondario |
+| Attraversamento del nucleo (gate G1, 2026-10-16) | **df-pn** (§8.1b); WinTree resta come semantica degli esiti, gestione dei cicli (taint), `rev/req`, verificatore e riferimento per i test sintetici |
 ### 12.3 Modello ed effort consigliati per attività
 
 Criterio: effort basso dove l'errore è visibile subito (build, script, raccolta dati); modello e effort massimi dove un errore silenzioso invalida i risultati (semantica del solver, 50 mosse, GHI, tablebase). Chi revisiona non è mai chi ha scritto. [RACCOMANDAZIONE]
@@ -813,6 +836,7 @@ Criterio: effort basso dove l'errore è visibile subito (build, script, raccolta
 | M0: correzione P1 nella copia Java, model checker del Thm 4.8 | Opus 5.5 | high | semantica dei teoremi; errori silenziosi |
 | M1: nucleo C++ (esiti, budget, dejavu prefix-hash, test differenziali) | Fable 5.1 | xhigh | correttezza del solver |
 | M2: adapter scacchi, verificatore (§7.9), baseline df-pn | Fable 5.1 | max | 50 mosse, GHI, TB: un errore invalida tutto |
+| M2c: nucleo df-pn con taint di ciclo | Fable 5.1 | max | solidità dei `PROVEN_NOWIN` con un attraversamento best-first (GHI) |
 | M3: hook in `search.cpp`; M5: thread e tabella lockless | Fable 5.1 | xhigh | interazione con codice calibrato in SPRT |
 | M4: script di benchmark e lancio SPRT | Sonnet 5.5 | medium | esecuzione e raccolta |
 | M4: analisi dei risultati e decisione ai gate | Opus 5.5 | high | giudizio statistico |

@@ -16,3 +16,5 @@ tools/*
 src/wintree/build/
 # M2: binario wintree-chess e oggetti Stockfish ricompilati
 src/wintree-chess/build/
+# M2b: log dei benchmark lunghi
+tests/results/*.log

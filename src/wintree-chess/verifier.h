@@ -7,6 +7,7 @@
 
 #include <deque>
 #include <string>
+#include <unordered_map>
 #include <unordered_set>
 
 namespace WinTree {
@@ -15,6 +16,7 @@ struct Certificate {
     bool ok = true;
     std::string why;                       // primo errore
     u64 nodes = 0, leaves = 0, tbLeaves = 0;
+    int depth = 0;                         // albero vincente: ply della foglia più lontana (= d verificato)
     bool fail(const std::string& w) { if (ok) { ok = false; why = w; } return false; }
 };
 
@@ -34,42 +36,48 @@ inline bool same_goal(u64 data, Stockfish::Color goal) { return data && (data >>
 class WinTreeVerifier {
     Stockfish::Position& pos; Stockfish::Color goal; int tbMax; const ProofTable& pt;
     std::vector<Stockfish::StateInfo> st;
-    std::unordered_set<std::string> memo;
+    std::unordered_map<std::string, int> memo;   // posizione+contatore -> altezza del sottoalbero verificato
     Certificate c;
 
-    bool node(int ply) {
+    int node(int ply) {                     // altezza del sottoalbero (ply fino alla foglia più lontana), -1 = errore
         using namespace Stockfish;
         c.nodes++;
         MoveList<LEGAL> ml(pos);
         Leaf l = classify(pos, goal, tbMax, unsigned(ml.size()));
         if (l.kind != Kind::NONE) {
             c.leaves++;
-            if (l.kind == Kind::MATE && pos.side_to_move() != goal) return true;
-            if (l.kind == Kind::TB) { c.tbLeaves++; if (l.wdl == Tablebases::WDLWin) return true; }
-            return c.fail(std::string("foglia non vinta dal goal (") + kind_name(l.kind) + ") in " + pos.fen());
+            if (l.kind == Kind::MATE && pos.side_to_move() != goal) return 0;
+            if (l.kind == Kind::TB) { c.tbLeaves++; if (l.wdl == Tablebases::WDLWin) return 0; }
+            return c.fail(std::string("foglia non vinta dal goal (") + kind_name(l.kind) + ") in " + pos.fen()), -1;
         }
         std::string k = fen_no_ply(pos);
-        if (memo.count(k)) return true;
-        if (ply + 1 >= int(st.size())) return c.fail("albero più profondo del tetto");
-        bool ok = true;
+        auto it = memo.find(k);
+        if (it != memo.end()) return it->second;
+        if (ply + 1 >= int(st.size())) return c.fail("albero più profondo del tetto"), -1;
+        int h = 0;
         if (pos.side_to_move() == goal) {
-            u64 data = pt.probe(pos.state()->key); u32 h;
-            if (!same_goal(data, goal) || !ProofTable::proven(data)) return c.fail("entry mancante in " + pos.fen());
-            Result e = ProofTable::unpack(data, h);
-            if (e.status != Status::PROVEN_WIN) return c.fail("entry PROVEN_NOWIN in un albero vincente: " + pos.fen());
+            u64 data = pt.probe(pos.state()->key); u32 hh;
+            if (!same_goal(data, goal) || !ProofTable::proven(data)) return c.fail("entry mancante in " + pos.fen()), -1;
+            Result e = ProofTable::unpack(data, hh);
+            if (e.status != Status::PROVEN_WIN) return c.fail("entry PROVEN_NOWIN in un albero vincente: " + pos.fen()), -1;
             Move m(e.move);
-            if (!ml.contains(m)) return c.fail("mossa memorizzata illegale in " + pos.fen());
-            pos.do_move(m, st[ply]); ok = node(ply + 1); pos.undo_move(m);
+            if (!ml.contains(m)) return c.fail("mossa memorizzata illegale in " + pos.fen()), -1;
+            pos.do_move(m, st[ply]); h = node(ply + 1); pos.undo_move(m);
+            if (h < 0) return -1;
         } else
-            for (Move m : ml) { pos.do_move(m, st[ply]); ok = node(ply + 1); pos.undo_move(m); if (!ok) break; }
-        if (ok) memo.insert(k);
-        return ok;
+            for (Move m : ml) {
+                pos.do_move(m, st[ply]); int hc = node(ply + 1); pos.undo_move(m);
+                if (hc < 0) return -1;
+                h = std::max(h, hc);
+            }
+        memo[k] = ++h;
+        return h;
     }
 
   public:
     WinTreeVerifier(Stockfish::Position& p, Stockfish::Color g, int tbCardinality, const ProofTable& table, int maxDepth) :
         pos(p), goal(g), tbMax(tbCardinality), pt(table), st(maxDepth + 2) {}
-    Certificate run() { node(0); return c; }
+    Certificate run() { c.depth = std::max(node(0), 0); return c; }
 };
 
 // Grafo di strategia di patta (§7.9.2): insieme chiuso S di posizioni (senza contatore né storia) con una mossa

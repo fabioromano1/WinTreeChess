@@ -136,6 +136,7 @@ class Prover {
 
     G& g; ProofTable& pt; u8 goal; Goal mode;
     Budget b; u64 nodes_ = 0; bool aborted_ = false;
+    u64 andNodes_ = 0, reexp_ = 0, plySum_ = 0; int maxPly_ = 0;   // statistiche per l'analisi di G1 (§11)
     std::vector<u64> path;                    // chiavi del cammino corrente (GRAY implicito)
     std::vector<u64> H;                       // H[i] = hash del prefisso path[0..i-1]; H[0] = prefisso vuoto
     std::vector<std::bitset<MAX_CHILDREN>> done;  // O1: figli letti nel primo ciclo, per ply
@@ -144,10 +145,13 @@ class Prover {
     std::vector<u64> blk; int W = 1;
 
   public:
+    // Interruttori per le ablazioni (B5, §9.4): O6 = arresto al primo figlio NIL nei nodi AND in modalità WIN;
+    // dejavu = salto delle entry UNKNOWN_CYCLE con prefisso uguale (§8.3).
+    bool firstNil = true, dejavu = true;
     Prover(G& game, ProofTable& table, u8 goalSide, Goal m) : g(game), pt(table), goal(goalSide), mode(m) {}
 
     Result solve(const Budget& budget) {
-        b = budget; nodes_ = 0; aborted_ = false;
+        b = budget; nodes_ = 0; aborted_ = false; andNodes_ = reexp_ = plySum_ = 0; maxPly_ = 0;
         int cap = mode == Goal::WIN ? 245 : 4096;        // §8.1: MAX_PLY - 1 in WIN; memoria (stack) in NOWIN
         if (b.maxDepth > cap) b.maxDepth = cap;
         path.assign(b.maxDepth + 2, 0); H.assign(b.maxDepth + 3, 0); done.assign(b.maxDepth + 2, {});
@@ -159,6 +163,10 @@ class Prover {
     }
     u64 nodes() const { return nodes_; }      // espansioni (chiamate ricorsive)
     bool aborted() const { return aborted_; }
+    u64 and_nodes() const { return andNodes_; }           // espansioni di nodi AND
+    u64 reexpansions() const { return reexp_; }           // espansioni di nodi già in tabella (UNKNOWN o PROVEN fuori intervallo)
+    double mean_ply() const { return nodes_ ? double(plySum_) / nodes_ : 0; }
+    int max_ply() const { return maxPly_; }
 
   private:
     static Result cycle(int p) { Result r; r.status = Status::UNKNOWN_CYCLE; r.p = i16(p); return r; }
@@ -192,9 +200,10 @@ class Prover {
         u64 data = pt.probe(k);
         if (same_goal(data)) {
             u32 h; Result e = ProofTable::unpack(data, h);
-            if (e.proven()) { if (valid(e)) return e; else return rec(ply); }
-            if (e.status == Status::UNKNOWN_CYCLE && e.p < ply && u32(H[e.p + 1]) == h) { inherit(ply, e.p); return cycle(e.p); }
+            if (e.proven() && valid(e)) return e;
+            if (dejavu && e.status == Status::UNKNOWN_CYCLE && e.p < ply && u32(H[e.p + 1]) == h) { inherit(ply, e.p); return cycle(e.p); }
             if (e.status == Status::UNKNOWN_BUDGET && e.resid > 0 && e.resid >= b.maxDepth - ply) return budget_cut(e.resid);
+            reexp_++;
         }
         return rec(ply);
     }
@@ -204,7 +213,7 @@ class Prover {
             && ((b.stop && b.stop->load(std::memory_order_relaxed)) || Clock::now() > b.deadline))) {
             aborted_ = true; return budget_cut();
         }
-        nodes_++;
+        nodes_++; plySum_ += ply; if (ply > maxPly_) maxPly_ = ply;
         u64 k = g.key();
         Terminal t = g.terminal();
         if (t != Terminal::NONE) {
@@ -220,6 +229,7 @@ class Prover {
         Span<Move> ch = g.gen_children(ply);
         WT_ASSERT(ch.n > 0 && ch.n <= MAX_CHILDREN);
         bool orNode = g.side_is_goal();
+        andNodes_ += !orNode;
         // win parte da FALSE (OR) / TRUE (AND); nil = almeno un figlio irrisolto; end = testimone/confutazione
         bool win = !orNode, nil = false, end = false, cut = false;
         u16 d = 0, mv = 0; u8 r50 = 0;
@@ -253,7 +263,7 @@ class Prover {
             apply(c, rv, m);
             // WIN: un figlio NIL basta a negare la vittoria di un nodo AND in questa iterazione (potatura da
             // risolutore di matti); gli altri figli servirebbero solo a un PROVEN_NOWIN, cercato in modalità NOWIN.
-            if (nil && !orNode && mode == Goal::WIN) break;
+            if (nil && !orNode && mode == Goal::WIN && firstNil) break;
         }
         Result r;
         if (end || !nil) {                                // I1: PROVEN solo da figli PROVEN o terminali
