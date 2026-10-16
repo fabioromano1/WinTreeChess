@@ -1,7 +1,8 @@
 // WinTree: nucleo generico (spec §8.1, §8.3). C++17, nessuna dipendenza.
 // Algoritmo di Sez. 3 del paper con O1 corretto (P1), esiti a quattro livelli con flag cut (I1-I4),
 // budget cooperativo, tabella delle prove a due parole con xor-check, dejavu compatto (ply del
-// bloccante più profondo + hash del prefisso) con propagazione ai padri.
+// bloccante più profondo + hash del prefisso) con propagazione ai padri, intervalli di validità sul
+// contatore delle 50 mosse (rev/req, §7.5) e modalità Goal (§8.1: tetto 245 ply in WIN).
 #ifndef WINTREE_H
 #define WINTREE_H
 
@@ -31,7 +32,12 @@ inline void assert_fail(const char* c, const char* f, int l) {
 #define WT_ASSERT(c) ((c) ? void(0) : ::WinTree::assert_fail(#c, __FILE__, __LINE__))
 
 enum class Status : u8 { UNKNOWN_BUDGET, UNKNOWN_CYCLE, PROVEN_WIN, PROVEN_NOWIN };
-enum class Terminal : u8 { NONE, WIN_GOAL, NOWIN_GOAL };
+// Modalità (§8.1): WIN limita la profondità a 245 ply (valori mate_in) e nei nodi AND si ferma al primo figlio NIL;
+// NOWIN esplora tutti i figli (Sez. 3) perché cerca le confutazioni (PROVEN_NOWIN) e il grafo di strategia completo.
+enum class Goal : u8 { WIN, NOWIN };
+// WIN_GOAL_C0: vittoria valida solo con contatore 0 (sink TB, §7.6); NOWIN_GOAL_C100: patta valida solo con
+// contatore >= 100 (50 mosse, §7.5). Gli altri sink valgono per ogni contatore.
+enum class Terminal : u8 { NONE, WIN_GOAL, NOWIN_GOAL, WIN_GOAL_C0, NOWIN_GOAL_C100 };
 
 struct Result {
     Status status = Status::UNKNOWN_BUDGET;
@@ -39,6 +45,9 @@ struct Result {
     u16  resid = 0;      // UNKNOWN_BUDGET: profondità residua tentata (0 = ricerca interrotta)
     i16  p     = -1;     // UNKNOWN_CYCLE: ply del bloccante più profondo sopra il nodo (-1 = nessuno)
     bool cut   = false;  // I2: un taglio di budget ha contribuito al NIL
+    u8   rev   = 0;      // PROVEN_WIN: valida con contatore c se c + rev <= 100 (§7.5)
+    u8   req   = 0;      // PROVEN_NOWIN: valida con contatore c se c >= req (§7.5)
+    u16  move  = 0;      // PROVEN: mossa testimone (OR vinto / AND confutato) codificata da G::code, 0 = nessuna
     bool proven() const { return status >= Status::PROVEN_WIN; }
 };
 
@@ -54,9 +63,10 @@ struct Budget {
 template<class T> struct Span { const T* first; int n; };
 
 // Proof table (§8.3): entry di due parole, w0 = key ^ data, w1 = data; l'entry vale solo se (w0 ^ w1) == key.
-// data: bit 63..62 status (00 vuoto, 01 UNKNOWN, 10 PROVEN_WIN, 11 PROVEN_NOWIN), 61 goal, 55 kind
-// (UNKNOWN: 0 BUDGET, 1 CYCLE), 54..47 d (PROVEN_WIN) o resid (UNKNOWN_BUDGET), 46..39 p+1 (UNKNOWN_CYCLE),
-// 38..7 hash del prefisso (32 bit: la spec ne prevede 16, 32 rendono trascurabili i falsi positivi nei test).
+// data: bit 63..62 status (00 vuoto, 01 UNKNOWN, 10 PROVEN_WIN, 11 PROVEN_NOWIN), 61 goal, 54..47 d (PROVEN_WIN)
+// o resid (UNKNOWN_BUDGET). PROVEN: 46..40 rev/req (7 bit), 39..24 mossa (16 bit). UNKNOWN: 55 kind (0 BUDGET,
+// 1 CYCLE), 46..39 p+1 (UNKNOWN_CYCLE), 38..7 hash del prefisso (32 bit: la spec ne prevede 16, 32 rendono
+// trascurabili i falsi positivi nei test).
 class ProofTable {
     struct Entry { std::atomic<u64> w0, w1; };
     std::unique_ptr<Entry[]> e;
@@ -69,17 +79,19 @@ class ProofTable {
         u64 a = x.w0.load(std::memory_order_relaxed), b = x.w1.load(std::memory_order_relaxed);
         return (a ^ b) == key ? b : 0;
     }
-    // Rimpiazzo (M1): mai un PROVEN con un UNKNOWN (I4); per il resto l'ultimo scrive.
+    // Rimpiazzo: mai un PROVEN con un UNKNOWN (I4), qualunque sia la chiave; per il resto l'ultimo scrive
+    // (a parità di chiave una riprova avviene solo se l'intervallo rev/req non copre il contatore corrente,
+    // e produce un intervallo più ampio).
     void store(u64 key, u64 data) {
         Entry& x = e[key & mask];
-        u64 old = x.w0.load(std::memory_order_relaxed) ^ x.w1.load(std::memory_order_relaxed);
-        if (proven(old) && !proven(data)) return;
+        if (proven(x.w1.load(std::memory_order_relaxed)) && !proven(data)) return;
         x.w1.store(data, std::memory_order_relaxed);
         x.w0.store(key ^ data, std::memory_order_relaxed);
     }
     static bool proven(u64 d) { return (d >> 63) != 0; }
-    static u64 pack_proven(bool win, u16 d, u8 goal) {
-        return (win ? u64(2) : u64(3)) << 62 | u64(goal & 1) << 61 | u64(d > 255 ? 255 : d) << 47;
+    static u64 pack_proven(bool win, u16 d, u8 goal, u8 r50, u16 move) {
+        return (win ? u64(2) : u64(3)) << 62 | u64(goal & 1) << 61 | u64(d > 255 ? 255 : d) << 47
+             | u64(r50 > 127 ? 127 : r50) << 40 | u64(move) << 24;
     }
     static u64 pack_unknown(bool cycle, u16 resid, i16 p, u32 h, u8 goal) {
         return u64(1) << 62 | u64(goal & 1) << 61 | u64(cycle) << 55 | u64(resid > 255 ? 255 : resid) << 47
@@ -91,9 +103,15 @@ class ProofTable {
         r.status = top == 2 ? Status::PROVEN_WIN : top == 3 ? Status::PROVEN_NOWIN
                  : (d >> 55 & 1) ? Status::UNKNOWN_CYCLE : Status::UNKNOWN_BUDGET;
         r.d = r.resid = u16(d >> 47 & 255);
-        r.p = i16(int(d >> 39 & 255) - 1);
-        r.cut = r.status == Status::UNKNOWN_BUDGET;
-        h = u32(d >> 7);
+        if (r.proven()) {
+            (r.status == Status::PROVEN_WIN ? r.rev : r.req) = u8(d >> 40 & 127);
+            r.move = u16(d >> 24);
+            h = 0;
+        } else {
+            r.p = i16(int(d >> 39 & 255) - 1);
+            r.cut = r.status == Status::UNKNOWN_BUDGET;
+            h = u32(d >> 7);
+        }
         return r;
     }
 };
@@ -105,7 +123,8 @@ inline u64 mix64(u64 x) {  // finalizer di splitmix64
 // Interfaccia richiesta a G (§8.1):
 //   u64 key() const; bool side_is_goal() const; Terminal terminal();
 //   Span<Move> gen_children(int ply); void do_move(Move, int ply); void undo_move(Move, int ply);
-// reversible()/rule50() (regola delle 50 mosse) arrivano con l'adapter scacchi (M2).
+//   int rule50() const; bool reversible(Move) const;      regola delle 50 mosse (§7.5; grafi: 0 e false)
+//   static u16 code(Move); static Move move(u16);         mossa testimone nell'entry della tabella
 template<class G>
 class Prover {
     static_assert(std::is_same<decltype(std::declval<const G&>().key()), u64>::value, "G::key() deve restituire u64");
@@ -115,7 +134,7 @@ class Prover {
     static constexpr int MAX_CHILDREN = 256;
     static constexpr u64 CHECK_EVERY = 1024;
 
-    G& g; ProofTable& pt; u8 goal;
+    G& g; ProofTable& pt; u8 goal; Goal mode;
     Budget b; u64 nodes_ = 0; bool aborted_ = false;
     std::vector<u64> path;                    // chiavi del cammino corrente (GRAY implicito)
     std::vector<u64> H;                       // H[i] = hash del prefisso path[0..i-1]; H[0] = prefisso vuoto
@@ -125,10 +144,12 @@ class Prover {
     std::vector<u64> blk; int W = 1;
 
   public:
-    Prover(G& game, ProofTable& table, u8 goalSide) : g(game), pt(table), goal(goalSide) {}
+    Prover(G& game, ProofTable& table, u8 goalSide, Goal m) : g(game), pt(table), goal(goalSide), mode(m) {}
 
     Result solve(const Budget& budget) {
         b = budget; nodes_ = 0; aborted_ = false;
+        int cap = mode == Goal::WIN ? 245 : 4096;        // §8.1: MAX_PLY - 1 in WIN; memoria (stack) in NOWIN
+        if (b.maxDepth > cap) b.maxDepth = cap;
         path.assign(b.maxDepth + 2, 0); H.assign(b.maxDepth + 3, 0); done.assign(b.maxDepth + 2, {});
         W = (b.maxDepth + 64) / 64; blk.assign(size_t(b.maxDepth + 2) * W, 0);
         Result r = visit(0);
@@ -143,6 +164,10 @@ class Prover {
     static Result cycle(int p) { Result r; r.status = Status::UNKNOWN_CYCLE; r.p = i16(p); return r; }
     static Result budget_cut(u16 resid = 0) { Result r; r.status = Status::UNKNOWN_BUDGET; r.resid = resid; r.cut = true; return r; }
     bool same_goal(u64 data) const { return data && (data >> 61 & 1) == (goal & 1); }
+    // §7.5: un'entry PROVEN vale per il contatore corrente solo dentro il suo intervallo.
+    bool valid(const Result& e) const {
+        return e.status == Status::PROVEN_WIN ? g.rule50() + e.rev <= 100 : g.rule50() >= e.req;
+    }
     u64* blockers(int ply) { return &blk[size_t(ply) * W]; }
     void mark(int ply, int q) { blockers(ply)[q >> 6] |= u64(1) << (q & 63); }
     int deepest(int ply) {
@@ -167,7 +192,7 @@ class Prover {
         u64 data = pt.probe(k);
         if (same_goal(data)) {
             u32 h; Result e = ProofTable::unpack(data, h);
-            if (e.proven()) return e;
+            if (e.proven()) { if (valid(e)) return e; else return rec(ply); }
             if (e.status == Status::UNKNOWN_CYCLE && e.p < ply && u32(H[e.p + 1]) == h) { inherit(ply, e.p); return cycle(e.p); }
             if (e.status == Status::UNKNOWN_BUDGET && e.resid > 0 && e.resid >= b.maxDepth - ply) return budget_cut(e.resid);
         }
@@ -183,8 +208,10 @@ class Prover {
         u64 k = g.key();
         Terminal t = g.terminal();
         if (t != Terminal::NONE) {
-            Result r; r.status = t == Terminal::WIN_GOAL ? Status::PROVEN_WIN : Status::PROVEN_NOWIN;
-            pt.store(k, ProofTable::pack_proven(t == Terminal::WIN_GOAL, 0, goal));
+            bool tw = t == Terminal::WIN_GOAL || t == Terminal::WIN_GOAL_C0;
+            u8 r50 = t == Terminal::WIN_GOAL_C0 || t == Terminal::NOWIN_GOAL_C100 ? 100 : 0;
+            Result r; r.status = tw ? Status::PROVEN_WIN : Status::PROVEN_NOWIN; (tw ? r.rev : r.req) = r50;
+            pt.store(k, ProofTable::pack_proven(tw, 0, goal, r50, 0));
             return r;
         }
         if (ply >= b.maxDepth) return budget_cut();
@@ -195,34 +222,44 @@ class Prover {
         bool orNode = g.side_is_goal();
         // win parte da FALSE (OR) / TRUE (AND); nil = almeno un figlio irrisolto; end = testimone/confutazione
         bool win = !orNode, nil = false, end = false, cut = false;
-        u16 d = 0;
-        auto apply = [&](const Result& c) {     // i bloccanti dei figli NIL sono già in blockers(ply) (visit/rec)
+        u16 d = 0, mv = 0; u8 r50 = 0;
+        // rev/req (§7.5) del figlio visto dal padre: WIN reversibile 1 + rev, irreversibile 1; NOWIN reversibile
+        // req - 1, irreversibile 0. Testimone: il suo valore; altrimenti il massimo su tutti i figli.
+        auto apply = [&](const Result& c, bool rv, Move m) {   // i bloccanti dei figli NIL sono già in blockers(ply)
             if (c.proven()) {
                 bool cw = c.status == Status::PROVEN_WIN;
-                if (cw == orNode) { win = cw; d = u16(c.d + 1); end = true; }
-                else if (!orNode) { d = d > c.d + 1 ? d : u16(c.d + 1); }
+                u8 cr = cw ? (rv ? u8(c.rev < 127 ? c.rev + 1 : 127) : 1) : (rv && c.req ? u8(c.req - 1) : 0);
+                if (cw == orNode) { win = cw; d = u16(c.d + 1); r50 = cr; mv = G::code(m); end = true; }
+                else { if (!orNode) d = d > c.d + 1 ? d : u16(c.d + 1); r50 = r50 > cr ? r50 : cr; }
             } else { nil = true; cut |= c.cut; }
         };
         std::bitset<MAX_CHILDREN>& first = done[ply];
         first.reset();
         for (int i = 0; i < ch.n && !end; i++) {         // O1: prima i figli già PROVEN, senza ricorsione
-            g.do_move(ch.first[i], ply);
-            u64 data = pt.probe(g.key());
-            g.undo_move(ch.first[i], ply);
-            if (same_goal(data) && ProofTable::proven(data)) { u32 h; apply(ProofTable::unpack(data, h)); first.set(i); }
+            Move m = ch.first[i]; bool rv = g.reversible(m);
+            g.do_move(m, ply);
+            u64 data = pt.probe(g.key()); u32 h; Result c;
+            bool ok = same_goal(data) && ProofTable::proven(data) && valid(c = ProofTable::unpack(data, h));
+            g.undo_move(m, ply);
+            if (ok) { apply(c, rv, m); first.set(i); }
         }
         for (int i = 0; i < ch.n && !end; i++) {         // gli altri: visit legge anche i diventati PROVEN (P1)
             if (first.test(i)) continue;
-            g.do_move(ch.first[i], ply);
+            Move m = ch.first[i]; bool rv = g.reversible(m);
+            g.do_move(m, ply);
             Result c = visit(ply + 1);
-            g.undo_move(ch.first[i], ply);
+            g.undo_move(m, ply);
             if (aborted_) return budget_cut();
-            apply(c);
+            apply(c, rv, m);
+            // WIN: un figlio NIL basta a negare la vittoria di un nodo AND in questa iterazione (potatura da
+            // risolutore di matti); gli altri figli servirebbero solo a un PROVEN_NOWIN, cercato in modalità NOWIN.
+            if (nil && !orNode && mode == Goal::WIN) break;
         }
         Result r;
         if (end || !nil) {                                // I1: PROVEN solo da figli PROVEN o terminali
             r.status = win ? Status::PROVEN_WIN : Status::PROVEN_NOWIN; r.d = win ? d : 0;
-            pt.store(k, ProofTable::pack_proven(win, r.d, goal));
+            (win ? r.rev : r.req) = r50; r.move = mv;
+            pt.store(k, ProofTable::pack_proven(win, r.d, goal, r50, mv));
         } else if (cut) {
             r = budget_cut(u16(b.maxDepth - ply));
             pt.store(k, ProofTable::pack_unknown(false, r.resid, -1, 0, goal));

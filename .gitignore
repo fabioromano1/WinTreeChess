@@ -14,3 +14,5 @@ tools/*
 .claude/settings.local.json
 # M1: binari e file di confronto
 src/wintree/build/
+# M2: binario wintree-chess e oggetti Stockfish ricompilati
+src/wintree-chess/build/

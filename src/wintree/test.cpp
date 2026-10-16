@@ -77,7 +77,7 @@ static bool drawStrategyFails(const Graph& g, const std::vector<State>& st, int 
 struct Run { Result root; u64 nodes; bool aborted; std::vector<State> st; std::vector<int> pre; };
 static Run run(const Graph& g, int goal, ProofTable& pt, const Budget& b = Budget()) {
     GraphGame game(g, u8(goal), b.maxDepth); Run r; game.log = &r.pre;
-    Prover<GraphGame> p(game, pt, u8(goal));
+    Prover<GraphGame> p(game, pt, u8(goal), Goal::NOWIN);   // nessun tetto a 245 ply (grafi generici)
     r.root = p.solve(b); r.nodes = p.nodes(); r.aborted = p.aborted();
     for (size_t v = 0; v < g.nodes.size(); v++) r.st.push_back(state(pt, int(v), goal));
     return r;
