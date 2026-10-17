@@ -27,6 +27,11 @@ inline std::string fen_no_counters(const Stockfish::Position& pos) {  // identit
     std::string f = pos.fen(); return f.substr(0, f.rfind(' ', f.rfind(' ') - 1));
 }
 inline bool same_goal(u64 data, Stockfish::Color goal) { return data && (data >> 61 & 1) == u64(goal == Stockfish::BLACK); }
+// Entry di una posizione fra base e ombra (ProofTable::SHADOW, riprove a contatore diverso): quella del genere cercato
+// (PROVEN_WIN per l'albero vincente; PROVEN_NOWIN o UNKNOWN_CYCLE per il grafo di patta), altrimenti la base.
+inline u64 probe_for(const ProofTable& pt, u64 key, Stockfish::Color goal, bool win) {
+    return pt.probe_kind(key, u8(goal == Stockfish::BLACK), win ? 1u << int(Status::PROVEN_WIN) : 1u << int(Status::PROVEN_NOWIN) | 1u << int(Status::UNKNOWN_CYCLE));
+}
 
 // Albero vincente (§7.9.1), replay dalla radice con contatore e storia reali: ai nodi del goal la mossa memorizzata
 // nella tabella, ai nodi avversari tutte le mosse legali; foglie = matti dati dal goal o TB WDLWin con contatore 0.
@@ -56,7 +61,7 @@ class WinTreeVerifier {
         if (ply + 1 >= int(st.size())) return c.fail("albero più profondo del tetto"), -1;
         int h = 0;
         if (pos.side_to_move() == goal) {
-            u64 data = pt.probe(pos.state()->key); u32 hh;
+            u64 data = probe_for(pt, pos.state()->key, goal, true); u32 hh;
             if (!same_goal(data, goal) || !ProofTable::proven(data)) return c.fail("entry mancante in " + pos.fen()), -1;
             Result e = ProofTable::unpack(data, hh);
             if (e.status != Status::PROVEN_WIN) return c.fail("entry PROVEN_NOWIN in un albero vincente: " + pos.fen()), -1;
@@ -92,7 +97,7 @@ inline Certificate verify_draw_strategy(const std::string& rootFen, Stockfish::C
     std::string root = rootFen.substr(0, rootFen.rfind(' ', rootFen.rfind(' ') - 1));
     std::deque<std::string> todo{root}; std::unordered_set<std::string> seen{root};
     auto probe = [&](Move m, Result& e) {      // entry del figlio dopo m (stesso goal), false se assente
-        pos.do_move(m, st2); u64 d = pt.probe(pos.state()->key); pos.undo_move(m);
+        pos.do_move(m, st2); u64 d = probe_for(pt, pos.state()->key, goal, false); pos.undo_move(m);
         u32 h; if (same_goal(d, goal)) e = ProofTable::unpack(d, h); return same_goal(d, goal);
     };
     auto push = [&](Move m) {
@@ -107,7 +112,7 @@ inline Certificate verify_draw_strategy(const std::string& rootFen, Stockfish::C
         if (l.kind == Kind::STALEMATE || l.kind == Kind::DEAD) { c.leaves++; continue; }
         if (l.kind == Kind::TB) { c.leaves++; c.tbLeaves++; if (l.wdl == Tablebases::WDLWin) c.fail("TB vinta dal goal in " + pos.fen()); continue; }
         if (pos.side_to_move() == goal) { for (Move m : ml) push(m); continue; }
-        u64 data = pt.probe(pos.state()->key); u32 h; Result e;
+        u64 data = probe_for(pt, pos.state()->key, goal, false); u32 h; Result e;
         if (same_goal(data, goal)) e = ProofTable::unpack(data, h);
         Move choice = Move::none(), nil = Move::none();
         if (e.status == Status::PROVEN_NOWIN && e.move && ml.contains(Move(e.move))) choice = Move(e.move);

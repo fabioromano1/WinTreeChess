@@ -1,7 +1,10 @@
 // Test di M1 (spec §9.2-9.3): regressioni P1a/P1b/P2/Sanity, fuzzing su grafi casuali con seme contro
 // l'oracolo a minimo punto fisso e la trascrizione di Sez. 3, budget casuali, interruzione, confronto col
 // Java con P1 corretto (file prodotto da tests/wintree-java/Cmp.java).
+// M2c: stesso fuzzing sul nucleo df-pn (dfpn.h): PROVEN concordi con l'oracolo, PROVEN_NOWIN solo puliti (Thm 4.8
+// sul grafo di strategia), confronto delle radici con il nucleo depth-first, budget casuali, stop.
 // Uso: wintree_test [GRAFI=10000] [SEME=1]   |   wintree_test --java FILE
+#include "dfpn.h"
 #include "graph.h"
 
 #include <algorithm>
@@ -50,10 +53,12 @@ struct Sez3 {
 };
 
 struct State { char c; int d; };  // c: '-' mai visitato, 'N' UNKNOWN_*, 'F' PROVEN_NOWIN, 'W' PROVEN_WIN con d
-static State state(const ProofTable& pt, int id, int goal) {
-    u64 data = pt.probe(u64(id));
-    if (!data || int(data >> 61 & 1) != (goal & 1)) return {'-', 0};
+// Con dfpn = true gli irrisolti (pn, dn > 0, kind 0) valgono '-': solo le confutazioni tainted (UNKNOWN_CYCLE) sono 'N'.
+static State state(const ProofTable& pt, int id, int goal, bool dfpn = false) {
+    u64 data = pt.probe(u64(id), goal & 1);
+    if (!data) return {'-', 0};
     u32 h; Result r = ProofTable::unpack(data, h);
+    if (dfpn && r.status == Status::UNKNOWN_BUDGET) return {'-', 0};
     return {r.status == Status::PROVEN_WIN ? 'W' : r.status == Status::PROVEN_NOWIN ? 'F' : 'N', r.d};
 }
 static std::string tok(State s) { return s.c == 'W' ? "W" + std::to_string(s.d) : std::string(1, s.c); }
@@ -83,6 +88,14 @@ static Run run(const Graph& g, int goal, ProofTable& pt, const Budget& b = Budge
     return r;
 }
 
+static Run run_dfpn(const Graph& g, int goal, ProofTable& pt, const Budget& b = Budget(), double eps = 0.25) {
+    GraphGame game(g, u8(goal), b.maxDepth); Run r; game.log = &r.pre;
+    DfPn<GraphGame> p(game, pt, u8(goal), Goal::NOWIN, eps);
+    r.root = p.solve(b); r.nodes = p.nodes(); r.aborted = p.aborted();
+    for (size_t v = 0; v < g.nodes.size(); v++) r.st.push_back(state(pt, int(v), goal, true));
+    return r;
+}
+
 static int failures = 0;
 static void expect(bool ok, const std::string& what) { std::cout << "  " << (ok ? "OK   " : "FAIL ") << what << "\n"; failures += !ok; }
 
@@ -103,6 +116,12 @@ static void regression() {
         std::vector<int> d = oracle(g, 1);
         for (size_t v = 0; v < g.nodes.size(); v++)
             expect(r.st[v].c != 'W' || (d[v] < INF && r.st[v].d >= d[v]), "vertice " + std::to_string(v) + ": PROVEN_WIN => oracolo, d >= d_g");
+        pt.clear(); Run rd = run_dfpn(g, 1, pt);
+        std::string gotd; for (const State& s : rd.st) gotd += (gotd.empty() ? "" : " ") + tok(s);
+        std::cout << "    df-pn: " << gotd << "\n";
+        bool ok = true;
+        for (size_t v = 0; v < g.nodes.size(); v++) ok &= (rd.st[v].c != 'W' || (d[v] < INF && rd.st[v].d >= d[v])) && (rd.st[v].c != 'F' || d[v] == INF);
+        expect(ok && (rd.root.status == Status::PROVEN_WIN) == (d[0] < INF), "df-pn: PROVEN concordi con l'oracolo, radice completa");
     }
 }
 
@@ -160,6 +179,67 @@ static void fuzz(int graphs, long long seed) {
     expect(draw48 == 0, "Thm 4.8: nessuna strategia di patta fallita");
 }
 
+// Fuzzing del nucleo df-pn (§8.1b, §9.2) sugli stessi grafi: solidità (PROVEN_WIN => oracolo = g e d >= d_g,
+// PROVEN_NOWIN => oracolo != g), PROVEN_NOWIN solo puliti (il grafo di strategia di patta del Thm 4.8 chiude),
+// radice mai UNKNOWN_BUDGET senza budget, seconda chiamata a tabella piena senza espansioni, budget casuali e stop
+// come per il nucleo depth-first. La completezza alla radice (Thm 3.4) non è garantita: una confutazione tainted
+// riusata da un altro cammino può nascondere una vittoria (GHI); il conteggio è riportato.
+static void fuzz_dfpn(int graphs, long long seed) {
+    int rootWins = 0, win = 0, nowin = 0, cyc = 0, cycWin = 0, cycDraw48 = 0, wtWinOnly = 0, dfWinOnly = 0, nowinOnly = 0, budgetRoot = 0, cycleRoot = 0, cycleRootWin = 0;
+    u64 maxNodes = 0, sumDf = 0, sumWt = 0, splitmix = u64(seed) * 0x9E3779B97F4A7C15ULL;
+    ProofTable pt(PT_LOG2), pt2(PT_LOG2);
+    for (int i = 0; i < graphs; i++) {
+        Graph g = generate(seed + i);
+        for (int goal = 1; goal <= 2; goal++) {
+            std::vector<int> d = oracle(g, goal);
+            rootWins += d[0] < INF;
+            pt.clear(); Run r = run_dfpn(g, goal, pt);
+            pt2.clear(); Run w = run(g, goal, pt2);
+            maxNodes = std::max(maxNodes, r.nodes); sumDf += r.nodes; sumWt += w.nodes;
+            for (size_t v = 0; v < g.nodes.size(); v++) {
+                WT_ASSERT(r.st[v].c != 'W' || (d[v] < INF && r.st[v].d >= d[v]));
+                WT_ASSERT(r.st[v].c != 'F' || d[v] == INF);
+            }
+            WT_ASSERT(r.root.status != Status::UNKNOWN_BUDGET && !r.root.cut && !r.aborted);
+            WT_ASSERT(r.root.status != Status::PROVEN_WIN || d[0] < INF);
+            WT_ASSERT(r.root.status != Status::PROVEN_NOWIN || d[0] == INF);
+            if (r.root.status == Status::PROVEN_WIN) win++;
+            else if (r.root.status == Status::PROVEN_NOWIN) { nowin++; WT_ASSERT(!drawStrategyFails(g, r.st, goal)); }
+            else { cyc++; cycWin += d[0] < INF; cycDraw48 += d[0] == INF && drawStrategyFails(g, r.st, goal); }
+            // confronto con il nucleo depth-first (completo alla radice, Thm 3.4): entrambi completano senza budget
+            WT_ASSERT((w.root.status == Status::PROVEN_WIN) == (d[0] < INF));
+            wtWinOnly += w.root.status == Status::PROVEN_WIN && r.root.status != Status::PROVEN_WIN;
+            dfWinOnly += r.root.status == Status::PROVEN_WIN && w.root.status != Status::PROVEN_WIN;
+            nowinOnly += r.root.status == Status::PROVEN_NOWIN && w.root.status != Status::PROVEN_NOWIN;
+            Run r2 = run_dfpn(g, goal, pt);
+            WT_ASSERT(r2.root.status == r.root.status && r2.root.d == r.root.d && r2.nodes == 0);
+            Budget b; splitmix += 0x9E3779B97F4A7C15ULL; u64 x = mix64(splitmix);
+            b.maxNodes = 1 + x % 50; b.maxDepth = 1 + int((x >> 32) % 15);
+            pt.clear(); Run rb = run_dfpn(g, goal, pt, b);
+            for (size_t v = 0; v < g.nodes.size(); v++) {
+                WT_ASSERT(rb.st[v].c != 'W' || (d[v] < INF && rb.st[v].d >= d[v]));
+                WT_ASSERT(rb.st[v].c != 'F' || d[v] == INF);
+            }
+            WT_ASSERT(rb.nodes <= b.maxNodes);
+            WT_ASSERT(!rb.aborted || (rb.root.status == Status::UNKNOWN_BUDGET && rb.root.cut));
+            WT_ASSERT(rb.root.status != Status::PROVEN_NOWIN || !drawStrategyFails(g, rb.st, goal));
+            budgetRoot += rb.root.status == Status::UNKNOWN_BUDGET; cycleRoot += rb.root.status == Status::UNKNOWN_CYCLE;
+            cycleRootWin += rb.root.status == Status::UNKNOWN_CYCLE && d[0] < INF;    // tetto di profondità => confutazione tainted (§8.1b)
+            std::atomic<bool> stop{true}; Budget bs; bs.stop = &stop; pt.clear(); Run rs = run_dfpn(g, goal, pt, bs);
+            WT_ASSERT(rs.nodes <= 1024 && (!rs.aborted || rs.root.status == Status::UNKNOWN_BUDGET));
+        }
+    }
+    std::cout << "Fuzz df-pn: " << graphs << " grafi, " << 2 * graphs << " ricerche, eval(radice)=g in " << rootWins << "\n"
+              << "  senza budget: PROVEN_WIN " << win << ", PROVEN_NOWIN " << nowin << " (tutti puliti, Thm 4.8 mai fallito), UNKNOWN_CYCLE " << cyc
+              << " (di cui con eval = g, cioè vittorie perse per confutazioni tainted riusate: " << cycWin
+              << "; con eval != g e strategia di patta non chiusa: " << cycDraw48 << "), PROVEN in contrasto con l'oracolo 0, tagli 0, max espansioni " << maxNodes << "\n"
+              << "  vs depth-first: PROVEN_WIN solo WinTree " << wtWinOnly << ", solo df-pn " << dfWinOnly << ", PROVEN_NOWIN solo df-pn " << nowinOnly
+              << "; espansioni totali df-pn/WinTree " << sumDf << "/" << sumWt << "\n"
+              << "  con budget casuale (nodi 1..50, profondità 1..15): PROVEN errati 0, radice UNKNOWN_BUDGET " << budgetRoot << ", UNKNOWN_CYCLE " << cycleRoot
+              << " (di cui con eval = g per il tetto di profondità: " << cycleRootWin << ")\n";
+    expect(dfWinOnly == 0, "df-pn: nessuna vittoria alla radice che il nucleo depth-first non abbia (solidità, Thm 3.4)");
+}
+
 // Interruzione a 1024 nodi su un grafo grande (il controllo di stop/deadline è ogni 1024 espansioni). La ricerca
 // completa su questo grafo non termina in tempi utili (riesplorazione esponenziale dei WHITE, §2.9): non si esegue.
 static void bigStop() {
@@ -214,6 +294,7 @@ int main(int argc, char** argv) {
     else {
         regression();
         fuzz(argc > 1 ? std::atoi(argv[1]) : 10000, argc > 2 ? std::atoll(argv[2]) : 1);
+        fuzz_dfpn(argc > 1 ? std::atoi(argv[1]) : 10000, argc > 2 ? std::atoll(argv[2]) : 1);
         bigStop();
     }
     std::cout << (failures ? "FALLITI: " + std::to_string(failures) : std::string("tutto OK")) << "\n";

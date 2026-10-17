@@ -61,14 +61,16 @@ class ChessGame {
     WarmSources warm;
     std::vector<Stockfish::StateInfo> st;        // uno per ply; previous -> storia della partita
     std::vector<Stockfish::Move> buf;            // MAX_MOVES per ply
+    std::vector<u8> cls;                         // classe di ogni mossa ordinata (0 cattura perdente … 4 scacco; bit 3 ttMove)
     Stockfish::Move scratch[Stockfish::MAX_MOVES]; int nScratch = 0; u64 scratchKey = 0;   // lista legale di terminal()
 
   public:
     using Move = Stockfish::Move;
     u64 moves = 0;                               // do_move eseguite dal solver (nodo = una do_move, §9.4)
     bool mateOnly = false;                       // B2: terminali solo matto/stallo
+    bool heur = true;                            // df-pn: inizializzazione euristica di pn/dn (init)
     ChessGame(Stockfish::Position& p, Stockfish::Color g, int tbCardinality, int maxDepth, Order o = Order::COLD, WarmSources ws = {}) :
-        pos(p), goal(g), tbMax(tbCardinality), order(o), warm(ws), st(maxDepth + 2), buf(size_t(maxDepth + 2) * Stockfish::MAX_MOVES) {}
+        pos(p), goal(g), tbMax(tbCardinality), order(o), warm(ws), st(maxDepth + 2), buf(size_t(maxDepth + 2) * Stockfish::MAX_MOVES), cls(buf.size()) {}
 
     u64  key() const { return pos.state()->key; }                      // non pos.key(): niente bucket a 50 mosse
     bool side_is_goal() const { return pos.side_to_move() == goal; }
@@ -98,7 +100,7 @@ class ChessGame {
     Span<Move> gen_children(int ply) {
         using namespace Stockfish;
         int n = scratchKey == key() ? nScratch : int(generate<LEGAL>(pos, scratch) - scratch);
-        std::pair<int, Move> t[MAX_MOVES];
+        struct Item { int v; Move m; u8 c; } t[MAX_MOVES];
         Move ttm = Move::none();
         if (order == Order::WARM && warm.tt) { auto [hit, d, w] = warm.tt->probe(pos.key()); if (hit) ttm = d.move; }
         Color us = pos.side_to_move();
@@ -106,17 +108,31 @@ class ChessGame {
             Move m = scratch[i];
             bool capt = pos.capture(m), good = capt && pos.see_ge(m);
             int v = pos.gives_check(m) ? 4 : capt ? (good ? 3 : 0) : m.type_of() == PROMOTION ? 2 : 1;
+            u8 c = u8(v | (m == ttm ? 8 : 0));
             if (order == Order::RANDOM) v = int(mix64(key() ^ (u64(m.raw()) * 0x9E3779B97F4A7C15ULL)) >> 40);
             else if (order == Order::WARM && warm.w)
                 v = (v << 20) + (m == ttm ? 1 << 19 : 0) + (1 << 17)
                   + (capt ? warm.w->captureHistory[pos.moved_piece(m)][m.to_sq()][type_of(pos.piece_on(m.to_sq()))] + 7 * PieceValue[pos.piece_on(m.to_sq())]
                           : int(warm.w->mainHistory[us][m.raw()]));
-            t[i] = {v, m};
+            t[i] = {v, m, c};
         }
-        std::stable_sort(t, t + n, [](const std::pair<int, Move>& a, const std::pair<int, Move>& b) { return a.first > b.first; });
-        Move* out = &buf[size_t(ply) * MAX_MOVES];
-        for (int i = 0; i < n; i++) out[i] = t[i].second;
+        std::stable_sort(t, t + n, [](const Item& a, const Item& b) { return a.v > b.v; });
+        Move* out = &buf[size_t(ply) * MAX_MOVES]; u8* oc = &cls[size_t(ply) * MAX_MOVES];
+        for (int i = 0; i < n; i++) { out[i] = t[i].m; oc[i] = t[i].c; }
         return {out, n};
+    }
+
+    // §8.1b: pn/dn iniziali di un figlio senza entry (posizione già raggiunta; `i` = indice nella lista ordinata del
+    // ply del padre). Regola di Allis: nodo AND (difensore al tratto) pn = mobilità (ogni risposta va provata), dn = 1;
+    // nodo OR pn = 1, dn = mobilità (ogni mossa va confutata). La spec scrive "dn = mobilità nei nodi AND": qui è
+    // letta come la regola classica (README, scostamenti). Mossa del padre scacco, cattura SEE >= 0 o ttMove: pn dimezzato.
+    void init(int ply, int i, u64& pn, u64& dn) {
+        if (!heur) return;
+        int n = int(Stockfish::MoveList<Stockfish::LEGAL>(pos).size());
+        if (!n) return;                                                 // terminale: lo classifica terminal()
+        u8 c = cls[size_t(ply) * Stockfish::MAX_MOVES + i];
+        if (side_is_goal()) dn = u64(n);
+        else pn = (c & 8) || (c & 7) >= 3 ? u64((n + 1) / 2) : u64(n);
     }
 
     void do_move(Move m, int ply) { pos.do_move(m, st[ply]); moves++; }

@@ -1,5 +1,5 @@
-// Baseline df-pn "da manuale" (Nagai 2002; Kishimoto et al. 2012 §3.2) con il trucco 1+ε (Pawlewicz & Lew 2007)
-// per il gate G1 (§11): stesso adapter, stessi terminali e stesso ordinamento di WinTree, nessun trattamento GHI
+// Baseline df-pn "da manuale" di M2b (Nagai 2002; Kishimoto et al. 2012 §3.2) con il trucco 1+ε (Pawlewicz & Lew
+// 2007), conservata come controllo minimo del gate G1 (§11; il nucleo di produzione è ../wintree/dfpn.h): stesso adapter, stessi terminali e stesso ordinamento di WinTree, nessun trattamento GHI
 // (le coppie (pn, dn) vanno in tabella così come calcolate). Figlio che ripete una posizione del cammino:
 // sconfitta dell'attaccante (pn = ∞, dn = 0), come in Nagai; l'alternativa "ignoto" (pn = dn = ∞) è disponibile
 // per misurarla (repLoss = false): rende dn = ∞ in ogni nodo OR che ha quel figlio e il ciclo MID si ferma lì.
@@ -7,8 +7,8 @@
 // l'ultimo scrive. I nodi risolti e la loro mossa (di prova nei nodi OR, di confutazione nei nodi AND) vanno anche
 // nella ProofTable di WinTree, così il verificatore di §7.9 controlla gli esiti con lo stesso codice. Nodo = una
 // chiamata di mid(); le do_move le conta l'adapter (anche quelle della lettura dei figli, come nel ciclo O1 di WinTree).
-#ifndef WINTREE_CHESS_DFPN_H
-#define WINTREE_CHESS_DFPN_H
+#ifndef WINTREE_CHESS_DFPN_BASELINE_H
+#define WINTREE_CHESS_DFPN_BASELINE_H
 
 #include "../wintree/wintree.h"
 
@@ -18,7 +18,7 @@
 namespace WinTree {
 
 template<class G>
-class DfPn {
+class DfPnBaseline {
     using Move = typename G::Move;
     static constexpr u32 INF = 1u << 30;
     static constexpr int MAX_CHILDREN = 256;
@@ -37,7 +37,7 @@ class DfPn {
     void store(u64 k, u32 pn, u32 dn) { tab[k & mask] = {k, pn, dn}; }
 
     void mid(int ply, u32 thpn, u32 thdn, u32& pn, u32& dn) {
-        if (nodes_ >= b.maxNodes || (nodes_ % 1024 == 0 && nodes_ > 0
+        if (nodes_ >= b.maxNodes || g.moves >= b.maxMoves || (nodes_ % 1024 == 0 && nodes_ > 0
             && ((b.stop && b.stop->load(std::memory_order_relaxed)) || Clock::now() > b.deadline))) { aborted_ = true; return; }
         nodes_++; if (ply > maxPly_) maxPly_ = ply;
         u64 k = g.key();
@@ -84,7 +84,7 @@ class DfPn {
     }
 
   public:
-    DfPn(G& game, ProofTable& table, u8 goalSide, unsigned log2Entries, double epsilon = 0.25, bool repetitionIsLoss = true) :
+    DfPnBaseline(G& game, ProofTable& table, u8 goalSide, unsigned log2Entries, double epsilon = 0.25, bool repetitionIsLoss = true) :
         tab(u64(1) << log2Entries), mask((u64(1) << log2Entries) - 1), g(game), pt(table), goal(goalSide), eps(epsilon), repLoss(repetitionIsLoss) {}
 
     Result solve(const Budget& budget) {
@@ -94,7 +94,7 @@ class DfPn {
         Result r;
         if (solved(pn, dn)) {
             r.status = pn == 0 ? Status::PROVEN_WIN : Status::PROVEN_NOWIN;
-            u64 d = pt.probe(g.key()); u32 h; if (d) r.move = ProofTable::unpack(d, h).move;
+            u64 d = pt.probe(g.key(), goal & 1); u32 h; if (d) r.move = ProofTable::unpack(d, h).move;
         } else if (aborted_) { r.status = Status::UNKNOWN_BUDGET; r.cut = true; }
         else r.status = Status::UNKNOWN_CYCLE;               // pn = dn = ∞ alla radice (solo con repLoss = false)
         return r;

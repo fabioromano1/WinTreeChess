@@ -12,7 +12,7 @@ test: build/wintree_test build/java-p1fix.txt
 	./build/wintree_test $(GRAPHS) $(SEED)
 	./build/wintree_test --java build/java-p1fix.txt
 
-build/wintree_test: test.cpp wintree.h graph.h
+build/wintree_test: test.cpp wintree.h dfpn.h graph.h
 	mkdir -p build
 	$(CXX) $(CXXFLAGS) -o $@ test.cpp
 

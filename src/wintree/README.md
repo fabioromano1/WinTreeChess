@@ -1,16 +1,17 @@
-# src/wintree — M1 (spec §9.1, §12.1 punto 3)
+# src/wintree — M1 (spec §9.1, §12.1 punto 3) e M2c (nucleo df-pn, §8.1b)
 
-Nucleo WinTree generico in C++17 (template sul gioco, interfaccia di §8.1), adapter a grafo esplicito e test differenziali. Nessuna dipendenza; `Stockfish-sf_19/` e i Java originali non sono toccati.
+Nucleo WinTree generico in C++17 (template sul gioco, interfaccia di §8.1), **nucleo di produzione df-pn** con la stessa interfaccia e la stessa tabella (`dfpn.h`, M2c), adapter a grafo esplicito e test differenziali. Nessuna dipendenza; `Stockfish-sf_19/` e i Java originali non sono toccati.
 
 ```bash
-make -C src/wintree test      # ~10 s (C++ 2,6 s + Java), output riproducibile; GRAPHS=10000 SEED=1 come tests/wintree-java/run.sh
+make -C src/wintree test      # ~12 s (C++ 4 s + Java), output riproducibile; GRAPHS=10000 SEED=1 come tests/wintree-java/run.sh
 ```
 
 | File | Contenuto |
 |---|---|
-| `wintree.h` | `Result` (PROVEN_WIN con `d` e `rev`, PROVEN_NOWIN con `req`, mossa testimone, UNKNOWN_CYCLE con `p`, UNKNOWN_BUDGET con `resid`, flag `cut`), `Goal` (WIN/NOWIN), `Budget` (nodi, profondità, deadline, `stop`), `ProofTable` (2 parole, xor-check, mai un PROVEN sovrascritto da un UNKNOWN), `Prover<G>`: Sez. 3 + O1 corretto (il secondo ciclo legge via tabella anche i figli diventati PROVEN, bitset dei figli già letti), dejavu compatto con propagazione, intervalli di validità sul contatore (§7.5), controllo cooperativo ogni 1024 nodi, assert I1-I4 attivi anche in release |
+| `wintree.h` | `Result` (PROVEN_WIN con `d` e `rev`, PROVEN_NOWIN con `req`, mossa testimone, UNKNOWN_CYCLE con `p`, UNKNOWN_BUDGET con `resid`, flag `cut`), `Goal` (WIN/NOWIN), `Budget` (espansioni, `do_move`, profondità, deadline, `stop`), `ProofTable` (bucket di 4 entry da 2 parole con xor-check, protezione dei PROVEN, entry ombra), `Prover<G>`: Sez. 3 + O1 corretto (il secondo ciclo legge via tabella anche i figli diventati PROVEN, bitset dei figli già letti), dejavu compatto con propagazione, intervalli di validità sul contatore (§7.5), controllo cooperativo ogni 1024 nodi, assert I1-I4 attivi anche in release |
+| `dfpn.h` | `DfPn<G>` (M2c, §8.1b): MID di Nagai con 1+ε sulla stessa interfaccia `G`, stessa `ProofTable` (entry `(pn, dn)` per gli irrisolti), stessi `Result`/`Budget`/`Goal`; taint di ciclo, `rev/req`, `d`, mossa testimone; vedi "M2c" sotto |
 | `graph.h` | `Graph::parse` (formato di `Gen.java`, verifica Def. 2.6), `GraphGame` (adapter), `JavaRandom` + `generate` (port di `Gen.java`: stessi grafi dagli stessi semi, verificato) |
-| `test.cpp` | oracolo `d_g` a minimo punto fisso, trascrizione di Sez. 3, regressioni P1a/P1b/P2/Sanity, fuzz, budget casuali, stop/deadline, model checker del Thm 4.8, `--java FILE` |
+| `test.cpp` | oracolo `d_g` a minimo punto fisso, trascrizione di Sez. 3, regressioni P1a/P1b/P2/Sanity (entrambi i nuclei), fuzz di entrambi i nuclei, budget casuali, stop/deadline, model checker del Thm 4.8, `--java FILE` |
 | `../../tests/wintree-java/Cmp.java` | esiti del Java con P1 corretto (stati, `d`, preordine = chiamate a `legalMoves()`) per il confronto di §9.3 |
 
 ## Risultati (2026-10-16, g++ 16.2, OpenJDK 25, `make test`)
@@ -44,3 +45,32 @@ NOWIN = 15858 = trascrizione di Sez. 3 in M0; radici UNKNOWN_CYCLE 7238 = radici
 Risultati di `make test` invariati (stessi numeri della tabella sopra).
 
 Non fatto: generazione/età nella PT (rimpiazzo: l'ultimo scrive, mai un PROVEN con un UNKNOWN), collisione forzata dell'hash (§9.2 punto 8), `key_after` (il primo ciclo di O1 fa `do_move`/`undo_move` per sondare i figli).
+
+## M2c (2026-10-17): nucleo df-pn `dfpn.h` (§8.1b, §12.1 punto 4b)
+
+`DfPn<G>` è il nucleo di produzione (in `src/wintree-chess` è il default, `--core dfpn`); `Prover<G>` resta come riferimento depth-first e per i test differenziali. Stessa interfaccia `G` di §8.1 più `init(ply, i, pn, dn)` (pn/dn iniziali di un figlio senza entry; l'adapter a grafo non fa nulla: 1, 1), stessi `Result`, `Budget`, `Goal`, `ProofTable`, verificatore.
+
+- **MID** (Nagai 2002): nodo OR figlio con pn minimo, nodo AND con dn minimo, a parità vince l'ordine dei figli (§8.4, spareggio a caldo); soglie del figlio `min(th, max(secondo + 1, secondo·(1+ε)))` (ε = 0,25 di default) e `th − valore + valore_figlio` sull'altro numero; il ciclo rilegge tutti i figli a ogni giro (una `do_move` per figlio: il budget `maxMoves` conta queste).
+- **Tabella unica**: l'entry PT di un nodo irrisolto (status UNKNOWN, kind 0) porta `(pn, dn)` al posto dei campi dejavu; una confutazione tainted è UNKNOWN_CYCLE (kind 1); i PROVEN hanno il layout di sempre con `rev/req`, `d` (profondità dell'albero di prova trovato: OR `d` del figlio + 1, AND massimo + 1; limite superiore come in Thm 3.6) e mossa testimone. Lettura dei figli: PROVEN valido per il contatore (§7.5) ⇒ (0, ∞) / (∞, 0); UNKNOWN_CYCLE ⇒ (∞, 0) tainted; irrisolto ⇒ i suoi (pn, dn); assente ⇒ `init`.
+- **Taint di ciclo** (§8.1b): un figlio che ripete una posizione del cammino vale (∞, 0) tainted per la selezione; un OR confutato è tainted se lo è una confutazione dei figli; un AND confutato sceglie la prima confutazione pulita (mossa testimone), altrimenti è tainted; le confutazioni tainted restano in tabella come UNKNOWN_CYCLE e non diventano mai PROVEN_NOWIN; una prova (pn = 0) non può usare figli tainted o ripetuti (hanno pn = ∞; assert I1). Tetto di profondità (245 in WIN, 4096 in NOWIN): confutazione tainted.
+- **Budget**: espansioni (`maxNodes`), `do_move` (`maxMoves`, nuovo in `Budget` e contato anche da `Prover`), tempo e `stop` ogni 1024 nodi; all'interruzione nessuna scrittura (I2), radice UNKNOWN_BUDGET con `cut`. Senza interruzione la radice esce solo risolta (assert).
+
+**Risultati** (`make test`, stessi 10^4 grafi × 2 goal del fuzz di M1, senza budget):
+
+| | PROVEN_WIN | PROVEN_NOWIN (puliti) | UNKNOWN_CYCLE | PROVEN in contrasto con l'oracolo | Thm 4.8 fallito | max espansioni | Σ espansioni |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| df-pn | 4140 | 7550 | 8310 | **0** | 0 | 645 | 102 992 |
+| depth-first (M1) | 4142 | 8620 | 7238 | 0 | 0 | 356 | 135 087 |
+
+- Le 2 vittorie mancate (semi fra 1 e 10000, radici con eval = g e df-pn UNKNOWN_CYCLE) sono la perdita di completezza prevista da §8.1b: una confutazione tainted memorizzata viene riusata da un altro cammino dove la ripetizione non c'è (GHI); il nucleo depth-first le salta solo a prefisso uguale (dejavu). Nessuna vittoria "solo df-pn", nessun PROVEN_NOWIN "solo df-pn": i PROVEN_NOWIN puliti sono meno (7550 contro 8620) perché ogni confutazione che tocca una ripetizione è tainted; delle 8310 radici UNKNOWN_CYCLE, 2 hanno eval = g e 2 hanno eval ≠ g senza strategia di patta chiusa nella tabella (il verificatore §7.9.2 le rifiuterebbe: nessun certificato falso). Seconda chiamata a tabella piena: stesso esito, 0 espansioni. `d` ≥ `d_g` su ogni PROVEN_WIN.
+- Budget casuale (nodi 1..50, profondità 1..15): 0 PROVEN errati; ogni interruzione dà UNKNOWN_BUDGET con `cut` (1402); 8611 radici UNKNOWN_CYCLE, di cui 374 con eval = g: è il tetto di profondità che diventa confutazione tainted (§8.1b), non un taglio nascosto (I2 vale per nodi/tempo/stop). Regressioni P1a/P1b/P2/Sanity: PROVEN concordi con l'oracolo e radice completa anche con df-pn.
+
+**Scostamenti dalla spec**:
+
+1. **Tabella a bucket di 4 entry** (una linea di cache) invece di una entry per indice, con protezione "morbida" dei PROVEN: a parità di chiave mai un PROVEN sovrascritto da un UNKNOWN (salvo riprova, punto 3); con chiave nuova prima uno slot vuoto, poi un UNKNOWN, e solo in un bucket di soli PROVEN se ne sacrifica uno. Una scrittura rifiutata lascerebbe il figlio senza entry e il padre lo risceglierebbe senza progresso (misurato in M2b con la protezione rigida).
+2. **(pn, dn) a 30 bit ciascuno** (5 bit di esponente, 25 di mantissa, arrotondamento per eccesso; esatti sotto 2^25, massimo ≈ 2^56, a cui saturano anche le somme in memoria): l'arrotondamento per difetto nasconderebbe il progresso di un figlio al padre (ciclo MID senza fine); ∞ è riservato a prove e confutazioni. La baseline di M2b saturava le somme a 2^30 e trattava il risultato come ∞: con il doppio conteggio delle trasposizioni (dn di un nodo OR = somma sui figli di minimi di somme…) 79 radici su 2000 uscivano "ignote" dopo poche migliaia di nodi (es. posizione 32 di `mates2000`, 1191 nodi in 0,24 s), tutte risolte dal nucleo nuovo.
+3. **Entry ombra per le riprove fuori intervallo** (§7.5): se un nodo ha un PROVEN non valido per il contatore corrente, la riprova (anche il suo esito irrisolto, altrimenti il padre non vede progresso) scrive sotto `key ^ SHADOW`; la base resta per gli altri contatori; un PROVEN dello stesso genere (intervallo più ampio) aggiorna anche la base. Senza ombra, in G0 una PROVEN_WIN (es. valida per contatore ≤ 59) veniva sostituita dalla PROVEN_NOWIN trovata a contatore 60 (vera anch'essa, per la regola delle 50 mosse) e il certificato del padre si perdeva. Il verificatore legge base e ombra (`probe_kind`).
+4. **Budget in `do_move`** (`Budget::maxMoves`), il nodo di §9.4: le espansioni di df-pn costano ~35 `do_move` contro 4,6 di WinTree, quindi i budget in espansioni non sono confrontabili fra nuclei.
+5. **`d` calcolato** anche da df-pn (profondità dell'albero di prova trovato, non minimizzata: in M2b la baseline non lo aveva).
+
+Non fatto: età/generazione nella tabella; `key_after` (ogni figlio è letto con `do_move`/`undo_move`); eliminazione del doppio conteggio nelle trasposizioni (df-pn+ / DAG); dejavu a prefisso per le confutazioni tainted (ridurrebbe le 2 vittorie perse al costo di riespansioni).

@@ -54,7 +54,8 @@ struct Result {
 using Clock = std::chrono::steady_clock;
 
 struct Budget {
-    u64 maxNodes = ~u64(0);
+    u64 maxNodes = ~u64(0);                            // espansioni
+    u64 maxMoves = ~u64(0);                            // do_move (nodo di §9.4; df-pn ne fa ~35 per espansione)
     int maxDepth = 1024;                               // ply oltre cui un non-terminale è UNKNOWN_BUDGET
     Clock::time_point deadline = Clock::time_point::max();
     const std::atomic<bool>* stop = nullptr;
@@ -62,33 +63,61 @@ struct Budget {
 
 template<class T> struct Span { const T* first; int n; };
 
-// Proof table (§8.3): entry di due parole, w0 = key ^ data, w1 = data; l'entry vale solo se (w0 ^ w1) == key.
-// data: bit 63..62 status (00 vuoto, 01 UNKNOWN, 10 PROVEN_WIN, 11 PROVEN_NOWIN), 61 goal, 54..47 d (PROVEN_WIN)
-// o resid (UNKNOWN_BUDGET). PROVEN: 46..40 rev/req (7 bit), 39..24 mossa (16 bit). UNKNOWN: 55 kind (0 BUDGET,
-// 1 CYCLE), 46..39 p+1 (UNKNOWN_CYCLE), 38..7 hash del prefisso (32 bit: la spec ne prevede 16, 32 rendono
-// trascurabili i falsi positivi nei test).
+// Proof table (§8.3): bucket di WAYS entry (una linea di cache), ogni entry di due parole w0 = key ^ data, w1 = data;
+// l'entry vale solo se (w0 ^ w1) == key. data: bit 63..62 status (00 vuoto, 01 UNKNOWN, 10 PROVEN_WIN, 11
+// PROVEN_NOWIN), 61 goal, 54..47 d (PROVEN_WIN) o resid (UNKNOWN_BUDGET). PROVEN: 46..40 rev/req (7 bit), 39..24
+// mossa (16 bit). UNKNOWN: 55 kind (0 BUDGET, 1 CYCLE), 46..39 p+1 (UNKNOWN_CYCLE), 38..7 hash del prefisso (32 bit:
+// la spec ne prevede 16, 32 rendono trascurabili i falsi positivi nei test). Il nucleo df-pn (dfpn.h) usa per i nodi
+// irrisolti (kind 0) un layout proprio con (pn, dn) al posto di resid/p/hash, e kind 1 per le confutazioni tainted.
 class ProofTable {
+    static constexpr int WAYS = 4;
     struct Entry { std::atomic<u64> w0, w1; };
-    std::unique_ptr<Entry[]> e;
+    struct alignas(64) Bucket { Entry s[WAYS]; };
+    std::unique_ptr<Bucket[]> e;
     u64 mask;
+    static u64 buckets(unsigned log2Entries) { return u64(1) << (log2Entries > 2 ? log2Entries - 2 : 0); }
   public:
-    explicit ProofTable(unsigned log2Entries) : e(new Entry[u64(1) << log2Entries]), mask((u64(1) << log2Entries) - 1) { clear(); }
-    void clear() { for (u64 i = 0; i <= mask; i++) { e[i].w0.store(0, std::memory_order_relaxed); e[i].w1.store(0, std::memory_order_relaxed); } }
-    u64 probe(u64 key) const {
-        const Entry& x = e[key & mask];
-        u64 a = x.w0.load(std::memory_order_relaxed), b = x.w1.load(std::memory_order_relaxed);
-        return (a ^ b) == key ? b : 0;
+    explicit ProofTable(unsigned log2Entries) : e(new Bucket[buckets(log2Entries)]), mask(buckets(log2Entries) - 1) { clear(); }
+    void clear() { for (u64 i = 0; i <= mask; i++) for (Entry& x : e[i].s) { x.w0.store(0, std::memory_order_relaxed); x.w1.store(0, std::memory_order_relaxed); } }
+    // Identità di un'entry = (chiave, goal): la stessa posizione può avere un'entry per goal (ricerche WIN(us) e
+    // WIN(opp) sulla stessa tabella, §8.5). goal = -1: la prima entry con quella chiave, qualunque goal.
+    u64 probe(u64 key, int goal = -1) const {
+        for (const Entry& x : e[key & mask].s) {
+            u64 a = x.w0.load(std::memory_order_relaxed), b = x.w1.load(std::memory_order_relaxed);
+            if ((a ^ b) == key && (goal < 0 || int(b >> 61 & 1) == goal)) return b;
+        }
+        return 0;
     }
-    // Rimpiazzo: mai un PROVEN con un UNKNOWN (I4), qualunque sia la chiave; per il resto l'ultimo scrive
-    // (a parità di chiave una riprova avviene solo se l'intervallo rev/req non copre il contatore corrente,
-    // e produce un intervallo più ampio).
-    void store(u64 key, u64 data) {
-        Entry& x = e[key & mask];
-        if (proven(x.w1.load(std::memory_order_relaxed)) && !proven(data)) return;
+    // Rimpiazzo: a parità di chiave si aggiorna l'entry, ma mai un PROVEN con un UNKNOWN (I4) salvo `force` (riprova
+    // di un nodo PROVEN il cui intervallo rev/req non copre il contatore corrente, §7.5; in WinTree la riprova dà un
+    // intervallo più ampio e sovrascrive da sé). Chiave nuova: il primo slot vuoto, poi il primo UNKNOWN, infine (bucket
+    // di soli PROVEN) uno slot scelto dalla chiave: la protezione dei PROVEN non rifiuta mai una scrittura, perché un
+    // figlio irrisolto senza entry viene riscelto dal padre senza progresso (M2b: ciclo MID senza esito).
+    void store(u64 key, u64 data, bool force = false) {
+        Entry* s = e[key & mask].s; Entry* empty = nullptr; Entry* open = nullptr;
+        for (int i = 0; i < WAYS; i++) {
+            u64 a = s[i].w0.load(std::memory_order_relaxed), b = s[i].w1.load(std::memory_order_relaxed);
+            if (b && (a ^ b) == key && (b >> 61 & 1) == (data >> 61 & 1)) { if (proven(b) && !proven(data) && !force) return; empty = &s[i]; break; }
+            if (!b) { if (!empty) empty = &s[i]; } else if (!proven(b) && !open) open = &s[i];
+        }
+        Entry& x = empty ? *empty : open ? *open : s[key >> 62 & (WAYS - 1)];
         x.w1.store(data, std::memory_order_relaxed);
         x.w0.store(key ^ data, std::memory_order_relaxed);
     }
     static bool proven(u64 d) { return (d >> 63) != 0; }
+    // Entry ombra (df-pn, §7.5): la riprova di un nodo PROVEN fuori dall'intervallo rev/req del contatore corrente
+    // scrive sotto key ^ SHADOW, così la prova valida per gli altri contatori (e i certificati che la usano) sopravvive;
+    // il lettore prova la base e poi l'ombra (probe_kind).
+    static constexpr u64 SHADOW = 0x9E3779B97F4A7C15ULL;
+    // Prima fra base e ombra l'entry dello stesso goal con status in `kinds` (bit 1 << int(Status)); altrimenti la base.
+    u64 probe_kind(u64 key, u8 goal, unsigned kinds) const {
+        u64 base = probe(key, goal & 1), d = base;
+        for (int i = 0; i < 2; i++, d = probe(key ^ SHADOW, goal & 1)) {
+            if (!d) continue;
+            u32 h; if (kinds >> int(unpack(d, h).status) & 1) return d;
+        }
+        return base;
+    }
     static u64 pack_proven(bool win, u16 d, u8 goal, u8 r50, u16 move) {
         return (win ? u64(2) : u64(3)) << 62 | u64(goal & 1) << 61 | u64(d > 255 ? 255 : d) << 47
              | u64(r50 > 127 ? 127 : r50) << 40 | u64(move) << 24;
@@ -125,6 +154,7 @@ inline u64 mix64(u64 x) {  // finalizer di splitmix64
 //   Span<Move> gen_children(int ply); void do_move(Move, int ply); void undo_move(Move, int ply);
 //   int rule50() const; bool reversible(Move) const;      regola delle 50 mosse (§7.5; grafi: 0 e false)
 //   static u16 code(Move); static Move move(u16);         mossa testimone nell'entry della tabella
+//   void init(int ply, int i, u64& pn, u64& dn);          solo dfpn.h: pn/dn iniziali del figlio i (posizione raggiunta)
 template<class G>
 class Prover {
     static_assert(std::is_same<decltype(std::declval<const G&>().key()), u64>::value, "G::key() deve restituire u64");
@@ -135,7 +165,7 @@ class Prover {
     static constexpr u64 CHECK_EVERY = 1024;
 
     G& g; ProofTable& pt; u8 goal; Goal mode;
-    Budget b; u64 nodes_ = 0; bool aborted_ = false;
+    Budget b; u64 nodes_ = 0, moves_ = 0; bool aborted_ = false;
     u64 andNodes_ = 0, reexp_ = 0, plySum_ = 0; int maxPly_ = 0;   // statistiche per l'analisi di G1 (§11)
     std::vector<u64> path;                    // chiavi del cammino corrente (GRAY implicito)
     std::vector<u64> H;                       // H[i] = hash del prefisso path[0..i-1]; H[0] = prefisso vuoto
@@ -151,7 +181,7 @@ class Prover {
     Prover(G& game, ProofTable& table, u8 goalSide, Goal m) : g(game), pt(table), goal(goalSide), mode(m) {}
 
     Result solve(const Budget& budget) {
-        b = budget; nodes_ = 0; aborted_ = false; andNodes_ = reexp_ = plySum_ = 0; maxPly_ = 0;
+        b = budget; nodes_ = moves_ = 0; aborted_ = false; andNodes_ = reexp_ = plySum_ = 0; maxPly_ = 0;
         int cap = mode == Goal::WIN ? 245 : 4096;        // §8.1: MAX_PLY - 1 in WIN; memoria (stack) in NOWIN
         if (b.maxDepth > cap) b.maxDepth = cap;
         path.assign(b.maxDepth + 2, 0); H.assign(b.maxDepth + 3, 0); done.assign(b.maxDepth + 2, {});
@@ -162,6 +192,7 @@ class Prover {
         return r;
     }
     u64 nodes() const { return nodes_; }      // espansioni (chiamate ricorsive)
+    u64 moves() const { return moves_; }      // do_move (lettura dei figli compresa)
     bool aborted() const { return aborted_; }
     u64 and_nodes() const { return andNodes_; }           // espansioni di nodi AND
     u64 reexpansions() const { return reexp_; }           // espansioni di nodi già in tabella (UNKNOWN o PROVEN fuori intervallo)
@@ -197,7 +228,7 @@ class Prover {
         u64 k = g.key();
         for (int q = 0; q < ply; q++)
             if (path[q] == k) { inherit(ply, q); return cycle(q); }
-        u64 data = pt.probe(k);
+        u64 data = pt.probe(k, goal & 1);
         if (same_goal(data)) {
             u32 h; Result e = ProofTable::unpack(data, h);
             if (e.proven() && valid(e)) return e;
@@ -209,7 +240,7 @@ class Prover {
     }
 
     Result rec(int ply) {
-        if (nodes_ >= b.maxNodes || (nodes_ % CHECK_EVERY == 0 && nodes_ > 0
+        if (nodes_ >= b.maxNodes || moves_ >= b.maxMoves || (nodes_ % CHECK_EVERY == 0 && nodes_ > 0
             && ((b.stop && b.stop->load(std::memory_order_relaxed)) || Clock::now() > b.deadline))) {
             aborted_ = true; return budget_cut();
         }
@@ -247,8 +278,8 @@ class Prover {
         first.reset();
         for (int i = 0; i < ch.n && !end; i++) {         // O1: prima i figli già PROVEN, senza ricorsione
             Move m = ch.first[i]; bool rv = g.reversible(m);
-            g.do_move(m, ply);
-            u64 data = pt.probe(g.key()); u32 h; Result c;
+            g.do_move(m, ply); moves_++;
+            u64 data = pt.probe(g.key(), goal & 1); u32 h; Result c;
             bool ok = same_goal(data) && ProofTable::proven(data) && valid(c = ProofTable::unpack(data, h));
             g.undo_move(m, ply);
             if (ok) { apply(c, rv, m); first.set(i); }
@@ -256,7 +287,7 @@ class Prover {
         for (int i = 0; i < ch.n && !end; i++) {         // gli altri: visit legge anche i diventati PROVEN (P1)
             if (first.test(i)) continue;
             Move m = ch.first[i]; bool rv = g.reversible(m);
-            g.do_move(m, ply);
+            g.do_move(m, ply); moves_++;
             Result c = visit(ply + 1);
             g.undo_move(m, ply);
             if (aborted_) return budget_cut();

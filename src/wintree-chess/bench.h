@@ -48,8 +48,9 @@ inline std::vector<Epd> read_epd(const std::string& path, int step, int count, s
     return v;
 }
 
-// Variante di solver: cold | warm | random | dfpn[-warm] | sf, con i suffissi -noo6 e -nodejavu (ablazioni B5).
-struct Variant { std::string name; enum Kind { WT, DFPN, SF } kind = WT; Order order = Order::COLD; bool firstNil = true, dejavu = true; };
+// Variante di solver: cold | warm | random (WinTree depth-first) | dfpn (nucleo §8.1b) | base (baseline df-pn di M2b)
+// | sf, con i suffissi -warm/-cold, -noo6 e -nodejavu (ablazioni B5), -noinit (df-pn senza euristica), -epsN (ε = N %).
+struct Variant { std::string name; enum Kind { WT, DFPN, BASE, SF } kind = WT; Order order = Order::COLD; bool firstNil = true, dejavu = true, heur = true; double eps = 0.25; };
 
 inline bool parse_variant(const std::string& s, Variant& v) {
     v = {}; v.name = s;
@@ -58,9 +59,11 @@ inline bool parse_variant(const std::string& s, Variant& v) {
         if (first) {
             first = false;
             if (tok == "warm") v.order = Order::WARM; else if (tok == "random") v.order = Order::RANDOM;
-            else if (tok == "dfpn") v.kind = Variant::DFPN; else if (tok == "sf") v.kind = Variant::SF; else if (tok != "cold") return false;
+            else if (tok == "dfpn") v.kind = Variant::DFPN; else if (tok == "base") v.kind = Variant::BASE;
+            else if (tok == "sf") v.kind = Variant::SF; else if (tok != "cold") return false;
         } else if (tok == "warm") v.order = Order::WARM; else if (tok == "cold") v.order = Order::COLD;
-        else if (tok == "noo6") v.firstNil = false; else if (tok == "nodejavu") v.dejavu = false; else return false;
+        else if (tok == "noo6") v.firstNil = false; else if (tok == "nodejavu") v.dejavu = false; else if (tok == "noinit") v.heur = false;
+        else if (tok.rfind("eps", 0) == 0 && tok.size() > 3) v.eps = std::atoi(tok.c_str() + 3) / 100.0; else return false;
     }
     return !first;
 }
@@ -96,7 +99,7 @@ inline void summary(const std::vector<Row>& rows, const std::vector<Variant>& va
     for (const Variant& v : vars) {
         auto& m = by[v.name]; int s1 = 0, sT = 0, cert = 0, deq = 0, dgt = 0; std::vector<double> nodes, moves, time;
         for (auto& [id, r] : m) if (r->solved) {
-            sT++; s1 += r->secs <= 1.0; cert += r->cert; int d = v.kind == Variant::DFPN ? r->dver : r->d;
+            sT++; s1 += r->secs <= 1.0; cert += r->cert; int d = v.kind == Variant::BASE ? r->dver : r->d;
             deq += d == r->plies; dgt += d > r->plies; nodes.push_back(double(r->nodes)); moves.push_back(double(r->moves)); time.push_back(r->secs);
         }
         std::cout << "| " << v.name << " | " << s1 << " | " << sT << " | " << (v.kind == Variant::SF ? std::string("—") : std::to_string(cert)) << " | " << deq << " | " << dgt << " | "
@@ -116,9 +119,9 @@ inline void summary(const std::vector<Row>& rows, const std::vector<Variant>& va
                   << fmt(quantile(rm, 1.0), 2) << " | " << fmt(quantile(rn, 0.5), 2) << " | " << fmt(quantile(rn, 0.9), 2) << " | " << fmt(sumB ? sumA / sumB : 0, 2) << " |\n";
     };
     std::cout << "\n### Rapporti per posizione (sulle risolte da entrambi)\n\n| A / B | Risolte da entrambi | Solo A | Solo B | Mediana do_move A/B | p90 | max | Mediana espansioni A/B | p90 | Σ do_move A / Σ do_move B |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|\n";
-    for (const Variant& a : vars) for (const Variant& b : vars)        // WinTree / df-pn a pari ordinamento (G1) e ogni variante / la prima (ablazioni)
+    for (const Variant& a : vars) for (const Variant& b : vars)        // nuclei diversi a pari ordinamento (G1: WinTree / df-pn, df-pn / baseline) e ogni variante / la prima dello stesso nucleo (ablazioni)
         if (a.kind != Variant::SF && b.kind != Variant::SF && a.name != b.name
-            && ((a.kind == Variant::WT && b.kind == Variant::DFPN && a.order == b.order) || (&b == &vars[0] && a.kind == b.kind)))
+            && ((a.kind < b.kind && a.order == b.order && a.heur == b.heur) || (&b == &vars[0] && a.kind == b.kind)))
             ratios(a.name, b.name);
     if (by.count("sf")) {
         std::cout << "\n### Confronto con Stockfish `go mate N` (stesso tempo, un thread)\n\n| Solver | Risolte dove Stockfish risolve ≤ 1 s | Stockfish ≤ 1 s | Risolte e certificate dove Stockfish risolve ≤ " << secs << " s | Stockfish ≤ " << secs << " s | Solo il solver | Solo Stockfish |\n|---|---:|---:|---:|---:|---:|---:|\n";
@@ -170,13 +173,14 @@ inline void bench_suite(const std::vector<Epd>& suite, const BenchOpts& o) {
                         r.solved = pl && (pl > 0) == (e.mate > 0) && std::abs(pl) <= e.plies;
                         r.status = !pl ? "nessun matto" : r.solved ? "matto" : "matto oltre il dichiarato";
                     } else {
-                        Cfg c = o.base; c.order = v.order; c.firstNil = v.firstNil; c.dejavu = v.dejavu; c.secs = o.secs; double extra = 0;
+                        Cfg c = o.base; c.order = v.order; c.firstNil = v.firstNil; c.dejavu = v.dejavu; c.heur = v.heur; c.eps = v.eps; c.secs = o.secs; double extra = 0;
+                        c.core = v.kind == Variant::WT ? Core::WINTREE : v.kind == Variant::DFPN ? Core::DFPN : Core::BASE;
                         if (v.order == Order::WARM) {
                             if (!warmed) { sf->clear(); sf->go(e.fen, {}, o.warmMs); ws = sf->sources(); warmed = true; }
                             c.warm = ws; extra = o.warmMs / 1000.0; c.secs -= extra;
                         }
                         pt.clear();
-                        Outcome out = v.kind == Variant::DFPN ? solve_dfpn(g.pos, e.goal, c, pt) : solve(g.pos, e.goal, Goal::WIN, c, pt);
+                        Outcome out = solve_any(g.pos, e.goal, Goal::WIN, c, pt);
                         r.status = status_name(out.r.status); r.secs = out.secs + extra; r.cpu = out.cpu + extra; r.nodes = out.nodes; r.moves = out.moves; r.d = out.r.d;
                         r.andNodes = out.andNodes; r.reexp = out.reexp; r.meanPly = out.meanPly; r.maxPly = out.maxPly; r.iters = out.iters;
                         if (out.r.status == Status::PROVEN_WIN) {
@@ -222,7 +226,7 @@ inline void bench_b2(const std::vector<Epd>& all, int depth, int count, const st
         auto t0 = Clock::now(); u64 pn = Stockfish::Benchmark::perft<false>(g.pos, depth); double ps = std::chrono::duration<double>(Clock::now() - t0).count();
         u64 pm = Stockfish::MoveList<Stockfish::LEGAL>(g.pos).size();          // do_move di perft (conteggio in blocco all'ultimo ply): perft(1) + … + perft(depth-1)
         for (int k = 2; k < depth; k++) pm += Stockfish::Benchmark::perft<false>(g.pos, k);
-        Cfg c; c.nodes = ~u64(0) >> 1; c.depth = depth; c.mateOnly = true; pt.clear();
+        Cfg c; c.core = Core::WINTREE; c.nodes = ~u64(0) >> 1; c.depth = depth; c.mateOnly = true; pt.clear();
         Outcome o = solve(g.pos, e.goal, Goal::NOWIN, c, pt);
         sp += pn; spm += pm; sn += o.nodes; sm += o.moves; tp += ps; tn += o.secs;
         std::cout << "| " << e.id << " | `" << e.fen.substr(0, e.fen.rfind(' ', e.fen.rfind(' ') - 1)) << "` | " << pn << " | " << pm << " | " << fmt(ps, 3) << " | " << fmt(pn / ps / 1e6, 1) << " | " << fmt(pm / ps / 1e6, 1) << " | "

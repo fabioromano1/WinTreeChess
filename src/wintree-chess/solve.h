@@ -1,11 +1,14 @@
-// Risoluzione di una posizione con WinTree (iterative deepening in modalità WIN, una ricerca al tetto in NOWIN) o
-// con la baseline df-pn, e verifica dell'esito (§7.9). Condiviso da CLI, regressioni, G0 (main.cpp) e benchmark (bench.h).
+// Risoluzione di una posizione con il nucleo df-pn (default, ../wintree/dfpn.h), con WinTree depth-first (iterative
+// deepening in modalità WIN, una ricerca al tetto in NOWIN) o con la baseline df-pn di M2b, e verifica dell'esito
+// (§7.9). Condiviso da CLI, regressioni, G0 (main.cpp) e benchmark (bench.h).
 #ifndef WINTREE_CHESS_SOLVE_H
 #define WINTREE_CHESS_SOLVE_H
 
 #include "chess_game.h"
-#include "dfpn.h"
+#include "dfpn_baseline.h"
 #include "verifier.h"
+
+#include "../wintree/dfpn.h"
 
 #include "uci.h"
 
@@ -36,15 +39,20 @@ struct Game {
     }
 };
 
-struct Cfg {                                   // parametri comuni a WinTree e df-pn
+enum class Core : u8 { DFPN, WINTREE, BASE };  // nucleo di produzione (§8.1b), depth-first (§8.1), baseline di M2b
+
+struct Cfg {                                   // parametri comuni ai tre nuclei
+    Core core = Core::DFPN;
     u64 nodes = 1000000;                       // budget di espansioni
+    u64 moves = ~u64(0) >> 1;                  // budget di do_move (nodo di §9.4; df-pn ne fa ~35 per espansione)
     double secs = 0;                           // tetto di tempo in secondi (0 = nessuno)
     int depth = 0;                             // 0 = default della modalità (245 WIN, 4096 NOWIN)
     int tbMax = 0;
     Order order = Order::COLD; WarmSources warm;
     bool firstNil = true, dejavu = true;       // ablazioni B5 (O6 e dejavu)
     bool mateOnly = false;                     // B2: terminali solo matto/stallo
-    double eps = 0.25; bool repLoss = true; unsigned dfpnLog2 = 22;   // df-pn: 1+ε, ripetizione, log2 delle entry (16 B)
+    double eps = 0.25; bool heur = true;       // df-pn: 1+ε e inizializzazione euristica di pn/dn (§8.1b)
+    bool repLoss = true; unsigned dfpnLog2 = 22;   // baseline: ripetizione, log2 delle entry (16 B) della sua tabella
 };
 
 struct Outcome { Result r; u64 nodes = 0, moves = 0, andNodes = 0, reexp = 0; int depth = 0, iters = 0, maxPly = 0; double meanPly = 0, secs = 0, cpu = 0; };
@@ -62,25 +70,43 @@ inline Outcome solve(Stockfish::Position& pos, Stockfish::Color goal, Goal mode,
     Prover<ChessGame> p(g, pt, goal == Stockfish::BLACK, mode); p.firstNil = c.firstNil; p.dejavu = c.dejavu;
     Outcome o; Budget b; b.deadline = deadline_of(c.secs);
     for (int d = mode == Goal::WIN ? (pos.side_to_move() == goal ? 1 : 2) : depth;; d += 2) {
-        b.maxDepth = std::min(d, depth); b.maxNodes = c.nodes - o.nodes;
+        b.maxDepth = std::min(d, depth); b.maxNodes = c.nodes - o.nodes; b.maxMoves = c.moves - o.moves;
         o.r = p.solve(b); o.nodes += p.nodes(); o.iters++; o.depth = b.maxDepth;
         o.andNodes += p.and_nodes(); o.reexp += p.reexpansions(); o.meanPly += p.mean_ply() * p.nodes(); o.maxPly = std::max(o.maxPly, p.max_ply());
+        o.moves = g.moves;
         if (o.r.status != Status::UNKNOWN_BUDGET || p.aborted() || b.maxDepth >= depth) break;
     }
-    o.moves = g.moves; if (o.nodes) o.meanPly /= o.nodes;
+    if (o.nodes) o.meanPly /= o.nodes;
     o.secs = std::chrono::duration<double>(Clock::now() - t0).count(); o.cpu = thread_cpu() - c0;
     return o;
 }
 
-inline Outcome solve_dfpn(Stockfish::Position& pos, Stockfish::Color goal, const Cfg& c, ProofTable& pt) {
+// Nucleo df-pn (§8.1b): una sola ricerca; la modalità fissa il tetto di profondità (245 WIN, 4096 NOWIN).
+inline Outcome solve_dfpn(Stockfish::Position& pos, Stockfish::Color goal, Goal mode, const Cfg& c, ProofTable& pt) {
+    auto t0 = Clock::now(); double c0 = thread_cpu();
+    int depth = c.depth ? c.depth : mode == Goal::WIN ? 245 : 4096;
+    ChessGame g(pos, goal, c.tbMax, depth, c.order, c.warm); g.heur = c.heur;
+    DfPn<ChessGame> p(g, pt, goal == Stockfish::BLACK, mode, c.eps);
+    Outcome o; Budget b; b.deadline = deadline_of(c.secs); b.maxDepth = depth; b.maxNodes = c.nodes; b.maxMoves = c.moves;
+    o.r = p.solve(b); o.nodes = p.nodes(); o.moves = g.moves; o.iters = 1; o.depth = depth;
+    o.andNodes = p.and_nodes(); o.meanPly = p.mean_ply(); o.maxPly = p.max_ply();
+    o.secs = std::chrono::duration<double>(Clock::now() - t0).count(); o.cpu = thread_cpu() - c0;
+    return o;
+}
+
+inline Outcome solve_base(Stockfish::Position& pos, Stockfish::Color goal, const Cfg& c, ProofTable& pt) {
     auto t0 = Clock::now(); double c0 = thread_cpu();
     int depth = c.depth ? c.depth : 245;
     ChessGame g(pos, goal, c.tbMax, depth, c.order, c.warm);
-    DfPn<ChessGame> p(g, pt, goal == Stockfish::BLACK, c.dfpnLog2, c.eps, c.repLoss);
-    Outcome o; Budget b; b.deadline = deadline_of(c.secs); b.maxDepth = depth; b.maxNodes = c.nodes;
+    DfPnBaseline<ChessGame> p(g, pt, goal == Stockfish::BLACK, c.dfpnLog2, c.eps, c.repLoss);
+    Outcome o; Budget b; b.deadline = deadline_of(c.secs); b.maxDepth = depth; b.maxNodes = c.nodes; b.maxMoves = c.moves;
     o.r = p.solve(b); o.nodes = p.nodes(); o.moves = g.moves; o.iters = 1; o.depth = depth; o.maxPly = p.max_ply();
     o.secs = std::chrono::duration<double>(Clock::now() - t0).count(); o.cpu = thread_cpu() - c0;
     return o;
+}
+
+inline Outcome solve_any(Stockfish::Position& pos, Stockfish::Color goal, Goal mode, const Cfg& c, ProofTable& pt) {
+    return c.core == Core::DFPN ? solve_dfpn(pos, goal, mode, c, pt) : c.core == Core::WINTREE ? solve(pos, goal, mode, c, pt) : solve_base(pos, goal, c, pt);
 }
 
 inline std::string describe(const Result& r) {
