@@ -15,6 +15,8 @@ src/wintree-chess/build/wintree-chess --fen "..." --core wintree --verify       
 src/wintree-chess/build/wintree-chess --fen "..." --order warm --nnue Stockfish-sf_19/src/nn-1a298aa575a0.nnue --verify   # 100 ms di Stockfish, poi il prover con ttMove e storie come spareggio
 src/wintree-chess/build/wintree-chess --fen "<fen>" [--moves m1 m2 ...] [--goal white|black] [--mode win|nowin] [--nodes N] [--domove N] [--depth D] [--time S]
                                       [--core dfpn|wintree|base] [--eps E] [--noinit] [--order cold|warm|random --nnue PATH --warm-ms MS] [--tb PATH] [--tbmax K] [--hash MiB] [--verify]
+src/wintree-chess/build/wintree-chess --g2sample 20000 --seed 1 --warm-ms 1000 --nnue PATH --tb ~/syzygy/5man:~/syzygy/6man   # G2 corpus (a): patte a 6 pezzi che Stockfish senza TB valuta > 150 cp (tests/g2/README.md)
+src/wintree-chess/build/wintree-chess --g2eval FILE.epd --warm-ms 1000 --nnue PATH --tb ...                                      # G2: aggiunge c0 "goal= eval= wdl=" a ogni riga EPD
 src/wintree-chess/build/wintree-chess --suite tests/suites/mates2000.epd [--step K] [--count N] [--solvers dfpn,dfpn-warm,dfpn-noinit,dfpn-warm-eps50,base,base-warm,cold,warm,sf] [--time S]
                                       [--warm-ms MS] [--threads T] --nnue PATH [--csv FILE] [--hash MiB] [--dfpn-rep loss|unknown]
 src/wintree-chess/build/wintree-chess --b2 tests/suites/mates2000.epd [--count N] [--depth D] [--csv FILE]

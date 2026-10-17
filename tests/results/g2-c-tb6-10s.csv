@@ -1,0 +1,25 @@
+id,fen,pieces,goal,eval,wdl,tbmax,time,status,req,resid,nodes,domove,secs,cpu,maxply,cert,why,cert_nodes,cert_leaves,cert_tb,cause
+2,6k1/2r5/3pK2Q/4b1P1/8/8/8/8 w - - 0 1,7,white,35,0,6,10.0,UNKNOWN_BUDGET,,0,271168,8742930,10.0047,6.74162,31,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+3,8/8/8/3k2p1/4p3/2b1P1pP/4KNP1/8 w - - 0 1,10,black,73,?,6,10.0,UNKNOWN_BUDGET,,0,567104,12705535,10.0039,7.95903,60,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+4,8/8/8/4b1p1/8/6pP/6P1/4k2K b - - 0 1,7,black,82,0,6,10.0,UNKNOWN_BUDGET,,0,548608,11382983,10.0028,7.38296,133,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+5,8/2k5/4Bp2/2b1p1p1/4K2p/7P/8/8 b - - 0 1,9,black,108,?,6,10.0,UNKNOWN_BUDGET,,0,495040,12956241,10.0048,8.46776,29,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+6,8/5pK1/4k3/6B1/5PbP/6P1/8/8 b - - 0 1,8,white,25,?,6,10.0,UNKNOWN_BUDGET,,0,397504,9882271,10.0031,6.69887,21,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+7,6k1/1R5p/4K1p1/8/8/2b3P1/7P/8 b - - 0 1,8,white,38,?,6,10.0,UNKNOWN_BUDGET,,0,397120,11314556,10.0054,7.41021,35,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+8,5K2/k7/8/8/N7/8/5PP1/2b4b w - - 0 1,7,black,31,1,6,10.0,UNKNOWN_BUDGET,,0,338112,9325503,10.0035,6.62335,20,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+9,4k3/4n3/2r5/2P1Q1PK/8/8/8/8 w - - 0 1,7,white,97,0,6,10.0,UNKNOWN_BUDGET,,0,279744,8858042,10.0039,6.88828,35,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+10,4K3/2k1Bp1N/6p1/5PP1/8/7p/b7/8 w - - 0 1,10,black,380,?,6,10.0,UNKNOWN_BUDGET,,0,398592,11030712,10.0064,7.75653,37,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+11,8/3k1pKN/5PpB/6P1/4q3/8/b7/8 b - - 0 1,10,black,216,?,6,10.0,UNKNOWN_BUDGET,,0,371904,11769485,10.0088,7.76171,27,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+12,8/3k4/p2P4/2P4p/2bB4/P6P/5K2/8 w - - 0 1,10,white,8,?,6,10.0,UNKNOWN_BUDGET,,0,442496,13561346,10.0054,9.07322,36,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+13,7b/4k2P/6K1/2p2P2/7P/1B6/8/8 b - - 0 1,8,white,29,?,6,10.0,UNKNOWN_BUDGET,,0,311616,9032273,10.0041,6.51247,28,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+14,4k2b/7P/5PK1/7P/8/1B6/8/8 w - - 0 1,7,white,118,0,6,10.0,UNKNOWN_BUDGET,,0,335808,9042786,10.0093,7.08107,129,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+15,3b4/p4B1p/8/6k1/6P1/8/1P3PK1/8 w - - 0 1,9,white,0,?,6,10.0,UNKNOWN_BUDGET,,0,458496,12807752,10.0082,8.42263,23,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+16,7k/8/5b1p/1B5P/8/3P2P1/7P/7K b - - 0 1,9,white,39,?,6,10.0,UNKNOWN_BUDGET,,0,620352,16002830,10.0049,9.05489,41,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+17,6B1/4b3/7p/3Pk2P/6PP/7K/8/8 w - - 0 1,9,white,8,?,6,10.0,UNKNOWN_BUDGET,,0,439936,10765578,10.0041,7.06836,21,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+18,8/8/p7/4Bp2/4b1k1/1P1pK3/8/8 b - - 0 1,8,black,341,?,6,10.0,UNKNOWN_BUDGET,,0,359040,10603419,10.0077,7.10834,19,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+19,8/5b2/3k2p1/pB3p2/P2K1P1P/8/8/8 b - - 0 1,10,white,3,?,6,10.0,UNKNOWN_BUDGET,,0,590592,14461993,10.0036,8.96156,54,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+20,8/3k4/3b4/1K6/P6p/5B1P/1P6/8 b - - 0 1,8,black,0,?,6,10.0,UNKNOWN_BUDGET,,0,514880,14521452,10.0053,8.31747,23,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+21,r7/8/8/5bk1/8/5B2/5RPP/6K1 b - - 0 1,8,white,113,?,6,10.0,PROVEN_NOWIN,0,,11,305,0.00721982,0.00506796,5,1,,9,2,2,certificata
+22,8/7k/3b1K1B/8/p7/p7/R7/1b6 w - - 0 1,8,black,49,?,6,10.0,UNKNOWN_BUDGET,,0,252480,7840054,10.0042,6.20356,22,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+23,8/7k/8/8/2bBK3/p7/pb6/6R1 b - - 0 1,8,black,4,?,6,10.0,UNKNOWN_BUDGET,,0,366656,12431648,10.0064,8.62269,32,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+24,8/8/2k2NnP/5Nn1/3K4/8/8/8 b - - 0 1,7,white,6,0,6,10.0,UNKNOWN_CYCLE,,,6313,186699,0.17422,0.120269,11,1,,172,75,75,certificata
+25,8/5p1k/7p/5R2/6P1/5P2/8/4q1K1 w - - 0 1,8,black,175,?,6,10.0,UNKNOWN_BUDGET,,0,448448,14028625,10.0056,8.87096,30,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget

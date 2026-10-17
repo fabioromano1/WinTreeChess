@@ -1,0 +1,25 @@
+id,fen,pieces,goal,eval,wdl,tbmax,time,status,req,resid,nodes,domove,secs,cpu,maxply,cert,why,cert_nodes,cert_leaves,cert_tb,cause
+2,6k1/2r5/3pK2Q/4b1P1/8/8/8/8 w - - 0 1,7,white,35,0,0,10.0,UNKNOWN_BUDGET,,0,437696,12211578,10.0034,9.32146,28,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+3,8/8/8/3k2p1/4p3/2b1P1pP/4KNP1/8 w - - 0 1,10,black,73,?,0,10.0,UNKNOWN_BUDGET,,0,639552,14391615,10.0053,9.31801,108,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+4,8/8/8/4b1p1/8/6pP/6P1/4k2K b - - 0 1,7,black,82,0,0,10.0,UNKNOWN_BUDGET,,0,768832,14704403,10.0031,9.65134,253,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+5,8/2k5/4Bp2/2b1p1p1/4K2p/7P/8/8 b - - 0 1,9,black,108,?,0,10.0,UNKNOWN_BUDGET,,0,519936,13691294,10.0039,9.169,25,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+6,8/5pK1/4k3/6B1/5PbP/6P1/8/8 b - - 0 1,8,white,25,?,0,10.0,UNKNOWN_BUDGET,,0,583360,14187900,10.0051,9.14463,26,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+7,6k1/1R5p/4K1p1/8/8/2b3P1/7P/8 b - - 0 1,8,white,38,?,0,10.0,UNKNOWN_BUDGET,,0,504960,14175213,10.0036,9.17557,93,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+8,5K2/k7/8/8/N7/8/5PP1/2b4b w - - 0 1,7,black,31,1,0,10.0,UNKNOWN_BUDGET,,0,494976,13634136,10.0032,8.80839,18,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+9,4k3/4n3/2r5/2P1Q1PK/8/8/8/8 w - - 0 1,7,white,97,0,0,10.0,UNKNOWN_BUDGET,,0,428352,12637994,10.0036,8.97759,68,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+10,4K3/2k1Bp1N/6p1/5PP1/8/7p/b7/8 w - - 0 1,10,black,380,?,0,10.0,UNKNOWN_BUDGET,,0,461632,12841414,10.0038,9.07874,28,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+11,8/3k1pKN/5PpB/6P1/4q3/8/b7/8 b - - 0 1,10,black,216,?,0,10.0,UNKNOWN_BUDGET,,0,434176,13640292,10.0033,8.8701,67,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+12,8/3k4/p2P4/2P4p/2bB4/P6P/5K2/8 w - - 0 1,10,white,8,?,0,10.0,UNKNOWN_BUDGET,,0,426624,13126469,10.0035,8.87851,36,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+13,7b/4k2P/6K1/2p2P2/7P/1B6/8/8 b - - 0 1,8,white,29,?,0,10.0,UNKNOWN_BUDGET,,0,448832,13103569,10.0039,9.35206,50,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+14,4k2b/7P/5PK1/7P/8/1B6/8/8 w - - 0 1,7,white,118,0,0,10.0,UNKNOWN_BUDGET,,0,440256,13171908,10.0089,9.04343,105,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+15,3b4/p4B1p/8/6k1/6P1/8/1P3PK1/8 w - - 0 1,9,white,0,?,0,10.0,UNKNOWN_BUDGET,,0,513600,14304621,10.0047,8.99485,16,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+16,7k/8/5b1p/1B5P/8/3P2P1/7P/7K b - - 0 1,9,white,39,?,0,10.0,UNKNOWN_BUDGET,,0,633920,16313391,10.0035,9.06142,22,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+17,6B1/4b3/7p/3Pk2P/6PP/7K/8/8 w - - 0 1,9,white,8,?,0,10.0,UNKNOWN_BUDGET,,0,620288,15144527,10.0039,9.52726,78,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+18,8/8/p7/4Bp2/4b1k1/1P1pK3/8/8 b - - 0 1,8,black,341,?,0,10.0,UNKNOWN_BUDGET,,0,409216,12284050,10.0039,8.28052,45,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+19,8/5b2/3k2p1/pB3p2/P2K1P1P/8/8/8 b - - 0 1,10,white,3,?,0,10.0,UNKNOWN_BUDGET,,0,551360,13390492,10.0062,8.68051,44,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+20,8/3k4/3b4/1K6/P6p/5B1P/1P6/8 b - - 0 1,8,black,0,?,0,10.0,UNKNOWN_BUDGET,,0,539648,15084282,10.0036,8.97579,29,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+21,r7/8/8/5bk1/8/5B2/5RPP/6K1 b - - 0 1,8,white,113,?,0,10.0,UNKNOWN_BUDGET,,0,362688,11458333,10.0035,8.15497,33,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+22,8/7k/3b1K1B/8/p7/p7/R7/1b6 w - - 0 1,8,black,49,?,0,10.0,UNKNOWN_BUDGET,,0,411200,12225311,10.0071,9.10657,30,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+23,8/7k/8/8/2bBK3/p7/pb6/6R1 b - - 0 1,8,black,4,?,0,10.0,UNKNOWN_BUDGET,,0,346432,11867809,10.0042,9.16963,43,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+24,8/8/2k2NnP/5Nn1/3K4/8/8/8 b - - 0 1,7,white,6,0,0,10.0,UNKNOWN_BUDGET,,0,411776,12173563,10.0032,8.87186,14,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
+25,8/5p1k/7p/5R2/6P1/5P2/8/4q1K1 w - - 0 1,8,black,175,?,0,10.0,UNKNOWN_BUDGET,,0,431040,13008687,10.0031,8.73638,48,0,UNKNOWN_BUDGET: nessun oggetto di prova,0,0,0,budget
