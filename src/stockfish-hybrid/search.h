@@ -36,6 +36,7 @@
 #include "nnue/nnue_accumulator.h"
 #include "numa.h"
 #include "position.h"
+#include "prover.h"
 #include "score.h"
 #include "syzygy/tbprobe.h"
 #include "timeman.h"
@@ -311,6 +312,7 @@ class SearchManager: public ISearchManager {
     Value                bestPreviousScore;
     Value                bestPreviousAverageScore;
     bool                 stopOnPonderhit;
+    Prover::RootProof    rootProof;  // M3: esito certificato alla radice (H2 -> H4/H5)
 
     const UpdateContext& updates;
 };
@@ -357,6 +359,7 @@ class Worker {
 
    private:
     bool iterative_deepening();
+    void prove_root();  // M3 H2 (prover.cpp)
 
     void do_move(Position& pos, const Move move, StateInfo& st, Stack* const ss);
     void

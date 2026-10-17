@@ -192,8 +192,9 @@ class TestCLI(metaclass=OrderedClassMembers):
                 network = line.split(" ")[-1]
                 break
 
-        # find network file in src dir
-        network = os.path.join(PATH.parent.resolve(), "src", network)
+        # find network file in src dir (layout di Stockfish: tests/../src; copia ibrida M3: tests/..)
+        candidates = [os.path.join(PATH.parent.resolve(), "src", network), os.path.join(PATH.parent.resolve(), network)]
+        network = next((c for c in candidates if os.path.exists(c)), candidates[0])
 
         if not os.path.exists(network):
             print(
@@ -597,6 +598,125 @@ class TestEnPassantSanitization(metaclass=OrderedClassMembers):
         self.stockfish.check_output(check_output)
         self.stockfish.expect("bestmove d8d7*")
 
+class TestProver(metaclass=OrderedClassMembers):
+    # M3 (spec §9.1, §12.1 punto 6): prover WinTree/df-pn alla radice. Posizioni: le 4 di matto/stallo del bench di
+    # Stockfish (benchmark.cpp) e un campione di mates2000 (vondele/matetrack, ../../tests/suites/mates2000.epd:
+    # id, FEN, N = "il tratto matta in N"). Il prover trova un matto, non il piu' corto: la N provata e' >= quella
+    # dichiarata (limite superiore della DTM, I6); mossa dell'info string, bestmove e punteggio devono coincidere.
+    MATES2000 = [
+        (1, "7n/BBP2P1P/8/P1PpK3/P5RR/5k2/Pn2NPN1/3Q2b1 w - d6 0 1", 1),
+        (7, "3R4/8/8/2p3K1/2p5/5B2/R1pPNB2/1b1k4 w - - 0 1", 2),
+        (19, "1N3B2/5p2/2R2p2/1p1kpp2/1P2rp2/2P1pB2/2P1P1K1/8 w - - 0 1", 3),
+        (51, "1B5b/1p1N4/1Pp5/2P3p1/K1pk3p/2N5/2nP1p2/1b3B2 w - - 0 1", 4),
+        (120, "1R5B/2p1K3/8/5p1p/B7/P1N2p2/1P3P2/r1k2N1r w - - 0 1", 5),
+        (249, "1bB5/1P2p2r/8/2RRp3/1p2k1pB/3pP1K1/n2PpP2/2N1rb2 w - - 0 1", 6),
+        (660, "1K4n1/1N6/k2pp3/8/3N1p2/1R5b/pp6/2b5 w - - 0 1", 7),
+        (1144, "1B6/8/8/7p/8/8/P4K2/7k w - - 0 1", 8),
+        (1391, "1N6/8/1B6/Pk6/8/1K3p2/3P4/8 w - - 0 1", 9),
+        (1579, "1K2b3/3k1p2/3B1p2/3R3P/3P1P2/2P2p2/p7/7r w - - 0 1", 10),
+        (1691, "1b5k/6pP/R5P1/p7/p5b1/p7/P7/4K3 w - - 0 1", 11),
+        (1773, "1b3r1k/5pp1/6p1/5p1B/4p3/2pp3R/2r5/KQ6 w - - 0 1", 12),
+        (1920, "1R2B1b1/5p2/1b2p3/2pp4/8/8/1p1K4/k6n w - - 0 1", 15),
+        (1983, "1r6/5q1r/1n4p1/2N2p2/p3p3/p1KpR1R1/b1B5/k7 w - - 0 1", 20),
+    ]
+
+    def beforeAll(self):
+        self.stockfish = Stockfish()
+        self.stockfish.send_command("uci")
+        self.stockfish.equals("uciok")
+        self.stockfish.setoption("Prover", "mate")
+
+    def afterAll(self):
+        self.stockfish.quit()
+        assert self.stockfish.close() == 0
+
+    def afterEach(self):
+        assert postfix_check(self.stockfish.get_output()) == True
+        self.stockfish.clear_output()
+
+    def _go(self, fen, go="go depth 5"):
+        """Esegue `go` sulla posizione; restituisce (N provata, mossa provata) o None, l'ultimo `score mate` e la bestmove."""
+        self.stockfish.send_command("ucinewgame")
+        self.stockfish.send_command(f"position fen {fen}")
+        self.stockfish.send_command(go)
+        proven, mate, best = None, None, None
+        for line in self.stockfish.readline():
+            m = re.match(r"info string prover: proven mate in (\d+) move (\S+)", line)
+            if m:
+                proven = (int(m.group(1)), m.group(2))
+            m = re.search(r" score mate (-?\d+) ", line)
+            if m:
+                mate = int(m.group(1))
+            if line.startswith("bestmove"):
+                best = line.split()[1]
+                break
+        return proven, mate, best
+
+    def _check_mate(self, fen, n, go="go depth 5"):
+        proven, mate, best = self._go(fen, go)
+        assert proven is not None, f"nessun 'info string prover: proven mate' per {fen}"
+        assert proven[1] == best, f"bestmove {best} diversa dalla mossa provata {proven[1]}"
+        assert mate == proven[0], f"score mate {mate} diverso dalla N provata {proven[0]}"
+        assert proven[0] >= n, f"N provata {proven[0]} minore del matto dichiarato in {n}"
+
+    def test_bench_mate_in_5_black(self):
+        self._check_mate("6k1/3b3r/1p1p4/p1n2p2/1PPNpP1q/P3Q1p1/1R1RB1P1/5K2 b - - 0 1", 5)
+
+    def test_bench_mate_in_4_white(self):
+        proven, mate, best = self._go("r2r1n2/pp2bk2/2p1p2p/3q4/3PN1QP/2P3R1/P4PP1/5RK1 w - - 0 1")
+        assert proven == (4, "g4g7") and best == "g4g7" and mate == 4
+
+    def test_bench_stalemate_no_prover(self):
+        proven, mate, best = self._go("8/8/8/8/8/6k1/6p1/6K1 w - - 0 1")
+        assert proven is None and best == "(none)"
+
+    def test_bench_mated_no_prover(self):
+        proven, mate, best = self._go("7k/7P/6K1/8/3B4/8/8/8 b - - 0 1")
+        assert proven is None and best == "(none)"
+
+    def test_mates2000_sample(self):
+        for _, fen, n in self.MATES2000:
+            self._check_mate(fen, n)
+
+    def test_go_mate_stops_on_proof(self):
+        proven, mate, best = self._go("r2r1n2/pp2bk2/2p1p2p/3q4/3PN1QP/2P3R1/P4PP1/5RK1 w - - 0 1", "go mate 4")
+        assert proven == (4, "g4g7") and best == "g4g7" and mate == 4
+
+    def test_prover_off_no_output(self):
+        self.stockfish.setoption("Prover", "off")
+        proven, mate, best = self._go("r2r1n2/pp2bk2/2p1p2p/3q4/3PN1QP/2P3R1/P4PP1/5RK1 w - - 0 1")
+        assert proven is None and best is not None
+        self.stockfish.setoption("Prover", "mate")
+
+    def test_prover_auto_startpos_no_trigger(self):
+        self.stockfish.setoption("Prover", "auto")
+        self.stockfish.send_command("ucinewgame")
+        self.stockfish.send_command("position startpos")
+        self.stockfish.send_command("go nodes 2000")
+        for line in self.stockfish.readline():
+            assert not line.startswith("info string prover")
+            if line.startswith("bestmove"):
+                break
+
+    def test_prover_auto_go_mate_triggers(self):
+        proven, mate, best = self._go("r2r1n2/pp2bk2/2p1p2p/3q4/3PN1QP/2P3R1/P4PP1/5RK1 w - - 0 1", "go mate 4")
+        assert proven == (4, "g4g7") and best == "g4g7"
+
+    def test_prover_draw_dead_position(self):
+        self.stockfish.setoption("Prover", "draw")
+        self.stockfish.send_command("ucinewgame")
+        self.stockfish.send_command("position fen 8/8/8/8/8/4k3/8/4KB2 w - - 0 1")
+        self.stockfish.send_command("go depth 5")
+        self.stockfish.starts_with("info string prover: proven draw-or-better")
+        self.stockfish.starts_with("bestmove")
+        self.stockfish.setoption("Prover", "mate")
+
+    def test_prover_invalid_value(self):
+        self.stockfish.send_command("setoption name Prover value zzz")
+        self.stockfish.expect("*Prover: invalid value 'zzz'*")
+        self.stockfish.setoption("Prover", "mate")
+
+
 class TestInvalidFEN(metaclass=OrderedClassMembers):
     def beforeEach(self):
         self.stockfish = None
@@ -743,6 +863,7 @@ if __name__ == "__main__":
             TestCLI,
             TestInteractive,
             TestSyzygy,
+            TestProver,
             TestEnPassantSanitization,
             TestInvalidFEN,
             TestInvalidOptions,

@@ -124,7 +124,10 @@ inline Certificate verify_draw_strategy(const std::string& rootFen, Stockfish::C
                 if (ce.status == Status::UNKNOWN_CYCLE && e.status == Status::UNKNOWN_CYCLE && !nil) nil = m;
             }
         if (!choice) choice = nil;
-        if (!choice) { c.fail("nessuna mossa del difensore in " + pos.fen()); break; }
+        if (!choice) {                     // lo stato dell'entry distingue entry sostituita, sink dipendente dal contatore e taint non chiuso (G2)
+            c.fail(std::string("nessuna mossa del difensore (entry ") + (!same_goal(data, goal) ? "assente" : e.status == Status::PROVEN_NOWIN ? "PROVEN_NOWIN" : e.status == Status::UNKNOWN_CYCLE ? "UNKNOWN_CYCLE" : "UNKNOWN_BUDGET") + ") in " + pos.fen());
+            break;
+        }
         push(choice);
     }
     return c;

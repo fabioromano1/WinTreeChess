@@ -22,7 +22,7 @@ template<class G>
 class DfPn {
     using Move = typename G::Move;
     static constexpr int MAX_CHILDREN = 256;
-    static constexpr u64 CHECK_EVERY = 1024;
+    static constexpr u64 CHECK_EVERY = 64;                        // scadenza controllata ogni ~1 ms (M3: budget di pochi ms in partita)
     static constexpr u64 INF = u64(1) << 62;                       // infinito vero: prova (dn) o confutazione (pn)
     static constexpr u64 SAT = u64((u32(1) << 25) - 1) << 31;     // massimo finito codificabile in tabella (~2^56)
 
@@ -46,7 +46,7 @@ class DfPn {
         return u64(1) << 62 | u64(goal & 1) << 61 | u64(d >> 25) << 56 | u64(p) << 25 | u64(d & ((1u << 25) - 1));
     }
 
-    struct Node { u64 pn = 1, dn = 1; bool tainted = false, fresh = false, invalid = false, proven = false; u8 rr = 0; u16 d = 0, move = 0; };
+    struct Node { u64 pn = 1, dn = 1; bool tainted = false, fresh = false, invalid = false, proven = false, tb = false; u8 rr = 0; u16 d = 0, move = 0; };
 
     G& g; ProofTable& pt; u8 goal; Goal mode; double eps;
     Budget b; u64 nodes_ = 0, moves_ = 0, andNodes_ = 0, plySum_ = 0; bool aborted_ = false; int maxPly_ = 0;
@@ -61,7 +61,7 @@ class DfPn {
             if (ProofTable::proven(data)) {
                 u32 h; Result e = ProofTable::unpack(data, h);
                 bool win = e.status == Status::PROVEN_WIN;
-                n.proven = true;
+                n.proven = true; n.tb = e.tbLeaf;
                 if (win ? g.rule50() + e.rev <= 100 : g.rule50() >= e.req) {
                     n.pn = win ? 0 : INF; n.dn = win ? INF : 0; n.rr = win ? e.rev : e.req; n.d = e.d; n.move = e.move;
                     return n;
@@ -110,7 +110,7 @@ class DfPn {
         if (t != Terminal::NONE) {
             bool tw = t == Terminal::WIN_GOAL || t == Terminal::WIN_GOAL_C0;
             u8 r50 = t == Terminal::WIN_GOAL_C0 || t == Terminal::NOWIN_GOAL_C100 ? 100 : 0;
-            put(ProofTable::pack_proven(tw, 0, goal, r50, 0));
+            put(ProofTable::pack_proven(tw, 0, goal, r50, 0, t == Terminal::WIN_GOAL_C0));   // foglia TB: tbLeaf (§7.8)
             return;
         }
         if (ply >= b.maxDepth) { put(ProofTable::pack_unknown(true, 0, -1, 0, goal)); return; }   // tetto: confutazione tainted
@@ -140,13 +140,13 @@ class DfPn {
         }
         if (pn != 0 && dn != 0) { put(pack_open(pn, dn, goal)); return; }
         // Risolto: testimone, rev/req (§7.5), d (Thm 3.6) e taint dai figli (stessa tabella dell'ultima scansione).
-        bool win = pn == 0, tainted = false, clean = false; u16 mv = 0, d = 0; u8 rr = 0;
+        bool win = pn == 0, tainted = false, clean = false, tb = false; u16 mv = 0, d = 0; u8 rr = 0;
         for (int i = 0; i < ch.n; i++) {
             Move m = ch.first[i]; bool rv = g.reversible(m);
             Node c = child(m, ply, i);
             if (win) {
                 if (c.pn != 0) { WT_ASSERT(orNode); continue; }                  // AND provato: tutti i figli provati
-                rr = std::max<int>(rr, rv ? std::min(127, c.rr + 1) : 1); d = u16(std::max<int>(d, std::min(255, c.d + 1)));
+                rr = std::max<int>(rr, rv ? std::min(127, c.rr + 1) : 1); d = u16(std::max<int>(d, std::min(255, c.d + 1))); tb |= c.tb;
                 if (orNode) { mv = G::code(m); break; }
             } else {
                 if (c.dn != 0) { WT_ASSERT(!orNode); continue; }                 // OR confutato: tutti i figli confutati
@@ -157,7 +157,7 @@ class DfPn {
         }
         if (!win && !orNode && !clean) tainted = true;
         WT_ASSERT(!(win && tainted));                                              // I1: una prova non usa ripetizioni
-        put(tainted ? ProofTable::pack_unknown(true, 0, -1, 0, goal) : ProofTable::pack_proven(win, d, goal, rr, mv));
+        put(tainted ? ProofTable::pack_unknown(true, 0, -1, 0, goal) : ProofTable::pack_proven(win, d, goal, rr, mv, tb));
     }
 
   public:

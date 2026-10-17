@@ -212,6 +212,8 @@ void Search::Worker::start_searching() {
         return;
     }
 
+    prove_root();  // M3 H2: prover sincrono alla radice, helper ancora fermi (spec §6.2, §8.5)
+
     // Main thread starts non-main threads, and begins own search
     threads.start_searching();
     bool uciPvSent = iterative_deepening();
@@ -243,6 +245,21 @@ void Search::Worker::start_searching() {
 
     if (!limits.depth && !skill.enabled())
         bestThread = threads.get_best_thread()->worker.get();
+
+    // M3 H4 (spec §6.2 punto 5): una PROVEN_WIN(us) certificata alla radice decide mossa, punteggio e PV
+    const Prover::RootProof& proof = main_manager()->rootProof;
+    if (proof.proven)
+    {
+        Utility::move_to_front(bestThread->rootMoves,
+                               [&proof](const auto& rm) { return rm == proof.move; });
+        if (bestThread->rootMoves[0] == proof.move)
+        {
+            bestThread->rootMoves[0].score = bestThread->rootMoves[0].uciScore = proof.value;
+            bestThread->rootMoves[0].pv.assign(proof.pv.begin(), proof.pv.end());
+            bestThread->rootMoves[0].unset_inexact();
+            uciPvSent = false;
+        }
+    }
 
     main_manager()->bestPreviousScore        = bestThread->rootMoves[0].score;
     main_manager()->bestPreviousAverageScore = bestThread->rootMoves[0].averageScore;
@@ -550,6 +567,16 @@ bool Search::Worker::iterative_deepening() {
         if (limits.mate && !threads.stop && is_mate_or_mated(rootMoves[0].score)
             && VALUE_MATE - std::abs(rootMoves[0].score) <= 2 * limits.mate)
             threads.stop = true;
+
+        // M3 H5: una vittoria certificata alla radice ferma la ricerca come `go mate` (ponder rispettato)
+        if (mainThread && mainThread->rootProof.proven && !threads.stop && !limits.infinite
+            && (!limits.mate || mainThread->rootProof.d <= 2 * limits.mate))
+        {
+            if (mainThread->ponder)
+                mainThread->stopOnPonderhit = true;
+            else
+                threads.stop = true;
+        }
 
         if (!mainThread)
             continue;
@@ -917,6 +944,31 @@ Value Search::Worker::search(
     {
         // If such a mismatch is the only reason cutoff failed, the TT entry is now useless
         ttWriter.penalize(1);
+    }
+
+    // M3 H3. Proof table probe (spec §7.8, §8.5): i limiti dimostrati entrano come i WDL dello Step 7
+    if (!rootNode && !excludedMove && Prover::mode != Prover::OFF && depth >= Prover::probeDepth)
+    {
+        Prover::Hit hits[2];
+        for (int i = 0, n = Prover::probe(pos, ss->ply, hits); i < n; ++i)
+        {
+            if (hits[i].bound == BOUND_LOWER ? hits[i].value >= beta : hits[i].value <= alpha)
+            {
+                ttWriter.write(posKey, value_to_tt(hits[i].value, ss->ply), ss->ttPv, hits[i].bound,
+                               std::min(MAX_PLY - 1, depth + 6), Move::none(), VALUE_NONE,
+                               tt.generation());
+
+                return hits[i].value;
+            }
+
+            if (PvNode)
+            {
+                if (hits[i].bound == BOUND_LOWER)
+                    bestValue = hits[i].value, alpha = std::max(alpha, bestValue);
+                else
+                    maxValue = hits[i].value;
+            }
+        }
     }
 
     // Step 7. Tablebases probe

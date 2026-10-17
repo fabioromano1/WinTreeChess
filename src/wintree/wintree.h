@@ -48,6 +48,7 @@ struct Result {
     u8   rev   = 0;      // PROVEN_WIN: valida con contatore c se c + rev <= 100 (§7.5)
     u8   req   = 0;      // PROVEN_NOWIN: valida con contatore c se c >= req (§7.5)
     u16  move  = 0;      // PROVEN: mossa testimone (OR vinto / AND confutato) codificata da G::code, 0 = nessuna
+    bool tbLeaf = false; // PROVEN_WIN: la prova usa almeno una foglia TB (§7.8: banda TB, mai "mate N"; M3)
     bool proven() const { return status >= Status::PROVEN_WIN; }
 };
 
@@ -65,8 +66,8 @@ template<class T> struct Span { const T* first; int n; };
 
 // Proof table (§8.3): bucket di WAYS entry (una linea di cache), ogni entry di due parole w0 = key ^ data, w1 = data;
 // l'entry vale solo se (w0 ^ w1) == key. data: bit 63..62 status (00 vuoto, 01 UNKNOWN, 10 PROVEN_WIN, 11
-// PROVEN_NOWIN), 61 goal, 54..47 d (PROVEN_WIN) o resid (UNKNOWN_BUDGET). PROVEN: 46..40 rev/req (7 bit), 39..24
-// mossa (16 bit). UNKNOWN: 55 kind (0 BUDGET, 1 CYCLE), 46..39 p+1 (UNKNOWN_CYCLE), 38..7 hash del prefisso (32 bit:
+// PROVEN_NOWIN), 61 goal, 54..47 d (PROVEN_WIN) o resid (UNKNOWN_BUDGET). PROVEN: 55 tbLeaf (M3, §7.8), 46..40
+// rev/req (7 bit), 39..24 mossa (16 bit). UNKNOWN: 55 kind (0 BUDGET, 1 CYCLE), 46..39 p+1 (UNKNOWN_CYCLE), 38..7 hash del prefisso (32 bit:
 // la spec ne prevede 16, 32 rendono trascurabili i falsi positivi nei test). Il nucleo df-pn (dfpn.h) usa per i nodi
 // irrisolti (kind 0) un layout proprio con (pn, dn) al posto di resid/p/hash, e kind 1 per le confutazioni tainted.
 class ProofTable {
@@ -118,8 +119,8 @@ class ProofTable {
         }
         return base;
     }
-    static u64 pack_proven(bool win, u16 d, u8 goal, u8 r50, u16 move) {
-        return (win ? u64(2) : u64(3)) << 62 | u64(goal & 1) << 61 | u64(d > 255 ? 255 : d) << 47
+    static u64 pack_proven(bool win, u16 d, u8 goal, u8 r50, u16 move, bool tbLeaf = false) {
+        return (win ? u64(2) : u64(3)) << 62 | u64(goal & 1) << 61 | u64(tbLeaf) << 55 | u64(d > 255 ? 255 : d) << 47
              | u64(r50 > 127 ? 127 : r50) << 40 | u64(move) << 24;
     }
     static u64 pack_unknown(bool cycle, u16 resid, i16 p, u32 h, u8 goal) {
@@ -135,6 +136,7 @@ class ProofTable {
         if (r.proven()) {
             (r.status == Status::PROVEN_WIN ? r.rev : r.req) = u8(d >> 40 & 127);
             r.move = u16(d >> 24);
+            r.tbLeaf = d >> 55 & 1;
             h = 0;
         } else {
             r.p = i16(int(d >> 39 & 255) - 1);

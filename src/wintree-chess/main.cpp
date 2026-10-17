@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cstring>
+#include <fstream>
 #include <iostream>
 #include <memory>
 #include <random>
@@ -194,11 +195,64 @@ void g0(int count, u64 seed, const Cfg& base, u64 nodes, u64 moves, int hashLog2
     expect(n[S_CERT_DRAW_BAD] == 0, "nessuna strategia di patta con terminale vinto dal goal");
 }
 
+// G2 (§11, §12.2). Valutazione di una posizione: WDL locale (FAIL oltre la cardinalità delle TB caricate) e Stockfish
+// in-process senza TB (`go movetime ms`, un thread, tabella azzerata); goal = il lato che Stockfish crede in vantaggio;
+// eval e wdl riportati dal punto di vista del goal. Riga EPD: `<fen> c0 "goal=<lato> eval=<cp> wdl=<WDL|?>";`.
+struct G2 { int cp = 0, wdl = 0; bool tb = false; Color goal = WHITE; };
+
+G2 g2_eval(Game& g, int ms, WinTree::SfEngine& sf) {
+    G2 r; Tablebases::ProbeState ps; r.wdl = Tablebases::probe_wdl(g.pos, &ps); r.tb = ps != Tablebases::FAIL;
+    sf.clear(); sf.go(g.pos.fen(), {}, ms); r.cp = sf.cp();
+    Color stm = g.pos.side_to_move(); r.goal = r.cp >= 0 ? stm : ~stm;
+    if (r.goal != stm) { r.cp = -r.cp; r.wdl = -r.wdl; }
+    return r;
+}
+
+std::string g2_epd(const std::string& fen4, const G2& r) {
+    return fen4 + " c0 \"goal=" + (r.goal == WHITE ? "white" : "black") + " eval=" + std::to_string(r.cp) + " wdl=" + (r.tb ? std::to_string(r.wdl) : "?") + "\";";
+}
+
+// Corpus (a): posizioni casuali legali a 6 pezzi con almeno un pedone, WDL 6-man |wdl| <= 1 (patta regolamentare per
+// entrambi i lati), tenute se |eval| > 150 cp a `ms` (dopo un prefiltro a ms/10 che scarta le patte già entro 100 cp).
+// `count` = campioni estratti; le righe EPD vanno su stdout, il bilancio su stderr.
+void g2_sample(int count, u64 seed, int ms, WinTree::SfEngine& sf) {
+    std::mt19937_64 rng(seed); int draws = 0, kept = 0;
+    for (int i = 0; i < count; i++) {
+        Game g; std::string err, fen;
+        do fen = random_fen(rng, 6); while (fen.find_first_of("Pp") == std::string::npos || !g.set(fen, {}, err) || MoveList<LEGAL>(g.pos).size() == 0);
+        Tablebases::ProbeState ps; int wdl = Tablebases::probe_wdl(g.pos, &ps);
+        if (ps == Tablebases::FAIL || std::abs(wdl) > 1) continue;
+        draws++;
+        sf.clear(); sf.go(fen, {}, ms / 10);                       // prefiltro a ms/10: quasi ogni patta è già entro 100 cp
+        if (std::abs(sf.cp()) <= 100) continue;
+        G2 r = g2_eval(g, ms, sf);
+        if (std::abs(r.cp) <= 150) continue;
+        kept++; std::cout << g2_epd(fen.substr(0, fen.size() - 4), r) << std::endl;
+    }
+    std::cerr << "g2sample seme " << seed << ": " << count << " campioni, " << draws << " patte WDL, " << kept << " con |eval| > 150\n";
+}
+
+// `--g2eval FILE`: aggiunge (o sostituisce) il campo c0 a ogni riga EPD del file, conservando gli altri opcode.
+void g2_eval_file(const std::string& path, int ms, WinTree::SfEngine& sf) {
+    std::ifstream in(path); std::string line;
+    while (std::getline(in, line)) {
+        std::istringstream is(line); std::string f[4];
+        if (line.empty() || line[0] == '#' || !(is >> f[0] >> f[1] >> f[2] >> f[3])) { std::cout << line << "\n"; continue; }
+        std::string fen4 = f[0] + " " + f[1] + " " + f[2] + " " + f[3], rest; std::getline(is, rest);
+        size_t a = rest.find("c0 \""), b = a == std::string::npos ? a : rest.find("\";", a);
+        if (b != std::string::npos) rest.erase(a, b + 2 - a);
+        Game g; std::string err;
+        if (!g.set(fen4 + " 0 1", {}, err)) { std::cerr << "riga scartata (" << err << "): " << line << "\n"; continue; }
+        std::cout << g2_epd(fen4, g2_eval(g, ms, sf)) << rest << std::endl;
+    }
+}
+
 int usage() {
     std::cerr << "uso: wintree-chess --fen \"<fen>\" [--moves m1 m2 ...] [--goal white|black] [--mode win|nowin] [--nodes N] [--domove N] [--depth D] [--time S]\n"
                  "                   [--core dfpn|wintree|base] [--eps E] [--noinit] [--order cold|warm|random --nnue PATH --warm-ms MS] [--tb PATH] [--tbmax K] [--hash MiB] [--verify]\n"
                  "     wintree-chess --regress [--core ...] [--tb PATH] [--hash MiB]\n"
                  "     wintree-chess --g0 N [--core ...] [--seed S] [--nodes N] [--domove N] [--threads T] --tb PATH [--hash MiB]\n"
+                 "     wintree-chess --g2sample N | --g2eval FILE.epd  --nnue PATH --tb PATH [--seed S] [--warm-ms MS]\n"
                  "     wintree-chess --suite FILE.epd [--step K] [--count N] [--solvers dfpn,dfpn-warm,base,warm,sf,...] [--time S] [--warm-ms MS]\n"
                  "                   [--threads T] [--nnue PATH] [--csv FILE] [--hash MiB] [--dfpn-rep loss|unknown]\n"
                  "     wintree-chess --b2 FILE.epd [--count N] [--depth D] [--csv FILE]\n";
@@ -208,8 +262,8 @@ int usage() {
 }  // namespace
 
 int main(int argc, char** argv) {
-    std::string fen = StartFEN, tb, nnue, suite, b2, csv, solvers = "cold,warm,dfpn,dfpn-warm,sf"; std::vector<std::string> moves;
-    int goal = -1, depth = 0, tbmax = -1, hashMiB = 64, g0n = 0, threads = int(std::thread::hardware_concurrency()), step = 1, count = 0, warmMs = 100;
+    std::string fen = StartFEN, tb, nnue, suite, b2, csv, g2eval, solvers = "cold,warm,dfpn,dfpn-warm,sf"; std::vector<std::string> moves;
+    int goal = -1, depth = 0, tbmax = -1, hashMiB = 64, g0n = 0, g2n = 0, threads = int(std::thread::hardware_concurrency()), step = 1, count = 0, warmMs = 100;
     u64 nodes = 1000000, domove = ~u64(0) >> 1, seed = 1; double secs = 0, eps = 0.25; bool repLoss = true, heur = true;
     WinTree::Core core = WinTree::Core::DFPN;
     WinTree::Order order = WinTree::Order::COLD;
@@ -244,6 +298,8 @@ int main(int argc, char** argv) {
         else if (a == "--verify") doVerify = true;
         else if (a == "--regress") doRegress = true;
         else if (a == "--g0") g0n = std::atoi(next());
+        else if (a == "--g2sample") g2n = std::atoi(next());
+        else if (a == "--g2eval") g2eval = next();
         else if (a == "--seed") seed = std::strtoull(next(), nullptr, 10);
         else if (a == "--threads") threads = std::atoi(next());
         else return usage();
@@ -260,6 +316,13 @@ int main(int argc, char** argv) {
         g0(g0n, seed, cfg, nodes, domove, hashLog2, std::max(threads, 1));
     }
     if (doRegress || g0n) { std::cout << (failures ? "FALLITI: " + std::to_string(failures) : std::string("tutto OK")) << "\n"; return failures ? 1 : 0; }
+
+    if (g2n || !g2eval.empty()) {                             // G2: corpus (a) e valutazione di un EPD (Stockfish senza TB)
+        if (nnue.empty()) { std::cerr << "--g2sample/--g2eval richiedono --nnue PATH (e --tb con le 6-man per il WDL)\n"; return 2; }
+        WinTree::SfEngine sf(nnue); sf.set("SyzygyProbeLimit", "0");
+        if (g2n) g2_sample(g2n, seed, warmMs, sf); else g2_eval_file(g2eval, warmMs, sf);
+        return 0;
+    }
 
     if (!suite.empty() || !b2.empty()) {                      // benchmark di §9.4 (bench.h)
         std::string err; std::vector<WinTree::Epd> epd = WinTree::read_epd(suite.empty() ? b2 : suite, step, b2.empty() ? count : 0, err);

@@ -8,7 +8,7 @@ error()
 }
 trap 'error ${LINENO}' ERR
 
-echo "reprosearch testing started"
+echo "reprosearch testing started (Prover=${PROVER:-off})"
 
 # repeat two short games, separated by ucinewgame.
 # with go nodes $nodes they should result in exactly
@@ -20,6 +20,7 @@ cat << EOF > repeat.exp
 
  send "uci\n"
  expect "uciok"
+ send "setoption name Prover value ${PROVER:-off}\n"
 
  send "ucinewgame\n"
  send "position startpos\n"

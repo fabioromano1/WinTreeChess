@@ -36,6 +36,7 @@
 #include "nnue/nnue_common.h"
 #include "numa.h"
 #include "perft.h"
+#include "prover.h"
 #include "position.h"
 #include "search.h"
 #include "shm.h"
@@ -138,6 +139,42 @@ Engine::Engine(std::optional<std::filesystem::path> path) :
           return std::nullopt;
       }));
 
+    // WinTree prover (M3, spec §8.5 H1). `Prover` è una string (il tipo combo non è usabile in SF 19: la
+    // validazione rifiuta i token "var" ripetuti); false/true valgono off/auto.
+    options.add(  //
+      "Prover", Option("off", [](const Option& o) -> std::optional<std::string> {
+          std::string v = o;
+          Prover::Mode m = v == "off" || v == "false" ? Prover::OFF
+                         : v == "auto" || v == "true" ? Prover::AUTO
+                         : v == "mate"                ? Prover::MATE
+                         : v == "draw"                ? Prover::DRAW
+                                                      : Prover::OFF;
+          Prover::set_mode(m);
+          if (m == Prover::OFF && v != "off" && v != "false")
+              return "Prover: invalid value '" + v + "' (off, auto, mate or draw); prover off.";
+          return std::nullopt;
+      }));
+
+    options.add("ProverHash", Option(16, 1, 65536, [](const Option& o) {
+        Prover::set_hash(int(o));
+        return std::nullopt;
+    }));
+
+    options.add("ProverBudget", Option(100, 0, 1000, [](const Option& o) {
+        Prover::budgetPermille = int(o);
+        return std::nullopt;
+    }));
+
+    options.add("ProverMaxNodes", Option(1000000, 0, 1000000000, [](const Option& o) {
+        Prover::maxNodes = int(o);
+        return std::nullopt;
+    }));
+
+    options.add("ProverProbeDepth", Option(6, 1, 100, [](const Option& o) {
+        Prover::probeDepth = int(o);
+        return std::nullopt;
+    }));
+
     threads.clear();
     threads.ensure_network_replicated();
     resize_threads();
@@ -163,6 +200,7 @@ void Engine::search_clear() {
 
     tt.clear(threads);
     threads.clear();
+    Prover::clear();  // H7
 
     // TODO: does not work with multiple instances
     Tablebases::init(options["SyzygyPath"]);  // Free mapped files

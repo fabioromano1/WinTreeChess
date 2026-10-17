@@ -52,6 +52,8 @@ class SfEngine {
         e.go(l); e.wait_for_search_finished();
         return last.is<Stockfish::Score::Mate>() ? last.get<Stockfish::Score::Mate>().plies : 0;
     }
+    // Punteggio dell'ultima info in centipawn per il tratto (matto = ±10000; nessuna info = 0).
+    int cp() const { return last.is<Stockfish::Score::InternalUnits>() ? last.get<Stockfish::Score::InternalUnits>().value : last.is<Stockfish::Score::Mate>() ? (last.get<Stockfish::Score::Mate>().plies > 0 ? 10000 : -10000) : 0; }
     Stockfish::TimePoint ms() const { return lastMs; }
     u64 nodes() const { return lastNodes; }
 };

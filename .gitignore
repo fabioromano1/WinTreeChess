@@ -24,3 +24,4 @@ src/stockfish-hybrid/.depend
 src/stockfish-hybrid/profdir/
 src/stockfish-hybrid/tests/bench_tmp.epd
 src/stockfish-hybrid/tests/syzygy/
+src/stockfish-hybrid/.build_*.txt

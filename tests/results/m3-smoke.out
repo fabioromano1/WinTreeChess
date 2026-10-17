@@ -1,0 +1,19 @@
+# M3 (e) — 200 partite di fumo fastchess, Prover=auto vs Prover=off (2026-10-17, binario con le correzioni di tempo)
+
+Results of prover-auto vs prover-off (10+0.1, 1t, 16MB, openings.epd):
+Elo: 5.21 +/- 16.31, nElo: 15.40 +/- 48.15
+LOS: 73.46 %, DrawRatio: 80.00 %, PairsRatio: 1.22
+Games: 200, Wins: 62, Losses: 59, Draws: 79, Points: 101.5 (50.75 %)
+Ptnml(0-2): [0, 9, 80, 10, 1], WL/DD Ratio: 1.67
+--------------------------------------------------
+
+Terminazioni:
+     89 1-0 {White mates}
+     62 1/2-1/2 {Draw by 3-fold repetition}
+     31 0-1 {Black mates}
+     12 1/2-1/2 {Draw by insufficient mating material}
+      3 1/2-1/2 {Draw by stalemate}
+      2 1/2-1/2 {Draw by fifty moves rule}
+      1 0-1 {White loses on time (9ms overrun)}
+
+Prima corsa (binario prima delle correzioni, 116 partite): 1 perdita per il tempo di prover-auto (104 ms).
