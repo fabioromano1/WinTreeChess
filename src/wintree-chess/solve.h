@@ -117,11 +117,10 @@ inline std::string describe(const Result& r) {
     default:                     return "UNKNOWN_BUDGET resid=" + std::to_string(r.resid);
     }
 }
-inline const char* status_name(Status s) { static const char* n[] = {"UNKNOWN_BUDGET", "UNKNOWN_CYCLE", "PROVEN_WIN", "PROVEN_NOWIN"}; return n[int(s)]; }
 
 // Verifica (§7.9) dell'esito di una ricerca completa: albero vincente per PROVEN_WIN, grafo di strategia di patta
 // per PROVEN_NOWIN e per una radice UNKNOWN_CYCLE (completa per I2). UNKNOWN_BUDGET: nulla da verificare.
-inline Certificate verify(Stockfish::Position& pos, Stockfish::Color goal, const Result& r, int tbMax, const ProofTable& pt, int depth) {
+inline Certificate verify(Stockfish::Position& pos, Stockfish::Color goal, const Result& r, int tbMax, ProofTable& pt, int depth) {
     if (r.status == Status::PROVEN_WIN) return WinTreeVerifier(pos, goal, tbMax, pt, depth).run();
     if (r.status == Status::UNKNOWN_BUDGET) { Certificate c; c.fail("UNKNOWN_BUDGET: nessun oggetto di prova"); return c; }
     return verify_draw_strategy(pos.fen(), goal, tbMax, pt);
@@ -129,7 +128,8 @@ inline Certificate verify(Stockfish::Position& pos, Stockfish::Color goal, const
 
 inline std::string describe(const Certificate& c) {
     return (c.ok ? "certificato" : "NON certificato (" + c.why + ")") + std::string(": nodi ") + std::to_string(c.nodes)
-         + " foglie " + std::to_string(c.leaves) + " TB " + std::to_string(c.tbLeaves) + (c.depth ? " profondità " + std::to_string(c.depth) : "");
+         + " foglie " + std::to_string(c.leaves) + " TB " + std::to_string(c.tbLeaves) + (c.depth ? " profondità " + std::to_string(c.depth) : "")
+         + (c.researches ? " ri-ricerche " + std::to_string(c.researches) : "");
 }
 
 }  // namespace WinTree

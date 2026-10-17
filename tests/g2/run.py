@@ -27,7 +27,8 @@ def run(row, a):
     r = dict(row, tbmax=a.tbmax, time=a.time, status=g(r"esito (\S+)"), req=g(r"req=(\d+)"), resid=g(r"resid=(\d+)"),
              nodes=g(r"nodi (\d+) do_move"), domove=g(r"do_move (\d+)"), secs=g(r"tempo (\S+) s"), cpu=g(r"cpu (\S+) s"),
              maxply=g(r"ply massimo (\d+)"), cert=int("verifica certificato" in out), why=g(r"NON certificato \((.*)\): nodi"),
-             cert_nodes=g(r"verifica .*: nodi (\d+)"), cert_leaves=g(r"foglie (\d+)"), cert_tb=g(r"foglie \d+ TB (\d+)"))
+             cert_nodes=g(r"verifica .*: nodi (\d+)"), cert_leaves=g(r"foglie (\d+)"), cert_tb=g(r"foglie \d+ TB (\d+)"),
+             researches=g(r"ri-ricerche (\d+)", "0"))   # ri-ricerche locali del verificatore (nodi del difensore senza mossa)
     r["cause"] = cause(r)
     return r
 
@@ -39,7 +40,7 @@ def cause(r):
     w = r["why"]
     if "(entry assente)" in w: return "entry sostituita"
     if "(entry PROVEN_NOWIN)" in w: return "sink 50 mosse/ripetizione"
-    if "(entry UNKNOWN_CYCLE)" in w or "(entry UNKNOWN_BUDGET)" in w: return "taint alla radice senza grafo chiuso"   # figlio con entry aperta: sovrascritta da una ri-ricerca
+    if "(entry UNKNOWN_CYCLE)" in w or "(entry UNKNOWN_BUDGET)" in w or "(entry PROVEN_WIN)" in w: return "taint alla radice senza grafo chiuso"   # nodo del difensore senza figlio chiuso anche dopo le ri-ricerche locali
     return "altro: " + w[:60]
 
 def main():
@@ -51,7 +52,7 @@ def main():
     rows = read_epd(a.epd, a.count, a.step)
     with concurrent.futures.ThreadPoolExecutor(a.jobs) as ex: res = list(ex.map(lambda r: run(r, a), rows))
     cols = ["id", "fen", "pieces", "goal", "eval", "wdl", "tbmax", "time", "status", "req", "resid", "nodes", "domove", "secs", "cpu", "maxply",
-            "cert", "why", "cert_nodes", "cert_leaves", "cert_tb", "cause"]
+            "cert", "why", "cert_nodes", "cert_leaves", "cert_tb", "researches", "cause"]
     with open(a.csv, "w", newline="") as f:
         w = csv.DictWriter(f, cols); w.writeheader(); w.writerows(res)
     n = len(res); c = sum(r["cert"] for r in res)

@@ -163,14 +163,16 @@ class DfPn {
   public:
     DfPn(G& game, ProofTable& table, u8 goalSide, Goal m, double epsilon = 0.25) : g(game), pt(table), goal(goalSide), mode(m), eps(epsilon) {}
 
-    Result solve(const Budget& budget) {
+    // retaint: ricerca anche una radice con entry UNKNOWN_CYCLE (confutazione tainted da un altro cammino), con il
+    // cammino che parte da qui; l'esito risolto sovrascrive l'entry (verificatore §7.9.2, ri-ricerca locale).
+    Result solve(const Budget& budget, bool retaint = false) {
         b = budget; nodes_ = moves_ = andNodes_ = plySum_ = 0; aborted_ = false; maxPly_ = 0;
         int cap = mode == Goal::WIN ? 245 : 4096;        // §8.1: MAX_PLY - 1 in WIN; memoria (stack) in NOWIN
         if (b.maxDepth > cap) b.maxDepth = cap;
         path.assign(b.maxDepth + 2, 0);
         u64 k = g.key();
         Node n = lookup(k);
-        if (n.pn != 0 && n.dn != 0) { mid(0, INF, INF); n = lookup(k); }
+        if ((n.pn != 0 && n.dn != 0) || (retaint && n.tainted)) { mid(0, INF, INF); n = lookup(k); }
         Result r;
         if (n.pn == 0) { r.status = Status::PROVEN_WIN; r.d = n.d; r.rev = n.rr; r.move = n.move; }
         else if (n.dn == 0 && !n.tainted) { r.status = Status::PROVEN_NOWIN; r.req = n.rr; r.move = n.move; }

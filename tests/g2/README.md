@@ -109,6 +109,18 @@ da una ri-ricerca in un altro contesto di cammino (la confutazione tainted non �
 la rimpiazza con (pn, dn) aperti). Tutti e 6 i nodi hanno una donna appena promossa dal difensore. Rimedio possibile (non fatto):
 nel verificatore, ri-cercare localmente il nodo che fallisce con budget piccolo prima di rinunciare.
 
+**Esito (2026-10-18, ri-ricerca locale nel verificatore; `src/wintree-chess/README.md`, scostamento 16).** La diagnosi "entry sovrascritta"
+era sbagliata: contate le scritture di un'entry aperta sopra un'`UNKNOWN_CYCLE` della stessa chiave, 0 su tutte e 16 le radici a 100 s; al nodo
+bloccato i figli con entry sono aperti e non sono antenati nel grafo, perché la confutazione del nodo era la ripetizione di un antenato del
+*cammino di ricerca*, abbandonato aperto dal suo padre. Rimedio adottato: il verificatore ri-cerca il nodo bloccato dalla stessa tabella
+(`DfPn::solve(b, retaint = true)`, 10^6 `do_move`, al più 64 nodi distinti; riavvio dalla radice se il nodo resta senza mossa) e la chiusura
+riprende. Corsa ripetuta a 10 s (`g2-a-tb5-10s-v2.csv`, colonna `researches`, stessa contesa dello SPRT di G3, CPU/tempo mediano 0,89):
+**certificate 63/168 = 37,5 %** (prima 59), nessuna persa, +4 (id 3, 13, 80, 131: 16, 9, 1 e 4 ri-ricerche); 1 "taint senza grafo chiuso" residua
+(id 121: il nodo bloccato risulta `PROVEN_WIN`, la scelta a monte andrebbe rifatta ri-cercando il padre, non fatto); id 128 esce in budget a
+10,0 s invece di `UNKNOWN_CYCLE` a 9,6 s (contesa). Sulle 16 radici a 100 s: 10/16 certificate (3, 13, 29, 80, 113, 128, 131, 149, 153, 157,
+ri-ricerche 1-47, costo ≤ 1,5 s); restano 121 (sopra), 34 (entry evicted: 3·10^6 espansioni in 256 MiB) e 49, 54, 133, 144 (nodi che non si
+risolvono entro il budget; 49 è `UNKNOWN_BUDGET` anche da solo a 10 s). Il verdetto di G2 non cambia (35,1 % → 37,5 %, sempre riduzione a foglie TB).
+
 ### Set (c) — fortezze di letteratura (23 + 1 controllo)
 | # | Posizione | Pezzi | Goal | Eval SF | WDL | tb5-10s | tb6-10s | tb0-10s | tb6-100s |
 |---|---|---|---|---|---|---|---|---|---|
