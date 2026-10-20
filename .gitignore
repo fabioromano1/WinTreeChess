@@ -25,3 +25,8 @@ src/stockfish-hybrid/profdir/
 src/stockfish-hybrid/tests/bench_tmp.epd
 src/stockfish-hybrid/tests/syzygy/
 src/stockfish-hybrid/.build_*.txt
+# G3: PGN grezzi (in git solo games.pgn.xz, tranne quello di g3-nr: 17 MB), binario congelato, stato di fastchess
+tests/results/g3-*/games.pgn
+tests/results/g3-nr/games.pgn.xz
+tests/results/g3-*/config.json
+tests/results/g3-bin/
