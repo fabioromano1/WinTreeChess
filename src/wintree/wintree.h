@@ -1,7 +1,7 @@
 // WinTree: nucleo generico (spec §8.1, §8.3). C++17, nessuna dipendenza.
 // Algoritmo di Sez. 3 del paper con O1 corretto (P1), esiti a quattro livelli con flag cut (I1-I4),
-// budget cooperativo, tabella delle prove a due parole con xor-check, dejavu compatto (ply del
-// bloccante più profondo + hash del prefisso) con propagazione ai padri, intervalli di validità sul
+// budget cooperativo, tabella delle prove a due parole con xor-check, dejavu compatto (entry: ply del bloccante
+// più profondo + hash del prefisso; insieme esatto dei ply a lato) con propagazione ai padri, intervalli di validità sul
 // contatore delle 50 mosse (rev/req, §7.5) e modalità Goal (§8.1: tetto 245 ply in WIN).
 #ifndef WINTREE_H
 #define WINTREE_H
@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <memory>
 #include <type_traits>
+#include <unordered_map>
 #include <vector>
 
 namespace WinTree {
@@ -175,6 +176,12 @@ class Prover {
     // Ply dei bloccanti GRAY incontrati nel sottoalbero del nodo a ogni ply (W parole da 64 bit per ply). Serve
     // l'insieme, non solo il massimo: un padre esclude il proprio ply e deve conoscere il massimo dei restanti.
     std::vector<u64> blk; int W = 1;
+    // Insieme esatto dei ply dei bloccanti di ogni entry UNKNOWN_CYCLE scritta da questo Prover (parole fino al massimo p,
+    // con (p, hash) per riconoscere l'entry): al salto il padre eredita l'insieme meno il proprio ply. Il solo massimo p
+    // dell'entry non basta (controesempio P4, docs/wintree-dejavu-lemma.md §6); l'eredità esatta è la regola ammissibile
+    // del Lemma 3. Insieme assente (entry scritta da un altro Prover): si eredita tutto il prefisso [0..p], anch'esso ammissibile.
+    struct BlockSet { u32 h; i16 p; std::vector<u64> w; };
+    std::unordered_map<u64, BlockSet> sets;
 
   public:
     // Interruttori per le ablazioni (B5, §9.4): O6 = arresto al primo figlio NIL nei nodi AND in modalità WIN;
@@ -216,12 +223,15 @@ class Prover {
             for (int bit = 63; bit >= 0; bit--) if (blockers(ply)[w] >> bit & 1) return w * 64 + bit;
         return -1;
     }
-    // Un bloccante a ply q del figlio appena esaminato (a `ply`) entra nell'insieme del padre (ply-1): se è il
-    // padre stesso non conta (induzione sull'altezza dell'albero vincente); se è più in alto ma il figlio è stato
-    // saltato se ne conosce solo il massimo, quindi se quel massimo è il padre si assume tutto il prefisso sopra.
-    void inherit(int ply, int q) {
-        if (ply == 0 || q < 0) return;
-        if (q < ply - 1) mark(ply - 1, q); else if (ply >= 2) mark(ply - 1, ply - 2);
+    // Salto di un figlio (a `ply`) con entry (p, h): il padre (ply-1) eredita i ply dei bloccanti del figlio tranne il
+    // proprio, che non conta (induzione sull'altezza dell'albero vincente, Lemma 3 di docs/wintree-dejavu-lemma.md).
+    void inherit_skip(int ply, int p, u32 h, u64 key) {
+        if (ply == 0 || p < 0) return;
+        auto it = sets.find(key);
+        if (it != sets.end() && it->second.p == p && it->second.h == h)
+            for (size_t w = 0; w < it->second.w.size(); w++) blockers(ply - 1)[w] |= it->second.w[w];
+        else for (int q = p; q >= 0; q--) mark(ply - 1, q);
+        blockers(ply - 1)[(ply - 1) >> 6] &= ~(u64(1) << ((ply - 1) & 63));
     }
 
     // Esito del nodo corrente a `ply` senza espanderlo se non serve: GRAY (I3), PROVEN in tabella,
@@ -229,12 +239,12 @@ class Prover {
     Result visit(int ply) {
         u64 k = g.key();
         for (int q = 0; q < ply; q++)
-            if (path[q] == k) { inherit(ply, q); return cycle(q); }
+            if (path[q] == k) { if (ply > 0 && q < ply - 1) mark(ply - 1, q); return cycle(q); }   // bloccante GRAY esatto
         u64 data = pt.probe(k, goal & 1);
         if (same_goal(data)) {
             u32 h; Result e = ProofTable::unpack(data, h);
             if (e.proven() && valid(e)) return e;
-            if (dejavu && e.status == Status::UNKNOWN_CYCLE && e.p < ply && u32(H[e.p + 1]) == h) { inherit(ply, e.p); return cycle(e.p); }
+            if (dejavu && e.status == Status::UNKNOWN_CYCLE && e.p < ply && u32(H[e.p + 1]) == h) { inherit_skip(ply, e.p, h, k); return cycle(e.p); }
             if (e.status == Status::UNKNOWN_BUDGET && e.resid > 0 && e.resid >= b.maxDepth - ply) return budget_cut(e.resid);
             reexp_++;
         }
@@ -310,6 +320,7 @@ class Prover {
             int pmax = deepest(ply);
             r = cycle(pmax);
             pt.store(k, ProofTable::pack_unknown(true, 0, i16(pmax), u32(H[pmax + 1]), goal));
+            if (pmax >= 0) sets[k] = {u32(H[pmax + 1]), i16(pmax), std::vector<u64>(blockers(ply), blockers(ply) + (pmax >> 6) + 1)};
             if (ply > 0)                                  // propagazione al padre, escluso il padre stesso
                 for (int w = 0; w < W; w++)
                     blockers(ply - 1)[w] |= blockers(ply)[w] & ~((ply - 1) / 64 == w ? u64(1) << ((ply - 1) & 63) : 0);

@@ -1,4 +1,4 @@
-// Test di M1 (spec §9.2-9.3): regressioni P1a/P1b/P2/Sanity, fuzzing su grafi casuali con seme contro
+// Test di M1 (spec §9.2-9.3): regressioni P1a/P1b/P2/Sanity/P4, fuzzing su grafi casuali con seme contro
 // l'oracolo a minimo punto fisso e la trascrizione di Sez. 3, budget casuali, interruzione, confronto col
 // Java con P1 corretto (file prodotto da tests/wintree-java/Cmp.java).
 // M2c: stesso fuzzing sul nucleo df-pn (dfpn.h): PROVEN concordi con l'oracolo, PROVEN_NOWIN solo puliti (Thm 4.8
@@ -106,6 +106,10 @@ static void regression() {
         {"P1b (OR non solido con O1)",  "0 2 . 1\n1 1 . 2 3\n2 2 . 4 5\n3 2 . 6\n4 1 . 3\n5 1 2\n6 1 1\n", "W3 W2 F W1 W2 F W0"},
         {"P2 (dejavu incompleto)",      "0 1 . 1 2\n1 2 . 3 4\n2 2 . 5\n3 1 . 6 7\n4 1 2\n5 1 . 8\n6 2 . 9 5\n7 2 1\n8 2 . 3\n9 1 . 8\n", "W5 F W4 W1 F W3 N W0 W2 N"},
         {"Sanity (ciclo + vittoria)",   "0 2 . 1\n1 1 . 2 3\n2 2 . 1\n3 2 1\n", "W2 W1 N W0"},
+        // P4 (docs/wintree-dejavu-lemma.md §6): il salto dejavu che trasmette al padre solo il massimo dei bloccanti
+        // lasciava la radice UNKNOWN_CYCLE con eval = g (il vertice 6 finiva con p = -1); P4bis cade anche in modalità WIN.
+        {"P4 (salto dejavu, due bloccanti)", "0 1 . 1 5\n1 2 . 2 3\n2 1 . 5 4\n3 1 2\n4 2 1\n5 2 . 6\n6 1 . 7 8\n7 2 . 9 3\n8 2 . 9\n9 1 . 10 11\n10 2 . 6\n11 2 . 2\n", "W7 F W1 F W0 W6 W5 F W4 W3 N W2"},
+        {"P4bis (idem, anche in WIN)",       "0 2 . 1 2\n1 1 . 3\n2 1 . 4\n3 2 . 5\n4 2 . 6 7\n5 1 . 4 8\n6 1 . 9 8\n7 1 . 9\n8 2 1\n9 2 . 10\n10 1 . 11 12\n11 2 . 13\n12 2 . 14\n13 1 . 4\n14 1 . 3\n", "W10 W3 W9 W2 W8 W1 W1 W7 W0 W6 W5 N W4 N W3"},
     };
     for (const Case& c : cases) {
         std::istringstream in(c.text); Graph g = Graph::parse(in);
