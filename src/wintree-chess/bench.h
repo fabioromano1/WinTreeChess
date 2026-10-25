@@ -49,8 +49,9 @@ inline std::vector<Epd> read_epd(const std::string& path, int step, int count, s
 }
 
 // Variante di solver: cold | warm | random (WinTree depth-first) | dfpn (nucleo §8.1b) | base (baseline df-pn di M2b)
-// | sf, con i suffissi -warm/-cold, -noo6 e -nodejavu (ablazioni B5), -noinit (df-pn senza euristica), -epsN (ε = N %).
-struct Variant { std::string name; enum Kind { WT, DFPN, BASE, SF } kind = WT; Order order = Order::COLD; bool firstNil = true, dejavu = true, heur = true; double eps = 0.25; };
+// | sf, con i suffissi -warm/-cold, -noo6 e -nodejavu (ablazioni B5), -noinit (df-pn senza euristica), -epsN (ε = N %),
+// -mind (df-pn con minimizzazione di d).
+struct Variant { std::string name; enum Kind { WT, DFPN, BASE, SF } kind = WT; Order order = Order::COLD; bool firstNil = true, dejavu = true, heur = true, minD = false; double eps = 0.25; };
 
 inline bool parse_variant(const std::string& s, Variant& v) {
     v = {}; v.name = s;
@@ -62,7 +63,7 @@ inline bool parse_variant(const std::string& s, Variant& v) {
             else if (tok == "dfpn") v.kind = Variant::DFPN; else if (tok == "base") v.kind = Variant::BASE;
             else if (tok == "sf") v.kind = Variant::SF; else if (tok != "cold") return false;
         } else if (tok == "warm") v.order = Order::WARM; else if (tok == "cold") v.order = Order::COLD;
-        else if (tok == "noo6") v.firstNil = false; else if (tok == "nodejavu") v.dejavu = false; else if (tok == "noinit") v.heur = false;
+        else if (tok == "noo6") v.firstNil = false; else if (tok == "nodejavu") v.dejavu = false; else if (tok == "noinit") v.heur = false; else if (tok == "mind") v.minD = true;
         else if (tok.rfind("eps", 0) == 0 && tok.size() > 3) v.eps = std::atoi(tok.c_str() + 3) / 100.0; else return false;
     }
     return !first;
@@ -70,7 +71,7 @@ inline bool parse_variant(const std::string& s, Variant& v) {
 
 struct Row {
     int id = 0; std::string fen; int mate = 0, plies = 0; std::string variant, status; bool solved = false, cert = false;
-    double secs = 0, cpu = 0; u64 nodes = 0, moves = 0, andNodes = 0, reexp = 0; int d = 0, dver = 0, iters = 0, maxPly = 0; double meanPly = 0; std::string note;
+    double secs = 0, cpu = 0; u64 nodes = 0, moves = 0, andNodes = 0, reexp = 0; int d = 0, d0 = 0, dver = 0, iters = 0, maxPly = 0; double meanPly = 0; std::string note;
 };
 
 struct BenchOpts { std::vector<Variant> variants; double secs = 10; int warmMs = 100; int threads = 4; std::string nnue, csv; int hashLog2 = 22; Cfg base; };
@@ -79,11 +80,11 @@ inline std::string csv_quote(const std::string& s) { return "\"" + s + "\""; }
 
 inline void write_csv(const std::string& path, const std::vector<Row>& rows) {
     std::ofstream out(path);
-    out << "id,fen,mate,plies,variant,solved,status,secs,cpu,nodes,moves,d,dver,cert,and_nodes,reexp,mean_ply,max_ply,iters,note\n";
+    out << "id,fen,mate,plies,variant,solved,status,secs,cpu,nodes,moves,d,dver,cert,and_nodes,reexp,mean_ply,max_ply,iters,note,d0\n";
     for (const Row& r : rows)
         out << r.id << ',' << csv_quote(r.fen) << ',' << r.mate << ',' << r.plies << ',' << r.variant << ',' << r.solved << ',' << csv_quote(r.status) << ','
             << r.secs << ',' << r.cpu << ',' << r.nodes << ',' << r.moves << ',' << r.d << ',' << r.dver << ',' << r.cert << ',' << r.andNodes << ','
-            << r.reexp << ',' << r.meanPly << ',' << r.maxPly << ',' << r.iters << ',' << csv_quote(r.note) << '\n';
+            << r.reexp << ',' << r.meanPly << ',' << r.maxPly << ',' << r.iters << ',' << csv_quote(r.note) << ',' << r.d0 << '\n';
 }
 
 inline double quantile(std::vector<double> v, double q) { if (v.empty()) return 0; std::sort(v.begin(), v.end()); return v[size_t(q * (v.size() - 1) + 0.5)]; }
@@ -173,7 +174,7 @@ inline void bench_suite(const std::vector<Epd>& suite, const BenchOpts& o) {
                         r.solved = pl && (pl > 0) == (e.mate > 0) && std::abs(pl) <= e.plies;
                         r.status = !pl ? "nessun matto" : r.solved ? "matto" : "matto oltre il dichiarato";
                     } else {
-                        Cfg c = o.base; c.order = v.order; c.firstNil = v.firstNil; c.dejavu = v.dejavu; c.heur = v.heur; c.eps = v.eps; c.secs = o.secs; double extra = 0;
+                        Cfg c = o.base; c.order = v.order; c.firstNil = v.firstNil; c.dejavu = v.dejavu; c.heur = v.heur; c.eps = v.eps; c.minD = v.minD; c.secs = o.secs; double extra = 0;
                         c.core = v.kind == Variant::WT ? Core::WINTREE : v.kind == Variant::DFPN ? Core::DFPN : Core::BASE;
                         if (v.order == Order::WARM) {
                             if (!warmed) { sf->clear(); sf->go(e.fen, {}, o.warmMs); ws = sf->sources(); warmed = true; }
@@ -181,7 +182,7 @@ inline void bench_suite(const std::vector<Epd>& suite, const BenchOpts& o) {
                         }
                         pt.clear();
                         Outcome out = solve_any(g.pos, e.goal, Goal::WIN, c, pt);
-                        r.status = status_name(out.r.status); r.secs = out.secs + extra; r.cpu = out.cpu + extra; r.nodes = out.nodes; r.moves = out.moves; r.d = out.r.d;
+                        r.status = status_name(out.r.status); r.secs = out.secs + extra; r.cpu = out.cpu + extra; r.nodes = out.nodes; r.moves = out.moves; r.d = out.r.d; r.d0 = out.d0;
                         r.andNodes = out.andNodes; r.reexp = out.reexp; r.meanPly = out.meanPly; r.maxPly = out.maxPly; r.iters = out.iters;
                         if (out.r.status == Status::PROVEN_WIN) {
                             Certificate cert = verify(g.pos, e.goal, out.r, c.tbMax, pt, 245);

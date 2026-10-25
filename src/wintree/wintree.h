@@ -111,6 +111,9 @@ class ProofTable {
     // scrive sotto key ^ SHADOW, così la prova valida per gli altri contatori (e i certificati che la usano) sopravvive;
     // il lettore prova la base e poi l'ombra (probe_kind).
     static constexpr u64 SHADOW = 0x9E3779B97F4A7C15ULL;
+    // Terza entry (df-pn con capD): le ri-ricerche a tetto decrescente di un nodo la cui ombra è un PROVEN valido per un
+    // altro regime del contatore scrivono qui, così la prova dell'ombra (e il certificato che la usa) sopravvive.
+    static constexpr u64 SHADOW2 = 0xD1B54A32D192ED03ULL;
     // Prima fra base e ombra l'entry dello stesso goal con status in `kinds` (bit 1 << int(Status)); altrimenti la base.
     u64 probe_kind(u64 key, u8 goal, unsigned kinds) const {
         u64 base = probe(key, goal & 1), d = base;
@@ -157,7 +160,8 @@ inline u64 mix64(u64 x) {  // finalizer di splitmix64
 //   Span<Move> gen_children(int ply); void do_move(Move, int ply); void undo_move(Move, int ply);
 //   int rule50() const; bool reversible(Move) const;      regola delle 50 mosse (§7.5; grafi: 0 e false)
 //   static u16 code(Move); static Move move(u16);         mossa testimone nell'entry della tabella
-//   void init(int ply, int i, u64& pn, u64& dn);          solo dfpn.h: pn/dn iniziali del figlio i (posizione raggiunta)
+//   u64 key_after(Move) const; int mobility() const;      solo dfpn.h: chiave del figlio senza do_move; mosse legali qui
+//   void init(int ply, int i, int n, u64& pn, u64& dn);   solo dfpn.h: pn/dn iniziali del figlio i dalla sua mobilità n
 template<class G>
 class Prover {
     static_assert(std::is_same<decltype(std::declval<const G&>().key()), u64>::value, "G::key() deve restituire u64");

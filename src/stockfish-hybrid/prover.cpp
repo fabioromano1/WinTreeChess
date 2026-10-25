@@ -233,6 +233,18 @@ void Search::Worker::prove_root() {
         sync_cout << "info string prover: start " << (winMode ? "win" : "nowin") << " budget "
                   << (clock ? std::to_string(share) + " ms " : "") << Prover::maxNodes << " do_move" << sync_endl;
     WinTree::Result r = dfpn.solve(b);
+    // `go mate N` (attività (e) di §13): una PROVEN_WIN con d > 2N viene ri-cercata una volta con il tetto 2N sulla
+    // stessa tabella e il budget residuo (DfPn::capD); senza `go mate` d resta il limite superiore di M3.
+    if (limits.mate && winMode && r.status == WinTree::Status::PROVEN_WIN && r.d > 2 * limits.mate)
+    {
+        WinTree::Budget b2 = b;  // il tetto del verificatore resta b.maxDepth (la prova trovata può superare 2N)
+        dfpn.capD   = true;
+        b2.maxDepth = 2 * limits.mate;
+        b2.maxMoves = b.maxMoves > g.moves ? b.maxMoves - g.moves : 0;
+        WinTree::Result r2 = dfpn.solve(b2);
+        if (r2.status == WinTree::Status::PROVEN_WIN)
+            r = r2;
+    }
     nodes += g.moves;  // H6
     mm->callsCnt = 0;  // controllo del tempo al prossimo nodo, come dopo una sonda TB
     const TimePoint spent     = now() - t0;
@@ -255,7 +267,7 @@ void Search::Worker::prove_root() {
         return no_result("not certified with a clock");
     WinTree::Certificate c =
       win ? WinTree::WinTreeVerifier(rootPos, goal, tbMax, *Prover::table, b.maxDepth).run()
-          : WinTree::verify_draw_strategy(rootPos.fen(), goal, tbMax, *Prover::table);
+          : WinTree::verify_draw_strategy(rootPos.fen(), goal, tbMax, *Prover::table, rootPos.is_chess960());
     if (!c.ok)
         return no_result("not verified");
 

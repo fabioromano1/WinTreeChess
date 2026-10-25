@@ -102,7 +102,8 @@ class WinTreeVerifier {
 // distinti per certificato) e la chiusura riprende; se il nodo resta senza mossa (es. è risultato PROVEN_WIN: la
 // scelta a monte era sbagliata) la chiusura riparte dalla radice con le entry nuove. La solidità resta nel controllo
 // di chiusura, non nelle entry.
-inline Certificate verify_draw_strategy(const std::string& rootFen, Stockfish::Color goal, int tbMax, ProofTable& pt) {
+// `chess960`: le posizioni ricostruite dal FEN ne hanno bisogno (legalità dell'arrocco e lettere dei diritti nel FEN).
+inline Certificate verify_draw_strategy(const std::string& rootFen, Stockfish::Color goal, int tbMax, ProofTable& pt, bool chess960) {
     using namespace Stockfish;
     const u64 RESEARCH_MOVES = 1000000; const int MAX_RESEARCH = 64;   // G0 10^3: 224 → 278/283 cicli certificati (+2 s su 52); 10^5/16: 266
     Certificate c; Position pos; StateInfo st, st2;
@@ -134,7 +135,7 @@ inline Certificate verify_draw_strategy(const std::string& rootFen, Stockfish::C
     };
     while (!todo.empty() && c.ok) {
         std::string cur = todo.front(); todo.pop_front(); c.nodes++;
-        pos.set(cur + " 0 1", false, &st);
+        pos.set(cur + " 0 1", chess960, &st);
         MoveList<LEGAL> ml(pos);
         Leaf l = classify(pos, goal, tbMax, unsigned(ml.size()));
         if (l.kind == Kind::MATE) { c.leaves++; if (pos.side_to_move() != goal) c.fail("matto dato dal goal in " + pos.fen()); continue; }

@@ -18,11 +18,19 @@
 #include <utility>
 #include <vector>
 
+namespace Stockfish::Zobrist {                    // definite in position.cpp (nessuna dichiarazione in position.h)
+extern Key psq[PIECE_NB][SQUARE_NB]; extern Key enpassant[FILE_NB]; extern Key castling[CASTLING_RIGHT_NB]; extern Key side;
+}
+
 namespace WinTree {
 
 // Classificazione terminale di una posizione reale (§7.4), condivisa da adapter e verificatore (§7.9).
 // Ordine: matto/stallo (il matto al 100° ply prevale sulle 50 mosse, position.cpp:1498), 50 mosse, triplice
-// ripetizione dalla catena StateInfo (storia compresa, §7.3), posizione morta elementare, TB (§7.6: solo con
+// ripetizione dalla catena StateInfo (storia compresa, §7.3), posizione morta (FIDE 5.2.2: nessuna sequenza di mosse
+// legali porta a matto: KN-K, oppure soli re e alfieri tutti sullo stesso colore, cioè K-K, KB-K, KB-KB, KBB-K…: un re
+// può essere messo in scacco solo da un alfiere, quindi sta su quel colore, e le sue case ortogonali, dell'altro
+// colore, non sono né attaccabili dagli alfieri né occupabili, e il re avversario ne copre al più una: c'è sempre una
+// fuga; KN-KN, KB-KN, KNN-K e gli alfieri di colore opposto ammettono un matto aiutato), TB (§7.6: solo con
 // contatore 0, senza arrocco, pezzi <= tbMax). `wdl` è dal punto di vista del goal.
 enum class Kind : u8 { NONE, MATE, STALEMATE, RULE50, REPETITION, DEAD, TB };
 struct Leaf { Kind kind = Kind::NONE; int wdl = 0; };
@@ -38,7 +46,8 @@ inline Leaf classify(Stockfish::Position& pos, Stockfish::Color goal, int tbMax,
     if (pos.rule50_count() > 99) return {Kind::RULE50, 0};
     if (pos.state()->repetition < 0) return {Kind::REPETITION, 0};
     int n = pos.count<ALL_PIECES>();
-    if (n == 2 || (n == 3 && pos.pieces(BISHOP, KNIGHT))) return {Kind::DEAD, 0};   // FIDE 5.2.2: K-K, KB-K, KN-K
+    constexpr Bitboard Dark = 0xAA55AA55AA55AA55ULL; Bitboard b = pos.pieces(BISHOP);
+    if ((n == 3 && pos.pieces(KNIGHT)) || (!(pos.pieces(PAWN, KNIGHT) | pos.pieces(ROOK, QUEEN)) && (!(b & Dark) || !(b & ~Dark)))) return {Kind::DEAD, 0};
     if (tbMax > 0 && n <= tbMax && !pos.can_castle(ANY_CASTLING) && pos.rule50_count() == 0) {
         Tablebases::ProbeState s;
         int wdl = Tablebases::probe_wdl(pos, &s);
@@ -73,6 +82,41 @@ class ChessGame {
         pos(p), goal(g), tbMax(tbCardinality), order(o), warm(ws), st(maxDepth + 2), buf(size_t(maxDepth + 2) * Stockfish::MAX_MOVES), cls(buf.size()) {}
 
     u64  key() const { return pos.state()->key; }                      // non pos.key(): niente bucket a 50 mosse
+    // Chiave del figlio senza do_move: replica esatta dell'aggiornamento di st->key in Position::do_move (arrocco,
+    // anche 960: re e torre sulle case di destinazione; catture ed en passant; diritti d'arrocco persi dalle case di
+    // partenza e arrivo; casella ep solo se la presa è legale, con la stessa regola di do_move; promozioni).
+    // Position::prefetch_key è approssimata; qui ogni figlio senza entry controlla l'uguaglianza (DfPn::child).
+    u64 key_after(Move m) const {
+        using namespace Stockfish;
+        Color us = pos.side_to_move(), them = ~us; Square from = m.from_sq(), to = m.to_sq();
+        Piece pc = pos.piece_on(from), captured = m.type_of() == EN_PASSANT ? make_piece(them, PAWN) : pos.piece_on(to);
+        Key k = pos.state()->key ^ Zobrist::side;
+        if (m.type_of() == CASTLING) {
+            Square rto = relative_square(us, to > from ? SQ_F1 : SQ_D1);
+            k ^= Zobrist::psq[captured][to] ^ Zobrist::psq[captured][rto];
+            to = relative_square(us, to > from ? SQ_G1 : SQ_C1);
+        } else if (captured) k ^= Zobrist::psq[captured][m.type_of() == EN_PASSANT ? to - pawn_push(us) : to];
+        k ^= Zobrist::psq[pc][from] ^ Zobrist::psq[pc][to];
+        if (pos.ep_square() != SQ_NONE) k ^= Zobrist::enpassant[file_of(pos.ep_square())];
+        int cr = 0, ncr = 0;
+        for (CastlingRights r : {WHITE_OO, WHITE_OOO, BLACK_OO, BLACK_OOO})
+            if (pos.can_castle(r)) {
+                Square ks = pos.square<KING>(r & WHITE_CASTLING ? WHITE : BLACK), rs = pos.castling_rook_square(r);
+                cr |= r; if (from != ks && from != rs && to != ks && to != rs) ncr |= r;
+            }
+        k ^= Zobrist::castling[cr] ^ Zobrist::castling[ncr];
+        if (type_of(pc) == PAWN) {
+            if ((int(to) ^ int(from)) == 16) {
+                Square ep = to - pawn_push(us); Bitboard pawns = Attacks::attacks_bb<PAWN>(ep, us) & pos.pieces(them, PAWN);
+                if (pawns) {
+                    Square ksq = pos.square<KING>(them); Bitboard notBlockers = ~pos.blockers_for_king(them);
+                    bool noDiscovery = (from & notBlockers) || file_of(from) == file_of(ksq);
+                    if (noDiscovery && (pawns & (notBlockers | Attacks::line_bb(ep, ksq)))) k ^= Zobrist::enpassant[file_of(ep)];
+                }
+            } else if (m.type_of() == PROMOTION) k ^= Zobrist::psq[make_piece(us, m.promotion_type())][to];
+        }
+        return k;
+    }
     bool side_is_goal() const { return pos.side_to_move() == goal; }
     int  rule50() const { return pos.rule50_count(); }
     bool reversible(Move m) const { return !pos.capture(m) && Stockfish::type_of(pos.moved_piece(m)) != Stockfish::PAWN; }
@@ -122,16 +166,17 @@ class ChessGame {
         return {out, n};
     }
 
-    // §8.1b: pn/dn iniziali di un figlio senza entry (posizione già raggiunta; `i` = indice nella lista ordinata del
-    // ply del padre). Regola di Allis: nodo AND (difensore al tratto) pn = mobilità (ogni risposta va provata), dn = 1;
-    // nodo OR pn = 1, dn = mobilità (ogni mossa va confutata). La spec scrive "dn = mobilità nei nodi AND": qui è
-    // letta come la regola classica (README, scostamenti). Mossa del padre scacco, cattura SEE >= 0 o ttMove: pn dimezzato.
-    void init(int ply, int i, u64& pn, u64& dn) {
-        if (!heur) return;
-        int n = int(Stockfish::MoveList<Stockfish::LEGAL>(pos).size());
-        if (!n) return;                                                 // terminale: lo classifica terminal()
+    // §8.1b: pn/dn iniziali di un figlio senza entry dalla sua mobilità `n` (mosse legali, letta dalla posizione del
+    // figlio con mobility(); `i` = indice nella lista ordinata del ply del padre). Regola di Allis: nodo AND (difensore
+    // al tratto) pn = mobilità (ogni risposta va provata), dn = 1; nodo OR pn = 1, dn = mobilità (ogni mossa va
+    // confutata). La spec scrive "dn = mobilità nei nodi AND": qui è letta come la regola classica (README,
+    // scostamenti). Mossa del padre scacco, cattura SEE >= 0 o ttMove: pn dimezzato. init non fa do_move: il nucleo
+    // chiama mobility() solo quando la mobilità non è nella sua cache.
+    int mobility() const { return int(Stockfish::MoveList<Stockfish::LEGAL>(pos).size()); }
+    void init(int ply, int i, int n, u64& pn, u64& dn) const {
+        if (!heur || !n) return;                                        // n = 0: terminale, lo classifica terminal()
         u8 c = cls[size_t(ply) * Stockfish::MAX_MOVES + i];
-        if (side_is_goal()) dn = u64(n);
+        if (!side_is_goal()) dn = u64(n);                               // dalla posizione del padre: il figlio è un nodo OR se qui il goal non è al tratto
         else pn = (c & 8) || (c & 7) >= 3 ? u64((n + 1) / 2) : u64(n);
     }
 

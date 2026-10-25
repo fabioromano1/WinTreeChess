@@ -80,9 +80,13 @@ nucleo condiviso (`../wintree/wintree.h`, `../wintree/dfpn.h`): bit 55 `tbLeaf` 
    ogni mossa dei finali senza esito); in `auto` restano `go mate` e il punteggio precedente decisivo. Con `rootInTB` il prover non parte (la radice è già decisa dalle TB). I sink TB del prover richiedono
    `Syzygy50MoveRule = true` (§7.6: WDL +1 non è una vittoria); con la regola spenta il prover lavora senza sink TB.
 6. **`d` è un limite superiore della DTM** (I6, nota 4 di M2c): sul bench 1 (matto in 5) il prover certifica un matto
-   in 11 con la stessa mossa `h4f4`; l'output dice `score mate 11`. Nessuna ri-ricerca con tetto decrescente per
-   minimizzare `d`; con `go mate N` e `d > 2N` la ricerca continua (H5 non ferma) finché Stockfish trova un matto ≤ N,
-   e a fine ricerca H4 impone comunque la mossa provata.
+   in 11 con la stessa mossa `h4f4`; l'output dice `score mate 11`. Dal 2026-10-25 (attività (e) di §13) solo con
+   `go mate N`: se la prova ha `d > 2N`, una ri-ricerca con tetto `2N` sulla stessa tabella e il budget residuo
+   (`DfPn::capD`, `src/wintree/README.md` M2c punto 5) cerca una prova entro N mosse; se la trova, H5 ferma la ricerca
+   e l'output dice `mate N'` con N' ≤ N (sul bench 1 `go mate 5`: `proven mate in 5`, `score mate 5`); altrimenti
+   resta il comportamento di M3 (la ricerca continua finché Stockfish trova un matto ≤ N, H4 impone la mossa provata).
+   Senza `go mate` nessuna ri-ricerca: `d` resta il limite superiore. `UCI_Chess960`: il prover lavora su `rootPos`
+   (che porta il flag); il verificatore del grafo di patta riceve `rootPos.is_chess960()` per ricostruire le posizioni.
 7. **Probe H3 sulla sola entry base** (niente entry ombra `key ^ SHADOW` delle riprove a contatore diverso) e per
    entrambi i goal (due scansioni dello stesso bucket); nessun prefetch dedicato. Il valore di matto è nella banda
    mate solo se `ply + d ≤ 245`, altrimenti banda TB (clamp a `MAX_PLY`).

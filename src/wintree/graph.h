@@ -89,12 +89,14 @@ struct GraphGame {
     std::vector<int> st; std::vector<int>* log = nullptr;
     GraphGame(const Graph& graph, u8 goalPlayer, int maxDepth = 1024) : g(graph), goal(goalPlayer), st(maxDepth + 2) {}
     u64 key() const { return u64(cur); }
+    u64 key_after(int m) const { return u64(m); }     // df-pn: chiave del figlio senza do_move
     bool side_is_goal() const { return g.nodes[cur].turn == goal; }
     int rule50() const { return 0; }                  // nessuna regola delle 50 mosse: ogni mossa è irreversibile
     bool reversible(int) const { return false; }
     static u16 code(int m) { return u16(m); }        // i grafi di test hanno < 65536 vertici
     static int move(u16 c) { return c; }
-    void init(int, int, u64&, u64&) const {}         // df-pn: nessuna euristica, pn = dn = 1
+    int mobility() const { return 1; }               // df-pn: nessuna euristica (init non tocca pn = dn = 1)
+    void init(int, int, int, u64&, u64&) const {}
     Terminal terminal() { if (log) log->push_back(cur); int s = g.nodes[cur].sink; return s < 0 ? Terminal::NONE : s == goal ? Terminal::WIN_GOAL : Terminal::NOWIN_GOAL; }
     Span<int> gen_children(int) { const auto& a = g.nodes[cur].adj; return {a.data(), int(a.size())}; }
     void do_move(int m, int ply) { st[ply] = cur; cur = m; }

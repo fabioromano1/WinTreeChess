@@ -67,6 +67,19 @@ std::string random_fen(std::mt19937_64& rng, int n) {
 int failures = 0;
 void expect(bool ok, const std::string& what) { std::cout << "  " << (ok ? "OK   " : "FAIL ") << what << "\n"; failures += !ok; }
 
+// ChessGame::key_after contro la chiave dopo do_move su ogni mossa legale fino a `depth` ply; restituisce le mosse
+// controllate, `ok` = false alla prima differenza.
+long check_keys(Position& pos, WinTree::ChessGame& g, int ply, int depth, bool& ok) {
+    long n = 0;
+    for (Move m : MoveList<LEGAL>(pos)) {
+        u64 k = g.key_after(m); g.do_move(m, ply); n++;
+        if (g.key() != k) ok = false;
+        if (ply + 1 < depth) n += check_keys(pos, g, ply + 1, depth, ok);
+        g.undo_move(m, ply);
+    }
+    return n;
+}
+
 // Regressioni: le 4 posizioni di matto/stallo del bench di Stockfish (benchmark.cpp:91-94) e casi elementari.
 // `dtm` = distanza al matto in ply secondo Stockfish 19 (go depth 28): per Thm 3.6 il d trovato è >= dtm.
 void regress(const Cfg& base, int tbMax, int hashLog2) {
@@ -100,6 +113,81 @@ void regress(const Cfg& base, int tbMax, int hashLog2) {
         expect(got.rfind(c.expect, 0) == 0 && (tbMax || o.r.d >= c.dtm || base.core == WinTree::Core::BASE),   // TB: foglie TB accorciano l'albero; la baseline non calcola d
                std::string("atteso ") + c.expect + (c.dtm && !tbMax ? " con d >= " + std::to_string(c.dtm) : ""));
         expect(cert.ok, "certificato dal verificatore");
+    }
+
+    // Posizioni morte (§7.4, FIDE 5.2.2): regola di classify e, con le TB, ogni posizione morta è una patta WDL.
+    std::cout << "=== Posizioni morte\n";
+    struct Dead { const char* fen; bool dead; } deads[] = {
+        {"8/8/8/8/8/4k3/8/4K3 w - - 0 1", true},        // K-K
+        {"8/8/8/8/8/4k3/8/4K2B w - - 0 1", true},       // KB-K
+        {"8/8/8/8/8/4k3/2b5/4K2B w - - 0 1", true},     // KB-KB stesso colore (c2, h1 chiare)
+        {"8/8/8/8/8/4k3/8/2b1K2B w - - 0 1", false},    // KB-KB colori opposti (c1 scura): matto aiutato
+        {"8/8/8/8/8/3k4/8/4K1BB w - - 0 1", false},     // KBB-K colori opposti
+        {"8/8/8/8/8/4k3/8/1B2K2B w - - 0 1", true},     // KBB-K stesso colore (b1, h1 chiare)
+        {"8/8/8/8/8/4k3/8/4K2N w - - 0 1", true},       // KN-K
+        {"8/8/8/8/8/4k3/2n5/4K2N w - - 0 1", false},    // KN-KN: matto aiutato
+        {"8/8/8/8/8/4k3/8/4K1NN w - - 0 1", false},     // KNN-K
+        {"8/8/8/8/8/4k3/2n5/4K2B w - - 0 1", false},    // KB-KN
+        {"8/8/8/8/8/4k3/2b4P/4K3 w - - 0 1", false},    // con un pedone mai morta
+    };
+    for (const Dead& d : deads) {
+        Game g; std::string err;
+        if (!g.set(d.fen, {}, err)) { expect(false, std::string(d.fen) + ": " + err); continue; }
+        WinTree::Leaf l = WinTree::classify(g.pos, WHITE, 0, unsigned(MoveList<LEGAL>(g.pos).size()));
+        expect((l.kind == WinTree::Kind::DEAD) == d.dead, std::string(d.fen) + (d.dead ? " morta" : " non morta"));
+    }
+    if (tbMax >= 4) {
+        std::mt19937_64 rng(7); long dead = 0, bad = 0;
+        for (int i = 0; i < 20000; i++) {
+            Game g; std::string err, fen;
+            do fen = random_fen(rng, 3 + i % 2); while (!g.set(fen, {}, err));
+            if (WinTree::classify(g.pos, WHITE, 0, unsigned(MoveList<LEGAL>(g.pos).size())).kind != WinTree::Kind::DEAD) continue;
+            dead++; Tablebases::ProbeState ps; int wdl = Tablebases::probe_wdl(g.pos, &ps);
+            if (ps == Tablebases::FAIL || wdl != 0) { bad++; std::cout << "  posizione morta non patta per le WDL: " << fen << " wdl " << wdl << "\n"; }
+        }
+        expect(bad == 0, "20000 posizioni casuali a 3-4 pezzi: " + std::to_string(dead) + " morte, tutte patte per le WDL");
+    }
+
+    // key_after (chess_game.h) e Chess960: chiave esatta su posizioni con arrocco (standard e 960), ep e promozioni;
+    // perft 960 di tests/perft.sh; matto in 1 per arrocco 960 (Kb1, Ra1: 0-0-0 = b1a1 porta la torre in d1).
+    std::cout << "=== key_after e Chess960\n";
+    struct KeyCase { const char* fen; const char* moves; bool c960; int depth; } keys[] = {
+        {"r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1", "", false, 3},            // kiwipete: arrocchi, ep, promozioni
+        {"8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1", "", false, 4},                                         // ep con scoperta
+        {"r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1", "", false, 3},                 // promozioni con cattura
+        {"bbqnnrkr/pppppppp/8/8/8/8/PPPPPPPP/BBQNNRKR w HFhf - 0 1", "g2g3 d7d5 d2d4 c8h3 c1g5 e8d6 g5e7 f7f6", true, 3},   // bench 960 (1)
+        {"nqbnrkrb/pppppppp/8/8/8/8/PPPPPPPP/NQBNRKRB w KQkq - 0 1", "", true, 3},                             // bench 960 (2)
+        {"1rqbkrbn/1ppppp1p/1n6/p1N3p1/8/2P4P/PP1PPPP1/1RQBKRBN w FBfb - 0 9", "", true, 3},                  // perft.sh 960
+        {"rr6/2kpp3/1ppnb1p1/p2Q1q1p/P4P1P/1PNN2P1/2PP4/1K2RR2 b E - 2 19", "", true, 3},                     // perft.sh 960: torre che arrocca da e1
+        {"2rkr3/2p1p3/8/1B6/8/8/8/RK6 w A - 0 1", "", true, 3},                                              // matto per arrocco 960
+    };
+    for (const KeyCase& k : keys) {
+        Game g; std::string err; std::vector<std::string> mv; std::istringstream is(k.moves); for (std::string s; is >> s;) mv.push_back(s);
+        if (!g.set(k.fen, mv, err, k.c960)) { expect(false, std::string(k.fen) + ": " + err); continue; }
+        WinTree::ChessGame cg(g.pos, WHITE, 0, k.depth); bool ok = true;
+        long n = check_keys(g.pos, cg, 0, k.depth, ok);
+        expect(ok, std::string("key_after = chiave dopo do_move su ") + std::to_string(n) + " mosse fino a " + std::to_string(k.depth) + " ply: " + g.pos.fen());
+    }
+    struct Perft { const char* fen; int depth; u64 nodes; } perfts[] = {                                     // tests/perft.sh (Chess960)
+        {"rr6/2kpp3/1ppn2p1/p2b1q1p/P4P1P/1PNN2P1/2PP4/1K2R2R b E - 1 20", 2, 1438},
+        {"rr6/2kpp3/1ppn2p1/p2b1q1p/P4P1P/1PNN2P1/2PP4/1K2RR2 w E - 0 20", 3, 37340},
+        {"rr6/2kpp3/1ppnb1p1/p2Q1q1p/P4P1P/1PNN2P1/2PP4/1K2RR2 b E - 2 19", 4, 2237725},
+    };
+    for (const Perft& p : perfts) {
+        Game g; std::string err;
+        if (!g.set(p.fen, {}, err, true)) { expect(false, std::string(p.fen) + ": " + err); continue; }
+        u64 n = Benchmark::perft<false>(g.pos, p.depth);
+        expect(n == p.nodes, std::string("perft ") + std::to_string(p.depth) + " = " + std::to_string(n) + " (atteso " + std::to_string(p.nodes) + ") su " + p.fen);
+    }
+    {
+        Game g; std::string err; const char* fen = "2rkr3/2p1p3/8/1B6/8/8/8/RK6 w A - 0 1";
+        if (g.set(fen, {}, err, true)) {
+            WinTree::ProofTable pt2(16); Outcome o = solve(g.pos, WHITE, WinTree::Goal::WIN, base, 100000, ~u64(0) >> 1, 245, 0, pt2);
+            std::string got = describe(o.r, true);
+            std::cout << fen << " (Chess960) goal white: " << got << ", nodi " << o.nodes << ", " << describe(verify(g.pos, WHITE, o.r, 0, pt2, 245)) << "\n";
+            expect(got == "PROVEN_WIN d=1 rev=1 mossa=b1a1", "matto in 1 per arrocco 960 (mossa b1a1 nella notazione 960)");
+            expect(verify(g.pos, WHITE, o.r, 0, pt2, 245).ok, "certificato dal verificatore");
+        } else expect(false, std::string(fen) + ": " + err);
     }
 }
 
@@ -248,8 +336,8 @@ void g2_eval_file(const std::string& path, int ms, WinTree::SfEngine& sf) {
 }
 
 int usage() {
-    std::cerr << "uso: wintree-chess --fen \"<fen>\" [--moves m1 m2 ...] [--goal white|black] [--mode win|nowin] [--nodes N] [--domove N] [--depth D] [--time S]\n"
-                 "                   [--core dfpn|wintree|base] [--eps E] [--noinit] [--order cold|warm|random --nnue PATH --warm-ms MS] [--tb PATH] [--tbmax K] [--hash MiB] [--verify]\n"
+    std::cerr << "uso: wintree-chess --fen \"<fen>\" [--moves m1 m2 ...] [--goal white|black] [--mode win|nowin] [--nodes N] [--domove N] [--depth D] [--time S] [--chess960]\n"
+                 "                   [--core dfpn|wintree|base] [--eps E] [--noinit] [--min-d] [--order cold|warm|random --nnue PATH --warm-ms MS] [--tb PATH] [--tbmax K] [--hash MiB] [--verify]\n"
                  "     wintree-chess --regress [--core ...] [--tb PATH] [--hash MiB]\n"
                  "     wintree-chess --g0 N [--core ...] [--seed S] [--nodes N] [--domove N] [--threads T] --tb PATH [--hash MiB]\n"
                  "     wintree-chess --g2sample N | --g2eval FILE.epd  --nnue PATH --tb PATH [--seed S] [--warm-ms MS]\n"
@@ -264,7 +352,7 @@ int usage() {
 int main(int argc, char** argv) {
     std::string fen = StartFEN, tb, nnue, suite, b2, csv, g2eval, solvers = "cold,warm,dfpn,dfpn-warm,sf"; std::vector<std::string> moves;
     int goal = -1, depth = 0, tbmax = -1, hashMiB = 64, g0n = 0, g2n = 0, threads = int(std::thread::hardware_concurrency()), step = 1, count = 0, warmMs = 100;
-    u64 nodes = 1000000, domove = ~u64(0) >> 1, seed = 1; double secs = 0, eps = 0.25; bool repLoss = true, heur = true;
+    u64 nodes = 1000000, domove = ~u64(0) >> 1, seed = 1; double secs = 0, eps = 0.25; bool repLoss = true, heur = true, minD = false, chess960 = false;
     WinTree::Core core = WinTree::Core::DFPN;
     WinTree::Order order = WinTree::Order::COLD;
     WinTree::Goal mode = WinTree::Goal::WIN; bool doVerify = false, doRegress = false;
@@ -279,6 +367,8 @@ int main(int argc, char** argv) {
         else if (a == "--core") { std::string s = next(); core = s == "dfpn" ? WinTree::Core::DFPN : s == "wintree" ? WinTree::Core::WINTREE : s == "base" ? WinTree::Core::BASE : (std::exit(usage()), WinTree::Core::DFPN); }
         else if (a == "--domove") domove = std::strtoull(next(), nullptr, 10);
         else if (a == "--noinit") heur = false;
+        else if (a == "--min-d") minD = true;
+        else if (a == "--chess960") chess960 = true;
         else if (a == "--eps") eps = std::atof(next());
         else if (a == "--dfpn-rep") { std::string s = next(); repLoss = s == "loss" ? true : s == "unknown" ? false : (std::exit(usage()), true); }
         else if (a == "--suite") suite = next();
@@ -309,7 +399,7 @@ int main(int argc, char** argv) {
     if (tbmax < 0) tbmax = Tablebases::MaxCardinality;
     int hashLog2 = 0; while ((u64(16) << hashLog2) < u64(std::max(hashMiB, 1)) << 20) hashLog2++;   // entry da 16 byte
     Cfg cfg; cfg.core = core; cfg.nodes = nodes; cfg.moves = domove; cfg.secs = secs; cfg.depth = depth; cfg.tbMax = tbmax; cfg.order = order;
-    cfg.eps = eps; cfg.heur = heur; cfg.repLoss = repLoss; cfg.dfpnLog2 = unsigned(hashLog2);
+    cfg.eps = eps; cfg.heur = heur; cfg.minD = minD; cfg.repLoss = repLoss; cfg.dfpnLog2 = unsigned(hashLog2);
     if (doRegress) regress(cfg, tbmax, hashLog2);
     if (g0n) {
         if (Tablebases::MaxCardinality < 5) { std::cerr << "--g0 richiede --tb con le tablebase 5-man\n"; return 2; }
@@ -337,7 +427,7 @@ int main(int argc, char** argv) {
     }
 
     Game g; std::string err;
-    if (!g.set(fen, moves, err)) { std::cerr << "posizione non valida: " << err << "\n"; return 2; }
+    if (!g.set(fen, moves, err, chess960)) { std::cerr << "posizione non valida: " << err << "\n"; return 2; }
     Color goalSide = goal < 0 ? g.pos.side_to_move() : Color(goal);
     if (!depth) depth = mode == WinTree::Goal::WIN ? 245 : 4096;
     cfg.depth = depth;
@@ -345,16 +435,18 @@ int main(int argc, char** argv) {
     std::unique_ptr<WinTree::SfEngine> sf;
     if (order == WinTree::Order::WARM) {                      // ricerca breve di Stockfish sulla stessa posizione (§8.4)
         if (nnue.empty()) { std::cerr << "--order warm richiede --nnue PATH\n"; return 2; }
-        sf.reset(new WinTree::SfEngine(nnue)); sf->go(fen, moves, warmMs); cfg.warm = sf->sources();
+        sf.reset(new WinTree::SfEngine(nnue)); if (chess960) sf->set("UCI_Chess960", "true"); sf->go(fen, moves, warmMs); cfg.warm = sf->sources();
         std::cout << "riscaldamento: Stockfish " << sf->ms() << " ms, " << sf->nodes() << " nodi\n";
     }
     Outcome o = WinTree::solve_any(g.pos, goalSide, mode, cfg, pt);
     std::cout << "posizione " << g.pos.fen() << "\ngoal " << (goalSide == WHITE ? "white" : "black") << " nucleo "
               << (core == WinTree::Core::DFPN ? "df-pn" : core == WinTree::Core::WINTREE ? "WinTree" : "baseline") << " modo " << (mode == WinTree::Goal::WIN ? "win" : "nowin")
               << " ordinamento " << (order == WinTree::Order::COLD ? "freddo" : order == WinTree::Order::WARM ? "a caldo" : "casuale")
-              << " TB " << (tbmax ? std::to_string(tbmax) + " pezzi" : "spente") << "\nesito " << describe(o.r) << "\nnodi " << o.nodes << " do_move " << o.moves << " iterazioni " << o.iters
+              << " TB " << (tbmax ? std::to_string(tbmax) + " pezzi" : "spente") << "\nesito " << describe(o.r, chess960) << "\nnodi " << o.nodes << " do_move " << o.moves << " iterazioni " << o.iters
               << " profondità " << o.depth << " tempo " << o.secs << " s (cpu " << o.cpu << " s)";
     if (core != WinTree::Core::BASE) std::cout << "\nnodi AND " << o.andNodes << " riespansioni " << o.reexp << " ply medio " << o.meanPly << " ply massimo " << o.maxPly;
+    if (minD && o.r.status == WinTree::Status::PROVEN_WIN) std::cout << "\nd minimo: prima prova d=" << o.d0 << " (nodi " << o.nodes0 << " do_move " << o.moves0 << "), " << (o.iters - 1)
+                                                                     << " ri-ricerche: d=" << o.r.d << " (+nodi " << o.nodes - o.nodes0 << " +do_move " << o.moves - o.moves0 << ")";
     std::cout << "\n";
     if (doVerify) std::cout << "verifica " << describe(verify(g.pos, goalSide, o.r, tbmax, pt, depth)) << "\n";
     return 0;
