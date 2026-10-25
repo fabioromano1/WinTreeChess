@@ -35,7 +35,7 @@ namespace Prover {
 
 enum Mode {
     OFF,   // nessun prover, nessun probe: ricerca identica a Stockfish 19
-    AUTO,  // probe attivo; prover alla radice su trigger (go mate, punteggio precedente decisivo, pochi pezzi)
+    AUTO,  // probe attivo; prover alla radice su trigger (go mate, punteggio precedente decisivo)
     MATE,  // probe attivo; prover alla radice sempre, in modalità WIN(us)
     DRAW   // probe attivo; prover alla radice sempre, in modalità WIN(opp) (cerca PROVEN_NOWIN(opp): patta certificata)
 };
@@ -45,6 +45,7 @@ extern Mode mode;
 extern int  probeDepth;      // ProverProbeDepth: probe solo con depth >= probeDepth (gating come SyzygyProbeDepth)
 extern int  budgetPermille;  // ProverBudget: quota di tm.optimum() (o di movetime) per il prover alla radice
 extern int  maxNodes;        // ProverMaxNodes: tetto in do_move del prover (il "nodo" di §9.4); 0 = prover spento
+extern bool logRoot;         // ProverLog: `info string prover: start ...` / `no result after N do_move in T ms`
 
 void set_mode(Mode m);
 void set_hash(int mib);  // ProverHash in MiB (16 byte per entry)

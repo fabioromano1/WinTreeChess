@@ -30,3 +30,7 @@ tests/results/g3-*/games.pgn
 tests/results/g3-nr/games.pgn.xz
 tests/results/g3-*/config.json
 tests/results/g3-bin/
+tests/results/g3-tuning/stockfish
+tests/results/g3-tuning/nr/games.pgn.xz
+tests/results/g3-*/*/games.pgn
+tests/results/g3-*/*/config.json

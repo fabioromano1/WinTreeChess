@@ -1,0 +1,4 @@
+run,tc,engines,games,elo,elo_err95,nelo,nelo_err95,los_pct,llr,ptnml_0,ptnml_1,ptnml_2,ptnml_3,ptnml_4,sprt_result,hours,timeouts_auto,timeouts_off,prover_starts,prover_results,games_with_prover_start,ms_without_result
+pre400,10+0.1,auto(ProverBudget=30 ProverLog=true) vs off,400,0.00,15,,,,,1,43,113,43,0,none (cap),0.84,7,5,0,0,0,0
+nr,10+0.1,auto(ProverBudget=30 ProverLog=true) vs off,20000,-1.39,2.02,-3.31,4.82,8.92,-1.46,57,1583,6796,1511,53,none (cap 20000),41.05,22,33,0,0,0,0
+ltc,60+0.6,auto(ProverBudget=30 ProverLog=true) vs off,1500,-5.79,5.53,-18.42,17.58,2.00,-2.38,0,86,604,59,1,none (cap 1500),18.15,1,4,16,2,10,253

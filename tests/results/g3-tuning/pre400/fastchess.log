@@ -1,0 +1,12 @@
+[WARN  ] [08:13:55.587206] <     140704240142016> fastchess --- Engine prover-auto loses on time by 11ms
+[WARN  ] [08:21:09.974350] <     140704223356608> fastchess --- Engine prover-auto loses on time by 103ms
+[WARN  ] [08:21:10.100692] <     140704248534720> fastchess --- Engine prover-auto loses on time by 101ms
+[WARN  ] [08:23:55.470512] <     140704248534720> fastchess --- Engine prover-off loses on time by 82ms
+[WARN  ] [08:24:38.255218] <     140704231749312> fastchess --- Engine prover-off loses on time by 102ms
+[WARN  ] [08:25:30.153049] <     140704240142016> fastchess --- Engine prover-auto loses on time by 38ms
+[WARN  ] [08:29:10.504858] <     140704248534720> fastchess --- Engine prover-off loses on time by 189ms
+[WARN  ] [08:34:34.301180] <     140704223356608> fastchess --- Engine prover-off loses on time by 20ms
+[WARN  ] [08:36:04.035686] <     140704231749312> fastchess --- Engine prover-auto loses on time by 108ms
+[WARN  ] [08:36:04.134337] <     140704223356608> fastchess --- Engine prover-auto loses on time by 115ms
+[WARN  ] [08:36:04.149480] <     140704248534720> fastchess --- Engine prover-auto loses on time by 106ms
+[WARN  ] [09:00:01.746492] <     140704248534720> fastchess --- Engine prover-off loses on time by 113ms

@@ -175,6 +175,11 @@ Engine::Engine(std::optional<std::filesystem::path> path) :
         return std::nullopt;
     }));
 
+    options.add("ProverLog", Option(false, [](const Option& o) {
+        Prover::logRoot = bool(o);
+        return std::nullopt;
+    }));
+
     threads.clear();
     threads.ensure_network_replicated();
     resize_threads();

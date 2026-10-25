@@ -716,6 +716,54 @@ class TestProver(metaclass=OrderedClassMembers):
         self.stockfish.expect("*Prover: invalid value 'zzz'*")
         self.stockfish.setoption("Prover", "mate")
 
+    def _go_clock(self, go="go wtime 1000 btime 1000 movestogo 1"):
+        """`go` con l'orologio sulla posizione corrente: (ms di parete fino a bestmove, righe del prover, bestmove)."""
+        import time
+        self.stockfish.send_command(go)
+        t0, prover, best = time.perf_counter(), [], None
+        for line in self.stockfish.readline():
+            if line.startswith("info string prover"):
+                prover.append(line)
+            if line.startswith("bestmove"):
+                best = line.split()[1]
+                break
+        return (time.perf_counter() - t0) * 1000, prover, best
+
+    def test_prover_auto_clock_within_limit(self):
+        # G3 tuning: con Prover=auto il prover parte solo con punteggio precedente decisivo (seconda `go`), la sua
+        # quota e' sommata all'orologio e il tempo totale resta sotto il limite (wtime 1000).
+        self.stockfish.setoption("Prover", "auto")
+        self.stockfish.setoption("ProverLog", "true")
+        self.stockfish.send_command("ucinewgame")
+        self.stockfish.send_command("position fen r2r1n2/pp2bk2/2p1p2p/3q4/3PN1QP/2P3R1/P4PP1/5RK1 w - - 0 1")
+        ms, prover, best = self._go_clock()
+        assert ms < 1000 and prover == [] and best == "g4g7", (ms, prover, best)
+        ms, prover, best = self._go_clock()
+        assert ms < 1000 and best == "g4g7", (ms, best)
+        assert prover[0].startswith("info string prover: start win budget") and "proven mate in 4 move g4g7" in prover[1], prover
+        self.stockfish.setoption("ProverLog", "false")
+        self.stockfish.setoption("Prover", "mate")
+
+    def test_prover_auto_failed_root_not_retried(self):
+        # G3 tuning: dopo una ricerca senza esito (tetto 1 do_move) la stessa radice non riparte finche' il budget
+        # non e' almeno il doppio di quello speso; ucinewgame azzera la memoria.
+        self.stockfish.setoption("Prover", "auto")
+        self.stockfish.setoption("ProverLog", "true")
+        self.stockfish.setoption("ProverMaxNodes", "1")
+        fen = "position fen r2r1n2/pp2bk2/2p1p2p/3q4/3PN1QP/2P3R1/P4PP1/5RK1 w - - 0 1"
+        self.stockfish.send_command("ucinewgame")
+        self.stockfish.send_command(fen)
+        assert self._go_clock()[1] == []                          # prima mossa: nessun punteggio precedente
+        prover = self._go_clock()[1]
+        assert len(prover) == 2 and re.search(r"no result after \d+ do_move in \d+ ms", prover[1]), prover
+        assert self._go_clock()[1] == [], "radice fallita ripartita con lo stesso budget"
+        self.stockfish.setoption("ProverMaxNodes", "1000")       # >= 2x le do_move spese: riparte e prova
+        prover = self._go_clock()[1]
+        assert len(prover) == 2 and "proven mate in 4" in prover[1], prover
+        self.stockfish.setoption("ProverMaxNodes", "1000000")
+        self.stockfish.setoption("ProverLog", "false")
+        self.stockfish.setoption("Prover", "mate")
+
 
 class TestInvalidFEN(metaclass=OrderedClassMembers):
     def beforeEach(self):

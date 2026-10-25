@@ -25,6 +25,7 @@
 #include <chrono>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 #include "misc.h"
 #include "movegen.h"
@@ -45,11 +46,15 @@ Mode mode           = OFF;
 int  probeDepth     = 6;
 int  budgetPermille = 100;
 int  maxNodes       = 1000000;
+bool logRoot        = false;
 
 namespace {
 
 int                                  hashMiB = 16;
 std::unique_ptr<WinTree::ProofTable> table;  // allocata al primo uso (set_mode != OFF)
+// Radici gia' cercate senza esito in `auto` (do_move e ms spesi): si riparte solo con un budget almeno doppio
+// (tests/g3/README-tuning.md). Azzerata da clear() (ucinewgame).
+std::unordered_map<Key, std::pair<int64_t, TimePoint>> failed;
 
 void ensure_table() {
     if (table)
@@ -130,6 +135,7 @@ void set_hash(int mib) {
 void clear() {
     if (table)
         table->clear();
+    failed.clear();
 }
 
 // §7.8: PROVEN_WIN(g, d) vale mate_in(ply + d) (bound LOWER) per g al tratto e mated_in (UPPER) per l'avversario;
@@ -182,9 +188,10 @@ void Search::Worker::prove_root() {
         goal = ~us;
     else if (Prover::mode == Prover::AUTO)
     {
+        // Trigger (G3, tuning): `go mate` o punteggio precedente decisivo; il trigger "pochi pezzi" di M3 partiva a
+        // ogni mossa dei finali senza esito (tests/g3/README-tuning.md).
         bool decisive = prev != VALUE_INFINITE && is_decisive(prev);
-        bool few      = rootPos.count<ALL_PIECES>() <= tbLimit + 2;
-        if (!limits.mate && !decisive && !few)
+        if (!limits.mate && !decisive)
             return;
         if (!limits.mate && prev != VALUE_INFINITE && prev < 0)
             goal = ~us;  // in svantaggio si cerca la patta certificata, NOWIN(opp) (§6.2)
@@ -200,10 +207,19 @@ void Search::Worker::prove_root() {
     TimePoint  share = limits.use_time_management() ? mm->tm.optimum() : limits.movetime;
     if (clock)
     {
-        share = share * Prover::budgetPermille / 1000;
+        // quota misurata da limits.startTime: il tempo gia' passato dal `go` (elapsed() lo conta) la riduce
+        share = share * Prover::budgetPermille / 1000 - (now() - limits.startTime);
         if (share < 10)
             return;
         b.deadline = WinTree::Clock::now() + std::chrono::milliseconds(share);
+    }
+    const bool remember = Prover::mode == Prover::AUTO && !limits.mate;  // mate/draw/`go mate`: richiesta esplicita
+    if (remember)
+    {
+        auto it = Prover::failed.find(rootPos.key());
+        if (it != Prover::failed.end()
+            && (Prover::maxNodes < 2 * it->second.first || (clock && share < 2 * it->second.second)))
+            return;
     }
     const bool winMode = goal == us;
     b.maxDepth         = Prover::mode == Prover::DRAW ? 4096 : 245;  // tetto profondo solo in analisi di patta (§8.1b)
@@ -213,22 +229,35 @@ void Search::Worker::prove_root() {
     WinTree::DfPn<WinTree::ChessGame> dfpn(g, *Prover::table, goal == BLACK,
                                            winMode ? WinTree::Goal::WIN : WinTree::Goal::NOWIN);
     const TimePoint t0 = now();
-    WinTree::Result r  = dfpn.solve(b);
+    if (Prover::logRoot)
+        sync_cout << "info string prover: start " << (winMode ? "win" : "nowin") << " budget "
+                  << (clock ? std::to_string(share) + " ms " : "") << Prover::maxNodes << " do_move" << sync_endl;
+    WinTree::Result r = dfpn.solve(b);
     nodes += g.moves;  // H6
     mm->callsCnt = 0;  // controllo del tempo al prossimo nodo, come dopo una sonda TB
+    const TimePoint spent     = now() - t0;
+    auto            no_result = [&](const char* why) {
+        if (Prover::logRoot)
+            sync_cout << "info string prover: no result after " << g.moves << " do_move in " << spent << " ms ("
+                      << why << ")" << sync_endl;
+    };
 
     if (r.status == WinTree::Status::UNKNOWN_BUDGET)
-        return;
+    {
+        if (remember)
+            Prover::failed[rootPos.key()] = {int64_t(g.moves), spent};
+        return no_result("budget");
+    }
     const bool win = r.status == WinTree::Status::PROVEN_WIN;
     // Con un orologio si certifica solo ciò che cambia la mossa (PROVEN_WIN(us), H4/H5): il replay del verificatore
     // non ha budget e si ripeterebbe a ogni mossa; gli altri esiti restano bound search-grade tramite i probe (§7.8).
     if (clock && !(win && winMode))
-        return;
+        return no_result("not certified with a clock");
     WinTree::Certificate c =
       win ? WinTree::WinTreeVerifier(rootPos, goal, tbMax, *Prover::table, b.maxDepth).run()
           : WinTree::verify_draw_strategy(rootPos.fen(), goal, tbMax, *Prover::table);
     if (!c.ok)
-        return;
+        return no_result("not verified");
 
     const bool  tbLeaf = c.tbLeaves > 0;
     std::string msg;

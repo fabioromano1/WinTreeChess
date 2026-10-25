@@ -1,0 +1,17 @@
+round,white,side,ply,mode,budget_ms,cap,do_move,ms,outcome,move_s,timeloss
+27,prover-off,prover-auto,151,?,-1,-1,42775,12,budget,0.183,False
+185,prover-auto,prover-auto,122,?,-1,-1,8768,11,budget,0.141,False
+442,prover-off,prover-auto,195,?,-1,-1,14017,8,not certified with a clock,0.192,False
+451,prover-auto,prover-auto,142,?,-1,-1,40207,19,budget,0.257,False
+451,prover-auto,prover-auto,144,?,-1,-1,76812,21,budget,0.321,False
+464,prover-off,prover-auto,133,?,-1,-1,42674,14,budget,0.205,False
+464,prover-off,prover-auto,135,?,-1,-1,27281,17,budget,0.239,False
+464,prover-off,prover-auto,137,?,-1,-1,5791,21,budget,0.277,False
+464,prover-off,prover-auto,139,?,-1,-1,42959,22,budget,0.311,False
+474,prover-auto,prover-auto,164,?,-1,-1,20569,12,proven,0.022,False
+474,prover-auto,prover-auto,166,?,-1,-1,0,0,proven,0.01,False
+581,prover-auto,prover-auto,138,?,-1,-1,6749,11,budget,1.317,False
+635,prover-off,prover-auto,69,?,-1,-1,7108,18,budget,0.231,False
+635,prover-off,prover-auto,71,?,-1,-1,18521,12,not certified with a clock,0.278,False
+696,prover-auto,prover-auto,132,?,-1,-1,10083,12,budget,0.18,False
+739,prover-auto,prover-auto,76,?,-1,-1,176134,55,budget,0.927,False
