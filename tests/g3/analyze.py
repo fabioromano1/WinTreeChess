@@ -36,16 +36,17 @@ def cls(msgs):   # classe della partita dalle righe del prover (priorità TB > m
 
 per = {e: defaultdict(list) for e in (AUTO, OFF)}
 timeloss, term, kinds = Counter(), Counter(), Counter()
+ratios = []   # per partita: nps di auto / nps di off (stessa partita: posizioni e carico della macchina simili)
 pairs = defaultdict(list)   # Round -> [(punti di auto, ha righe del prover, classe, mosse diverse da off)]
 for g in games(pgn):
     t = g["tags"]; start = t.get("FEN", START); white = t["White"]
-    stm_white = start.split()[1] == "w"; msgs, proved, offn = [], [], []
+    stm_white = start.split()[1] == "w"; msgs, proved, offn = [], [], []; gsum = {AUTO: [0, 0.0], OFF: [0, 0.0]}
     for i, (mv, c) in enumerate(zip(g["moves"], g["comments"])):
         side = white if (i % 2 == 0) == stm_white else (OFF if white == AUTO else AUTO)
         m = INFO.match(c)
         if m:
             d = per[side]; d["time"].append(float(m[3])); d["depth"].append(int(m[2])); d["nodes"].append(int(m[5]))
-            d["tl"].append(float(m[4]))
+            d["tl"].append(float(m[4])); gsum[side][0] += int(m[5]); gsum[side][1] += float(m[3])
             if not PROVER.search(c): d["depth_np"].append(int(m[2]))
             if side == OFF: offn.append(int(m[5]))
         for col in re.findall(r"(White|Black) loses on time", c):   # chi perde, non chi ha mosso
@@ -55,6 +56,8 @@ for g in games(pgn):
     # budget di Prover=off: i nodi mediani di prover-off nella stessa partita (le mosse provate hanno pochi nodi: H5)
     nodes = int(st.median(offn)) if offn else 100000
     differs = sum(off_move(start, g["moves"][:i], nodes) != mv for i, mv in proved) if eng else 0
+    if all(n > 0 and s > 0 for n, s in gsum.values()):
+        ratios.append(gsum[AUTO][0] / gsum[AUTO][1] / (gsum[OFF][0] / gsum[OFF][1]))
     term[t.get("Termination", "?")] += 1
     pts = POINTS[t["Result"]][0 if white == AUTO else 1]
     pairs[t["Round"]].append((pts, bool(msgs), cls(msgs) if msgs else None, differs))
@@ -67,6 +70,11 @@ for e, d in per.items():
     p99 = sorted(d["time"])[int(.99 * len(d["time"]))]
     print(f"| {e} | {len(d['time'])} | {st.mean(d['time']):.3f} | {st.median(d['time']):.3f} | {p99:.3f} | {st.mean(d['depth']):.2f} | "
           f"{st.mean(d['depth_np']):.2f} | {st.mean(d['nodes']):.0f} | {min(d['tl']):.3f} | {timeloss[e]} |")
+for e, d in per.items():
+    if d["time"]: print(f"\nnps aggregata {e}: {sum(d['nodes']) / sum(d['time']):.0f}", end="")
+if len(ratios) > 1:
+    r = st.mean(ratios) - 1; h = 1.96 * st.stdev(ratios) / len(ratios) ** .5
+    print(f"\nnps per partita, auto / off - 1: {r:+.2%} ± {h:.2%} (95 %, {len(ratios)} partite; mediana {st.median(ratios) - 1:+.2%})")
 print("\nTerminazioni (tag):", dict(term))
 
 full = {r: v for r, v in pairs.items() if len(v) == 2}
