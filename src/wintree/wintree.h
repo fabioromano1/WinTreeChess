@@ -80,7 +80,8 @@ class ProofTable {
     static u64 buckets(unsigned log2Entries) { return u64(1) << (log2Entries > 2 ? log2Entries - 2 : 0); }
   public:
     explicit ProofTable(unsigned log2Entries) : e(new Bucket[buckets(log2Entries)]), mask(buckets(log2Entries) - 1) { clear(); }
-    void clear() { for (u64 i = 0; i <= mask; i++) for (Entry& x : e[i].s) { x.w0.store(0, std::memory_order_relaxed); x.w1.store(0, std::memory_order_relaxed); } }
+    u64 provenWrites = 0;  // scritture PROVEN dall'ultimo clear() (un solo scrittore): 0 = nessuna entry PROVEN (H3 di M3)
+    void clear() { provenWrites = 0; for (u64 i = 0; i <= mask; i++) for (Entry& x : e[i].s) { x.w0.store(0, std::memory_order_relaxed); x.w1.store(0, std::memory_order_relaxed); } }
     // Identità di un'entry = (chiave, goal): la stessa posizione può avere un'entry per goal (ricerche WIN(us) e
     // WIN(opp) sulla stessa tabella, §8.5). goal = -1: la prima entry con quella chiave, qualunque goal.
     u64 probe(u64 key, int goal = -1) const {
@@ -103,6 +104,7 @@ class ProofTable {
             if (!b) { if (!empty) empty = &s[i]; } else if (!proven(b) && !open) open = &s[i];
         }
         Entry& x = empty ? *empty : open ? *open : s[key >> 62 & (WAYS - 1)];
+        provenWrites += proven(data);
         x.w1.store(data, std::memory_order_relaxed);
         x.w0.store(key ^ data, std::memory_order_relaxed);
     }

@@ -40,7 +40,7 @@ termina il processo sul duplicato).
 |---|---|---|
 | H1 opzioni | `engine.cpp:139-175` (dopo `EvalFile`) | le 5 opzioni sopra; i valori finiscono nei globali di `Prover::` (come `Tablebases::init`), letti dalla ricerca senza lookup della mappa |
 | H2 radice | `search.cpp:215` → `Search::Worker::prove_root()` in `prover.cpp` | fra il controllo `rootMoves.empty()` e `threads.start_searching()`, sul main thread con gli helper fermi (mai in `start_thinking`). Trigger (solo `auto`): `go mate` o `bestPreviousScore` decisivo (G3 tuning: il trigger "pochi pezzi" di M3 è stato tolto, `../../tests/g3/README-tuning.md`); `mate`/`draw` forzano. Memoria dei fallimenti (solo `auto` senza `go mate`): una radice uscita senza esito (`UNKNOWN_BUDGET`) non riparte, per chiave, finché `ProverMaxNodes` e la quota di tempo non sono almeno il doppio di do_move e ms spesi; azzerata da `ucinewgame`. Direzione: WIN(us), oppure WIN(opp) (modalità NOWIN, tetto 4096) se `draw` o se il punteggio precedente è negativo. Budget `min(ProverBudget‰ · optimum, ProverMaxNodes)` con la quota misurata da `limits.startTime`, stop UCI cooperativo. Esito PROVEN_WIN/NOWIN/UNKNOWN_CYCLE → verificatore (§7.9); se certificato: `rootProof` (H4/H5), `tbRank` = 1 sulla mossa provata in tutti i worker + `stable_sort` come `tbprobe.cpp:1949`, `rootInTB` resta false |
-| H3 probe | `search.cpp:949-973` (dopo lo Step 6, prima dello Step 7) | `!rootNode && !excludedMove && Prover::mode != OFF && depth >= ProverProbeDepth`; `Prover::probe()` legge l'entry base per ciascun goal, controlla `rev/req` sul contatore (§7.5) e mappa con la tabella di §7.8: PROVEN_WIN(g,d) → `mate_in(ply+d)`/LOWER per g al tratto, `mated_in`/UPPER per l'altro, banda TB (`VALUE_TB − (ply+d)`) se `tbLeaf`; PROVEN_NOWIN(g) → `VALUE_DRAW` UPPER/LOWER. Stesso schema di `search.cpp:955-970`: scrittura TT (`depth+6`) e ritorno se il bound chiude la finestra, altrimenti `bestValue/alpha` o `maxValue` ai nodi PV |
+| H3 probe | `search.cpp:949-974` (dopo lo Step 6, prima dello Step 7) | `Prover::provenEntries && !rootNode && !excludedMove && Prover::mode != OFF && depth >= ProverProbeDepth` (il primo test salta il probe finché la tabella non ha entry PROVEN, sezione "Probe H3 saltato a tabella senza PROVEN"); `Prover::probe()` legge l'entry base per ciascun goal, controlla `rev/req` sul contatore (§7.5) e mappa con la tabella di §7.8: PROVEN_WIN(g,d) → `mate_in(ply+d)`/LOWER per g al tratto, `mated_in`/UPPER per l'altro, banda TB (`VALUE_TB − (ply+d)`) se `tbLeaf`; PROVEN_NOWIN(g) → `VALUE_DRAW` UPPER/LOWER. Stesso schema di `search.cpp:955-970`: scrittura TT (`depth+6`) e ritorno se il bound chiude la finestra, altrimenti `bestValue/alpha` o `maxValue` ai nodi PV |
 | H4 scelta | `search.cpp:249-262` (dopo la scelta di `bestThread`, prima di `bestPreviousScore`) | se `rootProof.proven`: `Utility::move_to_front`, `score = uciScore = mate_in(d)` (o `VALUE_TB − d` con foglie TB), `pv` = cammino principale dell'albero di prova, `unset_inexact()`, `uciPvSent = false`; con `searchmoves` che escludono la mossa provata non si applica |
 | H5 stop | `search.cpp:571-579` (dopo il trigger `limits.mate`) | dopo un'iterazione completata, con `rootProof.proven` e (`!limits.mate` o `d ≤ 2·mate`): `threads.stop` (o `stopOnPonderhit` se si pondera); mai con `go infinite` |
 | H6 contabilità | `prover.cpp` (`nodes += g.moves`) | le `do_move` del prover sommate a `Worker::nodes` del main (per `go nodes`/`nodestime`); `callsCnt = 0` come dopo una sonda TB |
@@ -53,14 +53,15 @@ File nuovi: `prover.h` (stato, `RootProof`, `probe`), `prover.cpp` (tabella, map
 principale), `tests/prover_overhead.sh`, `tests/random_openings.py`, `tests/smoke_games.sh`; modificati:
 `tests/instrumented.py` (classe `TestProver`, percorso della rete), `tests/reprosearch.sh` (variabile `PROVER`). Nel
 nucleo condiviso (`../wintree/wintree.h`, `../wintree/dfpn.h`): bit 55 `tbLeaf` nelle entry PROVEN (`Result::tbLeaf`,
-`pack_proven(..., tbLeaf)`), propagato dalle foglie TB (`WIN_GOAL_C0`) lungo l'albero di prova, e `CHECK_EVERY` = 64.
+`pack_proven(..., tbLeaf)`), propagato dalle foglie TB (`WIN_GOAL_C0`) lungo l'albero di prova, `CHECK_EVERY` = 64 e il contatore
+`ProofTable::provenWrites` (scritture PROVEN dall'ultimo `clear()`, per il salto del probe H3).
 
 ## Scostamenti dalla spec e scelte di M3
 
 1. **`Prover` string al posto di check + `ProverMode` combo** (sopra): il combo di Stockfish 19 è inutilizzabile.
 2. **Tabella delle prove globale** (`Prover::table`, `prover.cpp`) come `Tablebases`, non membro di `Engine`/`SharedState`:
    un'istanza di `Engine` per processo (lo stesso limite di `Tablebases::init`, `engine.cpp:166`). Allocata con `new`
-   (non `aligned_large_pages_alloc`), azzerata in `search_clear`. Le entry PROVEN non hanno età/generazione (§8.3):
+   (non `aligned_large_pages_alloc`) al primo avvio del prover alla radice (non più da `setoption Prover`), azzerata in `search_clear`. Le entry PROVEN non hanno età/generazione (§8.3):
    rimpiazzo di M2c (bucket di 4, protezione morbida dei PROVEN).
 3. **`ProverMaxNodes` in `do_move`** (il nodo di §9.4, ~35 per espansione df-pn), non in espansioni: è la misura usata da
    G0/G1 e sommata a `Worker::nodes` (H6). Default 10^6: nella suite mates2000 il nucleo a freddo risolve 1506/2000
@@ -189,4 +190,36 @@ Non fatto in M3 (fuori mandato o rinviato): G3 (SPRT), G2 (corpus di fortezze), 
 (§12.2), prefetch dell'entry della tabella, ri-ricerca per minimizzare `d`, scelta "resistenza massima" con tutte le
 mosse perdenti, `k` adattivo, PGO per riferimento e ibrido, H9.
 
+## Probe H3 saltato a tabella senza PROVEN (2026-10-28)
 
+Rimedio al costo del solo probe in partita (G4b, `../../tests/g3/README-ltc.md` §2: −1,27 % ± 0,82 % di nps per
+partita a 60+0.6 con `Prover=auto`, `ProverMaxNodes=0`, albero identico a `off`). Nessun cambiamento di semantica: con
+entry PROVEN in tabella il probe si comporta come prima; senza, non può dare hit e viene saltato.
+
+| File:righe | Cosa |
+|---|---|
+| `../wintree/wintree.h:83-84,107` | `ProofTable::provenWrites`: scritture PROVEN dall'ultimo `clear()` (un solo scrittore, contatore non atomico); azzerato da `clear()`, incrementato in `store()`. Non letto dal nucleo: `make -C src/wintree test` e `make -C src/wintree-chess test` (regressioni + campione di G0) verdi |
+| `prover.h:51-53`, `prover.cpp:50` | `std::atomic<uint64_t> Prover::provenEntries`, letto dalla ricerca |
+| `prover.cpp:245` | dopo il solve in `prove_root` (main thread, helper fermi): `provenEntries = table->provenWrites` |
+| `prover.cpp:121-133` | `set_mode` non alloca più; `set_hash` libera la tabella (riallocata al prossimo avvio) e azzera `provenEntries`; `clear()` (H7) azzera `provenEntries` |
+| `prover.cpp:219` | `ensure_table()` al primo avvio del prover alla radice: `Prover=auto` senza avvii non tocca memoria; l'allocazione (16 MiB di default, una volta) cade nella quota del prover |
+| `search.cpp:949-952` (H3) | `Prover::provenEntries` come primo test della condizione: con `ProverMaxNodes=0`, o prima del primo esito PROVEN, un solo test di un intero per nodo (come `off`, che fa il test su `Prover::mode`) |
+
+`provenEntries` è un limite superiore del numero di entry PROVEN (non scende quando un'entry PROVEN viene
+sovrascritta): può solo lasciare attivo un probe inutile, mai saltarne uno utile. Effetto collaterale: con `Prover=auto`
+il probe parte solo dopo il primo avvio del prover nella partita che abbia scritto una PROVEN (a 10+0.1 in pratica mai:
+lì `auto` diventa identico a `off` anche in velocità).
+
+**Verifiche** (`../../tests/results/g3-ltc/g4b-skip/`):
+
+| Verifica | Esito |
+|---|---|
+| signature `bench` con `Prover=off` | **2497913** |
+| 121 ricerche di controllo (`../../tests/g3/replay_nodes.py`, prime 2 partite di G4b, `go nodes 300000`, TT conservata) | profondità, nodi e mosse **identici** fra binario nuovo e precedente × `off` e `auto`/`ProverMaxNodes=0` |
+| `tests/instrumented.py --none ./stockfish` | **88/88**, 8 suite (`TestProver` 12/12) |
+| `tests/reprosearch.sh` | **verde** con `off` e con `PROVER=auto` |
+| `tests/prover_overhead.sh` (10 corse, `taskset -c 2`), mediana / riferimento, prima → dopo | off 100,10 % → 100,04 %; probe1 **96,93 % → 100,01 %**; probe4 98,59 % → 99,78 %; probe6 98,82 % → 99,41 %; probe8 99,08 % → 99,43 % (dopo: differenze residue entro il rumore fra corse) |
+| G4b ripetuto: 400 partite 60+0.6, `auto` (`ProverMaxNodes=0`, `ProverLog`) vs `off`, aperture 1001-1200 | nps per partita **+0,51 % ± 0,78 %** (mediana −0,14 %; prima −1,27 % ± 0,82 %, mediana −1,15 %); aggregata +0,27 % (prima −1,63 %); nodi per mossa +0,13 % (prima −1,46 %); 0 avvii del prover, 0 timeout; Elo +5,2 ± 9,3 |
+
+G4 (§11, ≤ 1 %) a 60+0.6 **superato** per `auto` senza avvii del prover. Il costo del probe dopo il primo esito PROVEN
+resta quello di prima (G4a, −0,3/−0,4 % su posizioni fisse; non rimisurato in partita).

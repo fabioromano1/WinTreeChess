@@ -47,11 +47,12 @@ int  probeDepth     = 6;
 int  budgetPermille = 100;
 int  maxNodes       = 1000000;
 bool logRoot        = false;
+std::atomic<uint64_t> provenEntries{0};
 
 namespace {
 
 int                                  hashMiB = 16;
-std::unique_ptr<WinTree::ProofTable> table;  // allocata al primo uso (set_mode != OFF)
+std::unique_ptr<WinTree::ProofTable> table;  // allocata al primo avvio del prover alla radice (prove_root)
 // Radici gia' cercate senza esito in `auto` (do_move e ms spesi): si riparte solo con un budget almeno doppio
 // (tests/g3/README-tuning.md). Azzerata da clear() (ucinewgame).
 std::unordered_map<Key, std::pair<int64_t, TimePoint>> failed;
@@ -117,24 +118,18 @@ principal_pv(Position& pos, Color goal, const WinTree::ProofTable& pt, int tbMax
 
 }  // namespace
 
-void set_mode(Mode m) {
-    mode = m;
-    if (m != OFF)
-        ensure_table();
-}
+void set_mode(Mode m) { mode = m; }
 
 void set_hash(int mib) {
     hashMiB = mib;
-    if (table)
-    {
-        table.reset();
-        ensure_table();
-    }
+    table.reset();  // riallocata al prossimo avvio del prover
+    provenEntries = 0;
 }
 
 void clear() {
     if (table)
         table->clear();
+    provenEntries = 0;
     failed.clear();
 }
 
@@ -221,6 +216,7 @@ void Search::Worker::prove_root() {
             && (Prover::maxNodes < 2 * it->second.first || (clock && share < 2 * it->second.second)))
             return;
     }
+    Prover::ensure_table();  // pigra: senza avvii nessuna memoria; l'allocazione cade nella quota del prover
     const bool winMode = goal == us;
     b.maxDepth         = Prover::mode == Prover::DRAW ? 4096 : 245;  // tetto profondo solo in analisi di patta (§8.1b)
     const int tbMax = int(options["Syzygy50MoveRule"]) ? tbLimit : 0;  // §7.6: i sink TB assumono le 50 mosse
@@ -246,6 +242,7 @@ void Search::Worker::prove_root() {
             r = r2;
     }
     nodes += g.moves;  // H6
+    Prover::provenEntries = Prover::table->provenWrites;
     mm->callsCnt = 0;  // controllo del tempo al prossimo nodo, come dopo una sonda TB
     const TimePoint spent     = now() - t0;
     auto            no_result = [&](const char* why) {

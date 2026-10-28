@@ -23,6 +23,8 @@
 #ifndef PROVER_H_INCLUDED
 #define PROVER_H_INCLUDED
 
+#include <atomic>
+#include <cstdint>
 #include <vector>
 
 #include "types.h"
@@ -46,10 +48,13 @@ extern int  probeDepth;      // ProverProbeDepth: probe solo con depth >= probeD
 extern int  budgetPermille;  // ProverBudget: quota di tm.optimum() (o di movetime) per il prover alla radice
 extern int  maxNodes;        // ProverMaxNodes: tetto in do_move del prover (il "nodo" di §9.4); 0 = prover spento
 extern bool logRoot;         // ProverLog: `info string prover: start ...` / `no result after N do_move in T ms`
+// Scritture PROVEN nella tabella dall'ultimo clear() (aggiornato dal prover alla radice, helper fermi): a 0 il probe H3
+// non può dare nulla e la ricerca lo salta con un solo test.
+extern std::atomic<uint64_t> provenEntries;
 
 void set_mode(Mode m);
 void set_hash(int mib);  // ProverHash in MiB (16 byte per entry)
-void clear();            // H7: azzeramento della tabella (search_clear)
+void clear();            // H7: azzeramento della tabella e di provenEntries (search_clear)
 
 // Esito certificato alla radice (H4/H5): PROVEN_WIN(us) passata dal verificatore di §7.9.
 struct RootProof {

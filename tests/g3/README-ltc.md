@@ -71,6 +71,7 @@ partito al più 16 volte):
 | NR di tuning, 10+0.1, 30‰ (`g3-tuning/nr`) | 20 000 | −0,89 % | −0,37 % ± 0,14 % | −0,92 % |
 | campione 60+0.6, 30‰ (`g3-tuning/ltc`) | 1500 | −1,26 % | −0,75 % ± 0,41 % | −1,11 % |
 | **G4b, 60+0.6, solo probe** | 400 | **−1,63 %** | **−1,27 % ± 0,82 %** | −1,15 % |
+| **G4b ripetuto, probe saltato a tabella senza PROVEN** (`g4b-skip`, sotto) | 400 | **+0,27 %** | **+0,51 % ± 0,78 %** | −0,14 % |
 
 **Lettura (prudente).**
 1. In partita il solo probe costa ~1 % di nps (mediana per partita da −0,8 % a −1,15 %, aggregata da −0,8 % a −1,6 %),
@@ -87,7 +88,42 @@ quindi alzarlo non è il rimedio; tenere 6 (default) finché una misura in parti
 indicato è non pagare nulla finché la tabella è vuota: (i) saltare il probe finché `prove_root` non ha scritto almeno
 una entry PROVEN (con `ProverMaxNodes=0`, e a 10+0.1 in pratica sempre, `auto` diventa identico a `off`); (ii) allocare
 la tabella solo al primo avvio del prover, o `ProverHash` piccolo. Da misurare con lo stesso G4b (400 partite, ~5 h)
-prima di qualunque uso di `auto` in partita. Seguito non fatto in questo giro.
+prima di qualunque uso di `auto` in partita. Fatto il 2026-10-28 (sotto).
+
+### 2.1 G4b ripetuto con il probe saltato a tabella senza PROVEN (2026-10-28)
+
+Rimedio (i)+(ii) in `src/stockfish-hybrid` (README della copia, sezione "Probe H3 saltato a tabella senza PROVEN"):
+il probe H3 parte solo se `Prover::provenEntries` (scritture PROVEN dall'ultimo `ucinewgame`) è > 0, e la tabella è
+allocata al primo avvio del prover. Con `ProverMaxNodes=0` `auto` fa per nodo un solo test di un intero in più di `off`.
+
+`tests/results/g3-ltc/g4b-skip/` (`run.sh`): stesso blocco di G4b (aperture 1001-1200, 200 coppie, 60+0.6,
+adjudication della NR, concorrenza 4), binario sha256 `5d91e4d6…cad607`; 4 h 39. 0 righe `info string prover`, nessun
+timeout, nessun crash, nessuna disconnessione.
+
+| | `auto` (solo probe, saltato) | `off` | differenza |
+|---|---:|---:|---:|
+| mosse | 20 837 | 20 852 | |
+| tempo per mossa medio / mediano (s) | 1,596 / 1,073 | 1,598 / 1,060 | −0,1 % |
+| nodi per mossa medi | 590 598 | 589 847 | +0,13 % |
+| nps aggregata (Σ nodi / Σ tempo) | 370 100 | 369 104 | +0,27 % |
+| profondità media | 25,37 | 25,29 | +0,08 |
+| nps per partita, `auto` / `off` − 1 (media, 95 %) | | | **+0,51 % ± 0,78 %** (mediana −0,14 %) |
+
+Elo +5,21 ± 9,30, pentanomiale [0, 12, 170, 18, 0] (400 partite: non informativo).
+
+**Prima delle partite** (stesso binario): 121 ricerche di controllo (`tests/g3/replay_nodes.py`, prime 2 partite di
+G4b, `go nodes 300000`, TT conservata) con profondità, nodi e mosse identici fra binario nuovo e precedente × `off` e
+`auto`/`ProverMaxNodes=0` (`g4b-skip/replay/`); `bench` con `tests/prover_overhead.sh` (`g4b-skip/overhead-bench-*.md`,
+10 corse, `taskset -c 2`): probe1 da 96,93 % a 100,01 % del riferimento, probe6 da 98,82 % a 99,41 % (le differenze
+residue fra 99,4 % e 100 % sono rumore fra corse: probe1, il caso con più probe, è a 100,01 %).
+
+**Lettura.** Il costo misurato di G4b (−1,27 % ± 0,82 %) sparisce: la stima per partita (+0,51 % ± 0,78 %) è
+compatibile con zero e la mediana è −0,14 %; gli intervalli prima e dopo non si sovrappongono ([−2,09 %; −0,45 %]
+contro [−0,27 %; +1,29 %]). **G4 a
+60+0.6 è superato** (§11, ≤ 1 %) per `auto` senza avvii del prover. L'nps assoluta è ~16 % più alta che nel G4b
+precedente per entrambi i motori (anche per `off`, che il cambiamento non tocca): stato della macchina diverso fra i due
+giorni, che non cambia il confronto interno alla corsa. Quando il prover scrive una entry PROVEN il probe torna attivo e
+costa come prima (non misurato qui: richiede avvii del prover, come nel campione della sezione 4).
 
 ## 3. Set di finali sensibile: `tests/books/endgames-hard.epd` (481 posizioni)
 
@@ -203,8 +239,8 @@ il rapporto di nps per partita (−4,42 % ± 0,88 %, mediana −2,10 %) non è c
   resta la certificazione in analisi (`Prover=mate`, `wintree-chess`), come in §13 della spec.
 - **`ProverProbeDepth=6`**: tenere. Su posizioni fisse a depth 30, 6/8/10 costano uguale (−0,3/−0,4 % ± 0,6 %); in
   partita il solo probe costa ~1,3 % ± 0,8 % a 60+0.6 (G4: non superato con margine). Il rimedio non è il gating ma
-  non pagare nulla a tabella vuota (probe saltato finché non c'è una entry PROVEN; tabella allocata al primo avvio),
-  da verificare con un G4b ripetuto (400 partite, ~5 h).
+  non pagare nulla a tabella vuota (probe saltato finché non c'è una entry PROVEN; tabella allocata al primo avvio):
+  fatto e verificato con G4b ripetuto (sezione 2.1: +0,51 % ± 0,78 % di nps per partita, prima −1,27 % ± 0,82 %).
 - **`ProverBudget=30`, trigger ristretto, memoria dei fallimenti**: corretti e a basso costo anche dove il prover
   parte spesso (0,3 % del tempo); il ramo NOWIN può essere tolto senza perdite.
 - **Un set più sensibile per il risultato** dovrebbe essere scelto per esito, non per valutazione: posizioni che `off`

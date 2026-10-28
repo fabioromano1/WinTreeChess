@@ -946,8 +946,10 @@ Value Search::Worker::search(
         ttWriter.penalize(1);
     }
 
-    // M3 H3. Proof table probe (spec §7.8, §8.5): i limiti dimostrati entrano come i WDL dello Step 7
-    if (!rootNode && !excludedMove && Prover::mode != Prover::OFF && depth >= Prover::probeDepth)
+    // M3 H3. Proof table probe (spec §7.8, §8.5): i limiti dimostrati entrano come i WDL dello Step 7;
+    // saltato con un solo test finché la tabella non ha entry PROVEN (ProverMaxNodes=0, prover mai partito)
+    if (Prover::provenEntries && !rootNode && !excludedMove && Prover::mode != Prover::OFF
+        && depth >= Prover::probeDepth)
     {
         Prover::Hit hits[2];
         for (int i = 0, n = Prover::probe(pos, ss->ply, hits); i < n; ++i)
