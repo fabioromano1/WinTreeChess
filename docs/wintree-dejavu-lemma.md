@@ -8,6 +8,8 @@
 2. **Dimostrata** per la regola corretta: se al salto il padre eredita un soprainsieme di `B(w) \ {ply del padre}` (insieme esatto, variante A; oppure tutto il prefisso `[0..p]`, variante B), vale l'invariante "ogni albero vincente da un nodo NIL tocca uno dei suoi bloccanti" (Lemma 3), da cui la completezza alla radice (Teorema 4, analogo del Thm 3.4) e la versione forte (Corollario 5, analogo del Lemma 4.7, salto compreso). Modulo collisioni dell'hash a 32 bit, che perdono solo completezza.
 3. **Misurato** (prima nello scratchpad su copie patchate dell'header, poi con la variante A applicata a `wintree.h`, §8): entrambe le varianti risolvono i controesempi e passano il test ufficiale (`regression` + fuzz 10^4 grafi: 0 radici incomplete, 0 fallimenti del Thm 4.8). Espansioni totali sui 20 000 casi del fuzz: originale 135 087, A 134 562, B 142 439, senza dejavu 217 370.
 
+4. **Thm 4.8 per la variante A (§10, 2026-10-28): non confutato, dimostrato a meno di un lemma.** Nessun controesempio in circa 5·10^7 ricerche mirate (grafi di 4-24 vertici con cicli densi, controllo diretto del cammino NIL e model checker; anche per la variante B di ripiego). Il teorema è **ridotto rigorosamente** al Lemma H1 ("i bloccanti finali di un vertice NIL raggiungibile dalla radice per vertici NIL sono a loro volta raggiungibili"), e H1 è dimostrato per induzione in tutti i casi tranne uno, isolato come Lemma 9 (enunciato preciso in §10.3), che resta **aperto**: verificato senza eccezioni nel fuzz, insieme a invarianti strutturali più forti (§10.4). La dimostrazione del paper non si trasferisce perché con la tabella non esiste in generale un istante in cui tutto il cammino NIL è GRAY (§10.5).
+
 Il resto del documento dà definizioni, dimostrazione, controesempio con traccia, conseguenze per la spec e ciò che resta aperto.
 
 ## 1. Ipotesi e notazione
@@ -223,11 +225,95 @@ Il totale dell'originale coincide con i 135 087 del README (M2c): il driver ripr
 ## 9. Cosa resta aperto
 
 1. **Scelta fra A e B** e misura sul caso scacchistico (B1/B5 di §9.4): quante volte il salto interviene con `p` sotto il padre e quanti bloccanti ha in media un nodo NIL. A richiede memoria per insieme (32 byte per entry `UNKNOWN_CYCLE` a 245 ply) o una compressione (per esempio i 32 ply sotto `p` come maschera, con "tutto il resto" conservativo oltre).
-2. **Thm 4.8 per la variante corretta.** La dimostrazione del paper richiede un istante in cui tutti i `v_i` del cammino NIL sono GRAY insieme; con la tabella l'entry finale di `v_i` può essere stata scritta sotto un cammino diverso da `⟨v_0..v_{i-1}⟩`, e il passo induttivo non si trasferisce direttamente. Casi `n ≤ 2` verificati a mano; nessun fallimento sui 10^4 grafi del fuzz né sui controesempi con A e B. Da dimostrare o confutare.
+2. **Thm 4.8 per la variante corretta.** La dimostrazione del paper richiede un istante in cui tutti i `v_i` del cammino NIL sono GRAY insieme; con la tabella l'entry finale di `v_i` può essere stata scritta sotto un cammino diverso da `⟨v_0..v_{i-1}⟩`, e il passo induttivo non si trasferisce direttamente. **Aggiornamento 2026-10-28 (§10):** ridotto al Lemma H1 e questo al Lemma 9 (caso residuo dell'induzione), che resta aperto; 0 fallimenti in circa 5·10^7 ricerche mirate, anche per la variante B.
 3. **Hash del prefisso**: la perdita per collisione è stimata, non misurata (§9.2 punto 8, collisione forzata, resta non fatto).
 4. **Regola delle 50 mosse e budget**: fuori perimetro. Con `rev/req` una `PROVEN` fuori intervallo è riesplorata e può chiudere NIL: (I) continua a valere, ma la nozione di `eval` cambia (§7.5); da riesaminare quando il dejavu entrerà in `wintree-chess` con `Prover`.
 5. **Estensione al df-pn**: il README (M2c) ipotizza un dejavu a prefisso per le confutazioni tainted; se sarà fatto, dovrà usare l'eredità ammissibile (A o B), non `(p, hash)` da solo.
 
+## 10. Teorema 4.8 per la variante A: riduzione a un lemma, ricerca di controesempi (2026-10-28)
+
+Oggetto: il Thm 4.8 del paper (strategia di patta) per il dejavu con eredità esatta dei bloccanti (variante A, `src/wintree/wintree.h`), nelle ipotesi di §1 (ricerca `NOWIN` senza budget su tabella vuota, nessuna regola delle 50 mosse, nessuna collisione, nessun rimpiazzo). Risultato: **nessun controesempio** (§10.4); il teorema è **ridotto rigorosamente** (§10.2) a un lemma di chiusura (H1), dimostrato per induzione tranne un caso residuo isolato con precisione (Lemma 9, §10.3), che **resta aperto** ed è verificato senza eccezioni nel fuzz insieme a invarianti più forti. Gli enunciati "naturali" che chiuderebbero il caso residuo e che il fuzz **confuta** sono elencati in §10.5, perché non vengano ritentati.
+
+### 10.1 Enunciato
+
+Notazione di §1-§3, più la seguente. La ricerca termina con la **tabella finale**: ogni vertice visitato ha un'entry `PROVEN_WIN` (insieme `W`), `PROVEN_NOWIN` (`F`) o `UNKNOWN_CYCLE` (`N`); i vertici mai espansi non hanno entry. Per `v ∈ N` l'entry finale è scritta dall'**ultima espansione** `E_v` di `v` (ogni espansione di un vertice `N` termina NIL e sovrascrive la precedente); `P^v = (a_0, …, a_{k-1})` è il cammino (gli antenati GRAY) al momento di `E_v`, con `a_0 = v_0` e `v` a ply `k`; `supp(v) = P^v[B_v]` sono i **bloccanti finali** (vertici); `p_v = max B_v` il ply del più profondo (`-1` se nessuno). Sia **`R`** l'insieme dei vertici raggiungibili da `v_0` con cammini di soli vertici `N` (`R = ∅` se `v_0 ∉ N`). Ogni figlio di un vertice `N` ha un'entry (un nodo NIL esamina tutti i figli), quindi un figlio `N` di un vertice di `R` sta in `R`.
+
+**Teorema 4.8-A (enunciato per la tabella).** Dopo una ricerca completa, se `v_0 ∈ N` allora `eval(v) ≠ g` per ogni `v ∈ R`; equivalentemente, per ogni cammino `⟨v_0, …, v_n⟩` di `G` con tutti i `v_i ∈ N` si ha `eval(v_n) ≠ g`.
+
+È la lettura che fa il verificatore di §7.9 della spec e il model checker `drawStrategyFails` di `test.cpp` (il difensore sceglie figli `N` da un nodo `N` o figli `F`, l'attaccante qualsiasi; fallisce se manca la scelta o si raggiunge un sink vinto da `g`). I due enunciati sono equivalenti: se il teorema vale, da un nodo `N` dell'attaccante nessun figlio è `W` (altrimenti `eval = g`), da un nodo `N` del difensore esiste un figlio `N` o `F` (uno con `eval ≠ g`, che non è `W` per solidità ed ha un'entry), i nodi `F` hanno figli `F` con la stessa regola del paper e i sink raggiunti non sono vinti da `g`; viceversa se il model checker passa, il difensore ha una strategia che resta in `R ∪ F` o termina in sink non vinti da `g`, quindi `g` non forza la vittoria da alcun vertice di `R`.
+
+### 10.2 Riduzione al Lemma H1
+
+**Lemma H1 (chiusura di `R` sotto i bloccanti).** Per ogni `v ∈ R`: `supp(v) ⊆ R`.
+
+**Lemma 6.** H1 implica il Teorema 4.8-A.
+
+*Dimostrazione.* Per assurdo esista `v ∈ R` con `eval(v) = g`; lo si scelga con `d_g(v)` minimo. Per (F2) e la costruzione del Lemma 4.6 del paper esiste un albero vincente `T` da `v` in cui ogni nodo a profondità `j` ha `d_g ≤ d_g(v) − j`; in particolare ogni nodo di `T` diverso dalla radice ha `d_g < d_g(v)`. Per l'invariante (I) (Lemma 3, valido per la variante A perché la sua regola di eredità è ammissibile) ogni albero vincente da `v` tocca `supp(v)`, che è un insieme di antenati **propri** di `v`: dunque `T` contiene un `y ∈ supp(v)`, `y ≠ v`, con `eval(y) = g` (F1 applicata al sottoalbero) e `d_g(y) < d_g(v)`. Per H1 `y ∈ R`, contro la minimalità di `d_g(v)`. ∎
+
+Il caso `n = 0` del teorema (la radice) è il Teorema 4 di §5: `supp(v_0) = ∅`.
+
+### 10.3 Dimostrazione di H1 a meno del Lemma 9
+
+Fatti usati (tutti dimostrati qui).
+
+- **(U) Unicità del frame per prefisso.** Un vertice è espanso al più una volta sotto un dato cammino di antenati `π`: dopo un'espansione NIL sotto `π` l'entry ha bloccanti a ply `≤ |π| − 1`, e ogni visita successiva con lo stesso prefisso la salta; dopo un esito PROVEN non è più espanso.
+- **(S) Entry stantia.** Dopo `E_v` (con `p_v ≥ 0`) ogni visita di `v` è un salto con `path[0..p_v] = P^v[0..p_v]`, quindi avviene dentro il frame di `a_{p_v}` sotto il prefisso `P^v[0..p_v−1]` (unico per (U)); terminato quel frame `v` non è più visitato né GRAY.
+- **(Inh) Eredità.** Se nell'espansione `E_x` di `x` il figlio `w` dà NIL per espansione `E'_w` o per salto dell'entry scritta da `E''_w`, allora `supp(E'_w) \ {x} ⊆ supp(E_x)` (per (R3)/(R4) e `inherit_skip`; nel salto i vertici coincidono per la condizione sul prefisso). Se `w` è GRAY, `w ∈ supp(E_x)`.
+- **(T) Ordine temporale dei padri.** Sia `u ∈ R` un padre di `v ∈ R` (arco `u → v`). In `E_u` il figlio `v` è esaminato (un nodo NIL non si ferma) con esito NIL, in uno di quattro modi: **(a)** espansione `E_v` stessa (`u = a_{k−1}` e `E_u ⊃ E_v`); **(b)** salto dell'entry finale di `v` (dopo `E_v`, dentro `E_u`); **(c)** espansione o salto di un'entry **non** finale (allora `E_u` termina prima che `E_v` inizi: dentro `E_u`, dopo l'esame, `v` è sempre saltato per (S) applicata all'entry di allora); **(d)** `v` GRAY (`E_u` è dentro un'espansione di `v`). In (a) e (b) `E_u` termina dopo `E_v` e, per (Inh), **`supp(v) \ {u} ⊆ supp(u)`**.
+
+**Lemma 8 (induzione).** Si supponga il Lemma 9 qui sotto. Allora H1 vale.
+
+*Dimostrazione.* Induzione sui vertici di `R` in ordine **decrescente** dell'istante di fine di `E_v` (il primo è `v_0`, con `supp(v_0) = ∅`). Siano `v ∈ R` e `y ∈ supp(v)`.
+1. Se esiste `u ∈ R` con `E_u` che termina dopo `E_v` e `y ∈ supp(u)`: per ipotesi induttiva `supp(u) ⊆ R`, quindi `y ∈ R`.
+2. Altrimenti, se qualche padre `u ∈ R` di `v` ha esaminato `v` nel modo (a) o (b): per (T) `supp(v) \ {u} ⊆ supp(u)` con `E_u` che termina dopo `E_v`; se `y ≠ u` si ricade nel caso 1 (escluso), quindi `y = u ∈ R`.
+3. Altrimenti valgono le ipotesi (M) e (P) del Lemma 9, che dà `y ∈ R`. ∎
+
+**Lemma 9 (caso residuo, APERTO).** Siano `v ∈ R` e `y ∈ supp(v)` tali che **(M)** nessun `u ∈ R` la cui ultima espansione termina dopo `E_v` ha `y ∈ supp(u)`, e **(P)** nessun padre `u ∈ R` di `v` ha esaminato `v` in `E_u` nel modo (a) o (b) (tutti i padri in `R` lo hanno esaminato nel modo (c) o (d)). Allora `y ∈ R`.
+
+Conseguenze delle ipotesi, dimostrabili con (S), (U), (Inh): per (M) ogni frame `a_l` fra `y` e `v` che termina NIL nella catena di propagazione da `v` (e quindi eredita `y`) non è l'ultima espansione di un vertice di `R`; per (P) il padre `a_{k−1}` non è un vertice di `R` con frame finale, e se il suo frame non è finale la sua riespansione successiva termina PROVEN prima di esaminare `v` quando `p_v = k−1`. Empiricamente (§10.4, proprietà "(d) annidato") in (d) l'espansione di `v` che contiene `E_u` è sempre `E_v` stessa (altrimenti `v` sarebbe un bloccante di `u` con frame non finale, contro F1). Queste conseguenze non bastano a chiudere il lemma: il fuzz mostra (§10.5) che nel caso residuo il bloccante `y` può stare **sotto** un antenato `W`/`F` di `v` ed essere in `R` solo grazie a un altro padre, estraneo al cammino `P^v`.
+
+### 10.4 Misure
+
+Driver nello scratchpad (Appendice), compilati contro l'header del repository (variante A) e, per la riga B, contro una copia in cui `inherit_skip` usa sempre il ripiego "prefisso intero" (è il caso di un `Prover` che legge entry scritte da un altro, come in `wintree-chess`). Grafi casuali con il generatore di `graph.h` (`n` vertici, grado 1-4, densità di cicli 0,3-0,95, sink 0,05-0,3), due goal per grafo, ricerca `NOWIN` su tabella vuota; su ogni esito si verificano solidità, completezza alla radice, l'enunciato diretto (ogni vertice di `R` ha `eval ≠ g`, con l'oracolo) e il model checker.
+
+| variante | `n` | ricerche | radici `N` | Thm 4.8 fallito | radici incomplete |
+|---|---|---|---|---|---|
+| A | 4-8 | 10 000 000 | 9 096 925 | 0 | 0 |
+| A | 6-12 | 10 000 000 | 8 934 597 | 0 | 0 |
+| A | 8-16 | 6 000 000 | 5 287 466 | 0 | 0 |
+| A | 5-10 | 10 000 000 | 9 010 022 | 0 | 0 |
+| A | 4-9, 6-12 (`cexL2`, `cexV`: enunciato diretto e Lemma V) | 1 600 000 | 1 119 362 | 0 | 0 |
+| B (ripiego) | 4-10 | 8 000 000 | 7 233 723 | 0 | 0 |
+| B (ripiego) | 8-18 | 4 000 000 | 3 513 242 | 0 | 0 |
+
+Sulla stessa distribuzione, con l'header strumentato (bloccanti finali come vertici, frame e istanti di ogni espansione), valgono senza eccezioni le proprietà seguenti, più forti di H1:
+
+| proprietà (per ogni `v ∈ R`) | ricerche | violazioni |
+|---|---|---|
+| **H1** `supp(v) ⊆ R` | > 20 000 000 | 0 |
+| **F1** ogni `y ∈ supp(v)` è `N` e il frame di `y` che contiene `E_v` è l'ultima espansione di `y` | 600 000 (n 4-9) + 4 000 000 (n 6-24, 13·10^6 bloccanti) | 0 |
+| **Λ** nessun bloccante sotto l'antenato più basso che è in `R` con frame finale | 2 600 000 | 0 |
+| **D** i bloccanti "diretti" (figli GRAY di `v`, insiemi ereditati da figli con entry non finale) sono in `R` | 600 000 | 0 |
+| **(d) annidato** se `u ∈ R` esamina `v ∈ R` come GRAY, `E_u ⊂ E_v` | 2 600 000 | 0 (su 1,1·10^6 casi (d)) |
+| **Lemma V** ogni albero vincente dalla fine di un cammino NIL semplice tocca il cammino | 3 952 811 cammini | 0 |
+
+Il caso residuo del Lemma 9 compare: su 2·10^6 ricerche con `n` 4-10, 533 vertici di `R` hanno solo padri (c)/(d) (471 solo (c), 20 solo (d), 42 misti), per 272 coppie `(v, y)` valgono (M) e (P) insieme; su 6·10^6 ricerche con `n` 6-24, 3 631 coppie. In tutte `y ∈ R`.
+
+### 10.5 Rafforzamenti falsi e perché la dimostrazione del paper non si trasferisce
+
+La dimostrazione del Thm 4.8 del paper usa un istante in cui `v_0, …, v_{n−1}` sono GRAY insieme e `v_n` viene visitato (le chiamate ricorsive sono annidate lungo il cammino). Con la tabella il cammino NIL è letto a posteriori: `E_{v_{i+1}}` non è in generale dentro `E_{v_i}` (modi (b), (c), (d) di (T)), e l'entry finale di `v_{i+1}` può essere scritta sotto antenati che poi diventano `W` o `F`. Gli enunciati seguenti chiuderebbero il Lemma 9 ma sono **falsi** (controesempi trovati dal fuzz, grafi nel formato di `Gen.java`, `g = 1` salvo indicazione; la verifica si ripete con `dbg/showone FILE [goal]`):
+
+1. *"Ogni `v ∈ R` ha un padre in `R` la cui ultima espansione ha visto l'entry finale di `v`"* (C1, che renderebbe superfluo il Lemma 9). Falso: `0 2 . 4 1 / 1 1 . 3 2 / 2 2 1 / 3 2 . 4 / 4 1 . 0 3`: il vertice 3 è in `R` (`0 → 4 → 3`), ma la sua entry finale è scritta sotto il padre 1, che diventa `W`; l'unico padre in `R` (4) lo ha esaminato prima, con un'espansione non finale.
+2. *"Il cammino `P^v` dell'ultima espansione di `v ∈ R` è tutto in `N`"*, o anche solo il prefisso fino al bloccante più profondo (H9). Falso: `0 1 . 1 4 / 1 2 . 3 5 2 / 2 1 . 4 / 3 1 . 1 4 / 4 2 . 2 0 / 5 1 2`: il vertice 2 ha `supp = {4}` con `P^2 = (0, 1, 3, 4)` e `1 ∈ F`; il bloccante 4 è in `R` perché la radice ne salta l'entry finale. Lo stesso accade nel caso residuo (6 coppie su 3 631 con `n ≤ 24`).
+3. *"I livelli (cammino NIL minimo) decrescono dal vertice ai suoi bloccanti"* (H3): falso (`0 1 . 2 1 / 1 2 . 4 / 2 2 . 3 0 4 / 3 1 . 2 5 / 4 1 . 5 2 / 5 2 . 0 3 4`: il vertice 3, livello 2, ha il bloccante 5 di livello 3).
+4. *"`supp(v) \ {r} ⊆ supp(r)` con `r` l'antenato più basso in `R` con frame finale"* (Λ'): falso (115 casi su 2·10^6 ricerche, `n` 4-10), benché Λ valga.
+5. *"Nel caso residuo `supp(v) ⊆ supp(u') ∪ {u'}` per un padre `u'` di tipo (c)/(d)"* (eredità all'indietro nel tempo, che permetterebbe un'induzione crescente): falso anche escludendo la radice fra i bloccanti (5 casi su 2·10^6 ricerche, `n` 8-16).
+6. *"L'invariante H1 vale a ogni istante della ricerca, con `R_t` definito su GRAY ∪ entry correnti"*: falso (entry stantie in `R_t` con bloccanti divenuti `W`, poi riespanse: 418 violazioni su 2·10^5 ricerche), quindi la prova non può essere un invariante temporale sulla tabella corrente.
+
+Conseguenze. **Per il motore** nulla cambia: il certificato di patta è emesso dal verificatore di §7.9, che controlla il grafo di strategia posizione per posizione, e §7.9 punto 3 già classifica il lemma sul dejavu come desiderabile per l'efficienza, non necessario per la correttezza; il model checker del test resta il controllo giusto (equivalenza in §10.1) e il fuzz di `make -C src/wintree test` continua a eseguirlo. **Per la teoria**, il Lemma 9 è l'unico anello mancante: una via è dimostrare prima F1 (i frame dei bloccanti sono ultime espansioni), da cui ogni bloccante `y` di `v ∈ R` ha `E_y ⊃ E_v` e il caso residuo si riduce a mostrare che `y` ha un padre in `R`; un'altra è un'induzione sul tempo d'inizio con un enunciato intermedio, visto che i padri di tipo (c) terminano prima di `E_v` mentre quelli di tipo (a)/(b) terminano dopo (nessuna delle due direzioni, da sola, copre entrambi i tipi).
+
 ## Appendice: materiale di verifica
 
 Nello scratchpad della sessione (`/tmp/claude-1000/-home-dev-Scrivania-WinTreeChess/e564df6a-bddc-41fb-a58d-2351d9d86ca3/scratchpad/`): `cex.cpp` (driver: `cex FILE` esiti e oracolo nelle due modalità con dejavu on/off e model checker del Thm 4.8; `cex --search SEMI NMIN NMAX` ricerca casuale di radici incomplete; `cex --count SEMI` violazioni e Σ espansioni sulla distribuzione di `Gen.java`), `cex12.txt` e `cex15.txt` (i grafi di §6), `varA/` e `varB/` (copie patchate di `wintree.h` con `graph.h`, `dfpn.h`, `test.cpp` e il binario `wintree_test`). Compilazione: `g++ -std=c++17 -O2 -I<dir con wintree.h> cex.cpp`. La variante A è stata poi applicata al repository (§8), insieme alle regressioni P4/P4bis e all'aggiornamento di `src/wintree/README.md`; `dfpn.h` e l'ibrido non sono toccati.
+
+Materiale di §10 (scratchpad della sessione del 2026-10-28, `/tmp/claude-1000/-home-dev-Scrivania-WinTreeChess/48751ff9-354f-4900-8ea0-5bae38531424/scratchpad/`): `cex48.cpp` (fuzz del Thm 4.8 sull'header del repository: `cex48 --search SEMI NMIN NMAX [SEME0]` con controllo diretto del cammino NIL e model checker, `cex48 FILE` esiti su un grafo); `varB/` (copia di `wintree.h` con il solo ripiego "prefisso intero" e il fuzz `cex48B`); `dbg/wintree.h` (copia strumentata: bloccanti finali come vertici, cammino e numeri di frame dell'ultima espansione, esito e numero d'espansione di ogni esame figlio, contributi ai bloccanti, istanti di fine) con i driver `cexL2`, `cexC1`, `cexD`, `cexF`, `cexLam`, `cexHard`, `cexMax`, `cexCK`, `cexRC`, `cexV`, `cexInv`, `showone` usati per le misure di §10.4 e per i controesempi di §10.5. Compilazione: `g++ -std=c++17 -O2 -I<dir con wintree.h> file.cpp`.
