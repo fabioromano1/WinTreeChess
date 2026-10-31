@@ -1,0 +1,134 @@
+fen,cls,pieces,pawns,cp,wdl6,provenance,filter
+1k6/pp6/4b2Q/4pp1p/1PNq2pP/P2P2P1/4PbBK/8 w - - 2 40,P,20,12,+3.16,,tests/results/g3-ltc/outcome-gen/games.pgn round 837 off-a-off-b ply 70 (lato al tratto: sconfitta),0.5/0.5
+3r2k1/6p1/3qpp1p/2R5/3B1n2/3QP2P/r2P1RP1/6K1 w - - 0 28,P,18,8,+3.92,,tests/results/g3-ltc/outcome-gen/games.pgn round 2083 off-a-off-b ply 46 (lato al tratto: patta),0.5/0.5
+r4rk1/p3ppbp/3n4/q1n3P1/2N2B2/2PQ1N2/PP4PP/R3K2R w KQ - 1 15,P,24,10,+3.32,,tests/results/g3-ltc/outcome-gen/games.pgn round 28 off-a-off-b ply 20 (lato al tratto: patta),0.5/0.5
+4r3/2B2ppk/1p3n2/1P3q2/2p5/5P2/1Q1P2PP/rN1K3R w - - 0 27,P,19,9,+3.03,,tests/results/g3-tuning/nr/games.pgn round 9108 prover-auto-prover-off ply 44 (lato al tratto: patta),0.5/0.5
+3r2kb/2p2q1p/5ppP/1P2p3/pPn1P3/P2r1N1R/QB2BPP1/4K3 w - - 4 28,P,25,13,+4.36,,tests/results/g3-nr/games.pgn round 1390 prover-auto-prover-off ply 46 (lato al tratto: sconfitta),0.5/0.5
+1k1r4/1p5p/8/3nbR2/2B5/6P1/P1P4P/3K4 w - - 0 32,P,13,6,+3.87,,tests/results/g3-ltc/outcome-gen/games.pgn round 1898 off-b-off-a ply 54 (lato al tratto: sconfitta),0.0/0.5
+5k2/1p1b3p/1n3pr1/8/5NPB/7P/P1r3B1/3R2K1 w - - 1 37,P,16,6,+3.35,,tests/results/g3-ltc/outcome-gen/games.pgn round 2411 off-b-off-a ply 64 (lato al tratto: patta),0.5/0.5
+4rk2/R7/3n2p1/1p1NP2p/6r1/8/7K/4R3 w - - 0 52,P,12,4,+3.49,,tests/results/g3-tuning/nr/games.pgn round 2259 prover-auto-prover-off ply 94 (lato al tratto: patta),0.5/0.5
+2k2r1r/8/p3q1R1/1p1pb3/2nP4/3Q4/2P3PP/R1B3K1 w - - 0 29,P,18,7,+3.48,,tests/results/g3-ltc/outcome-gen/games.pgn round 952 off-a-off-b ply 48 (lato al tratto: patta),0.5/0.5
+2rr4/pp1n3p/5k1P/5b2/PPN5/2P5/5R2/2K1R3 w - - 0 33,P,16,7,+4.00,,tests/results/g3-ltc/outcome-gen/games.pgn round 2521 off-a-off-b ply 56 (lato al tratto: patta),0.5/0.5
+bK1n4/8/2p2BBk/1np5/r1p5/8/rp6/6R1 w - - 0 1,M,14,4,#12,,tests/suites/mates2000.epd riga 1802 (off a 1500 ms: cp 0),1.0/0.5
+q5k1/1r2br1p/3P2pP/1bp1p1P1/4n3/PQ2B3/1P2B2R/1K4R1 w - - 1 38,P,22,9,+3.20,,tests/results/g3-probeonly/games.pgn round 642 prover-auto-prover-off ply 66 (lato al tratto: patta),0.5/0.5
+6k1/p7/5q2/2r2P1Q/P4R1N/3b2PP/P1p5/1rR3K1 w - - 3 43,P,17,7,+3.38,,tests/results/g3-tuning/nr/games.pgn round 7236 prover-off-prover-auto ply 76 (lato al tratto: patta),0.5/0.5
+3rr3/3p1k2/1p5Q/2p2q1p/P1P5/3n2P1/1B4P1/R5K1 w - - 1 32,P,17,8,+3.30,,tests/results/g3-ltc/outcome-gen/games.pgn round 2767 off-a-off-b ply 54 (lato al tratto: sconfitta),0.5/0.5
+1r6/2p2pk1/1nq2p1p/2N1pP1P/2Q3P1/1P4K1/2PP4/4R3 w - - 13 34,P,19,11,+8.96,,tests/results/g3-ltc/outcome-gen/games.pgn round 1554 off-b-off-a ply 58 (lato al tratto: patta),0.5/0.5
+3r2nr/pkpq2bp/1p2pp2/6P1/3n2P1/2NQ1N2/PPP2P2/R1B1K2R b KQ - 1 15,P,26,12,+3.54,,tests/results/g3-books/eggen-games.pgn.xz round 618 b-a ply 21 (lato al tratto: patta),0.5/0.5
+8/8/6p1/1p1p1b1p/p2k1B1P/PPR2PP1/1KP1r3/8 b - - 0 51,P,17,11,+3.81,,tests/results/g3-ltc/outcome-gen/games.pgn round 131 off-b-off-a ply 93 (lato al tratto: patta),0.5/0.5
+n7/1k1BN2p/3K4/4P2P/pp1B1b1P/2ppp3/1N2n1PP/8 w - - 0 1,M,20,11,#13,,tests/suites/mates2000.epd riga 1862 (off a 1500 ms: cp -191),0.0/0.0
+6k1/6p1/2P4p/8/q3N3/2Q1K1P1/6bP/8 w - - 1 62,P,11,5,+4.00,,tests/results/g3-ltc/outcome-gen/games.pgn round 111 off-b-off-a ply 114 (lato al tratto: patta),0.5/0.5
+8/p7/3KPpq1/3Rpp2/p3kp1N/1Pp1n2B/1pP1Rnr1/1rb5 w - - 0 1,M,23,11,#18,,tests/suites/mates2000.epd riga 1972 (off a 1500 ms: cp -836),0.5/0.5
+8/R4p1k/4nbq1/3Q1R2/8/p1p5/8/4K3 w - - 2 59,P,11,3,+8.83,,tests/results/g3-books/eggen-games.pgn.xz round 596 a-b ply 108 (lato al tratto: sconfitta),0.5/0.5
+1r5r/5p2/1p6/pP1p2k1/P2P2Pp/4PpPQ/5P2/6K1 b - - 2 37,P,18,13,+3.67,,tests/results/g3-books/eggen-games.pgn.xz round 400 a-b ply 65 (lato al tratto: patta),0.5/0.5
+3rk3/1R2bppp/4np2/r7/5N2/2p1B1P1/2P2PKP/4R3 w - - 0 29,P,19,9,+4.50,,tests/results/g3-ltc/outcome-gen/games.pgn round 819 off-a-off-b ply 48 (lato al tratto: patta),0.5/0.5
+r1R2r2/pp4k1/4nqPp/5p1Q/1P2p3/1B4PN/P5KP/3Rn3 w - - 1 27,P,22,10,+3.35,,tests/results/g3-ltc/outcome-gen/games.pgn round 2224 off-a-off-b ply 44 (lato al tratto: sconfitta),0.5/0.5
+2R5/5kp1/4p2p/3b4/3P1q2/5PnP/5QP1/1r2NBK1 w - - 15 42,P,17,7,+3.40,,tests/results/g3-tuning/nr/games.pgn round 6675 prover-off-prover-auto ply 74 (lato al tratto: patta),0.5/0.5
+r4k2/pR6/2pNb3/4RN1p/3P1n2/1P2pr2/P7/6K1 b - - 1 37,P,17,7,+3.06,,tests/results/g3-books/eggen-games.pgn.xz round 431 a-b ply 65 (lato al tratto: patta),0.5/0.5
+1r2k2r/p7/8/PPpNPb2/6p1/4p1P1/2K4P/3R3R w k - 0 33,P,17,9,+3.09,,tests/results/g3-ltc/outcome-gen/games.pgn round 419 off-b-off-a ply 56 (lato al tratto: patta),0.5/0.5
+8/5k2/8/p5r1/P3K3/8/6p1/6R1 b - - 1 68,F,7,3,+5.11,,tests/results/g3-books/eggen-games.pgn.xz round 334 a-b ply 127 (lato al tratto: patta),0.5/0.5
+1n3rk1/2Q2pp1/2p1b2p/6r1/6q1/3B2P1/PBP2P1P/R4RK1 b - - 0 19,P,21,9,+3.75,,tests/results/g3-ltc/outcome-gen/games.pgn round 2072 off-b-off-a ply 29 (lato al tratto: patta),0.5/0.5
+5kn1/1p2b1p1/1P1p1p2/pq4P1/3pP1Q1/5R2/2rBNPK1/8 b - - 3 27,P,20,10,+4.04,,tests/results/g3-books/eggen-games.pgn.xz round 279 a-b ply 45 (lato al tratto: sconfitta),0.5/0.5
+2kr4/1p6/8/q1np3p/1p1N4/1PPbP3/P2PBQ1P/2KR4 w - - 3 28,P,20,10,+3.21,,tests/results/g3-ltc/outcome-gen/games.pgn round 1279 off-b-off-a ply 46 (lato al tratto: patta),0.5/0.5
+6k1/3q4/2p1r2p/ppp1b2p/4QP2/1P1P2P1/P5K1/4R3 w - - 2 39,P,18,11,+4.98,,tests/results/g3-books/eggen-games.pgn.xz round 854 b-a ply 68 (lato al tratto: patta),0.5/0.5
+2r1k3/4bpr1/1q4n1/np2P1Q1/2bBP1P1/Pp1N1N1P/6K1/1R1R1B2 b - - 0 33,P,24,8,+4.01,,tests/results/g3-nr/games.pgn round 2019 prover-off-prover-auto ply 57 (lato al tratto: patta),0.5/0.5
+4BK1k/2N4p/3p3p/3P3P/8/P1P2PP1/1pPpP3/2rr4 w - - 0 1,M,19,13,#16,,tests/suites/mates2000.epd riga 1947 (off a 1500 ms: cp 0),0.5/0.5
+1r2k2r/4b1p1/pB2Q3/2NNpn2/8/P3P1q1/1P3K1p/R4R2 w - - 14 42,P,20,7,+4.65,,tests/results/g3-tuning/nr/games.pgn round 3309 prover-off-prover-auto ply 74 (lato al tratto: patta),0.5/0.5
+r1b1k1nr/3pp1b1/1pn4p/5pp1/1PP5/q1N1BP2/3QP1PP/2R1KBNR w Kkq - 0 12,P,28,12,+3.04,,tests/results/g3-nr/games.pgn round 1221 prover-off-prover-auto ply 14 (lato al tratto: patta),0.5/0.5
+8/r7/6pk/P1R2p1p/1R1p3P/r2PnBP1/4PK2/8 b - - 1 45,P,17,9,+4.78,,tests/results/g3-books/eggen-games.pgn.xz round 293 b-a ply 81 (lato al tratto: patta),0.5/0.5
+5k2/3Q2p1/4p2p/8/6PP/4PK2/5P2/2q5 w - - 4 48,P,11,7,+5.63,,tests/results/g3-ltc/outcome-gen/games.pgn round 1384 off-a-off-b ply 86 (lato al tratto: patta),0.5/0.5
+6rk/R7/4p3/P1B1Ppb1/2p4p/5P2/2B2P1K/6n1 w - - 2 40,P,16,8,+3.19,,tests/results/g3-ltc/outcome-gen/games.pgn round 824 off-a-off-b ply 70 (lato al tratto: patta),0.5/0.5
+1k1r4/1b6/ppn1pR2/2pp2p1/P2P3r/NPP1P1q1/5NB1/2BQ2K1 b - - 4 26,P,24,11,+3.33,,tests/results/g3-books/eggen-games.pgn.xz round 374 a-b ply 43 (lato al tratto: patta),0.5/0.5
+8/2k5/7R/2p2r1P/2K5/3P4/8/8 w - - 5 54,F,7,3,+3.51,,tests/results/g3-tuning/nr/games.pgn round 2625 prover-off-prover-auto ply 98 (lato al tratto: patta),0.5/0.5
+5k2/5P1R/p2K3n/1p1N4/2p1rP2/8/8/8 w - - 1 75,P,11,5,+3.13,,tests/results/g3-ltc/outcome-gen/games.pgn round 2442 off-b-off-a ply 140 (lato al tratto: patta),0.5/0.5
+5r1k/1p4bp/p2PR3/q7/4Qr2/4N3/6P1/3R2K1 w - - 1 44,P,15,5,+6.28,,tests/results/g3-tuning/nr/games.pgn round 5573 prover-off-prover-auto ply 78 (lato al tratto: patta),0.5/0.5
+3k4/1p6/p3r1p1/P1qp3p/3p1p1P/3Q1P1K/P1PP2P1/1R6 w - - 2 30,P,20,14,+3.37,,tests/results/g3-ltc/outcome-gen/games.pgn round 1456 off-a-off-b ply 50 (lato al tratto: sconfitta),0.5/0.5
+4k2r/2n2ppp/1pb1p3/8/1bP4P/1QNB1P2/6P1/r3K2R w Kk - 3 22,P,20,9,+4.79,,tests/results/g3-books/eggen-games.pgn.xz round 513 a-b ply 34 (lato al tratto: patta),0.5/0.5
+3rr3/p1Qnk3/4p3/1P4p1/2B1P3/5P1p/8/7K w - - 7 35,P,14,7,+3.08,,tests/results/g3-nr/games.pgn round 2379 prover-auto-prover-off ply 60 (lato al tratto: patta),0.5/0.5
+1k2r3/1pp2p2/7p/p7/2PBn1B1/2N5/P6q/R1Q1KR2 b Q - 0 23,P,18,7,+3.03,,tests/results/g3-ltc/outcome-gen/games.pgn round 979 off-b-off-a ply 37 (lato al tratto: sconfitta),0.5/0.5
+r1b2b2/p1k4r/npp2n2/3pN2p/5B2/2Pp4/PP2PP1P/RN2KB1R w KQ - 6 18,P,26,12,+3.58,,tests/results/g3-books/eggen-games.pgn.xz round 971 a-b ply 26 (lato al tratto: patta),0.5/0.5
+8/1p3kp1/1P6/3N1p1p/2P2Pbq/1r1BR2P/6PK/5R2 b - - 4 37,P,18,9,+3.51,,tests/results/g3-books/eggen-games.pgn.xz round 100 b-a ply 65 (lato al tratto: patta),0.5/0.5
+4k2r/1b1rb2p/pQ3pp1/1p1Bq3/4N1P1/8/2R4P/3R2K1 w - - 13 32,P,19,7,+3.44,,tests/results/g3-ltc/outcome-gen/games.pgn round 830 off-b-off-a ply 54 (lato al tratto: patta),0.5/0.5
+r4rk1/p2b4/6pn/3qn2p/2N4P/2P3P1/P3BP2/R1Q2RK1 w - - 0 23,P,21,8,+3.06,,tests/results/g3-ltc/outcome-gen/games.pgn round 2574 off-b-off-a ply 36 (lato al tratto: patta),0.5/0.5
+8/3r2k1/1R5p/5K2/5P2/8/6P1/8 w - - 21 66,F,7,3,+3.39,,tests/results/g3-ltc/outcome-gen/games.pgn round 2833 off-b-off-a ply 122 (lato al tratto: patta),0.5/0.5
+8/1p6/8/PP2k3/2P4p/8/4KbP1/8 b - - 2 53,F,9,6,+3.88,,tests/results/g3-tuning/nr/games.pgn round 1333 prover-auto-prover-off ply 97 (lato al tratto: patta),0.5/0.5
+2r1k3/1p1n2p1/6r1/pP1NP3/P6R/2p4p/2P2b2/R1B4K w - - 0 27,P,19,9,+3.03,,tests/results/g3-books/eggen-games.pgn.xz round 32 b-a ply 44 (lato al tratto: patta),0.5/0.5
+2r3k1/1b4pp/3Pp3/2p1Pp2/5P2/1P2KNPP/N7/8 b - - 0 37,P,17,11,+3.02,,tests/results/g3-books/eggen-games.pgn.xz round 574 b-a ply 65 (lato al tratto: sconfitta),0.5/0.5
+6rr/p2qnk2/2p2p2/1p1p3p/3P3N/PP6/1KP4Q/4R2R w - - 8 34,P,20,10,+3.14,,tests/results/g3-tuning/nr/games.pgn round 6263 prover-off-prover-auto ply 58 (lato al tratto: patta),1.0/0.5
+3qk2r/2ppn1bp/1pb1ppP1/1N6/r1P4N/3QP2P/PB1P2P1/R3R1K1 w k - 3 19,P,27,13,+3.63,,tests/results/g3-ltc/outcome-gen/games.pgn round 2212 off-a-off-b ply 28 (lato al tratto: sconfitta),0.5/0.5
+3rk2r/p1pq1pp1/1pn1p3/1N2P2p/5Pn1/1P4b1/PBPP2B1/1R1Q1K1R w k - 3 16,P,27,13,+4.94,,tests/results/g3-ltc/outcome-gen/games.pgn round 780 off-b-off-a ply 22 (lato al tratto: sconfitta),0.5/0.5
+8/4k3/4n3/p3R1p1/P3B3/2K5/8/4r3 b - - 7 81,F,9,3,+4.70,,tests/results/g3-ltc/outcome-gen/games.pgn round 2760 off-b-off-a ply 153 (lato al tratto: patta),0.5/0.5
+2k5/ppp4r/3p1pq1/4p1nr/2P1P3/3PQ2P/PP1KN3/6RR b - - 0 22,P,22,12,+3.72,,tests/results/g3-ltc/outcome-gen/games.pgn round 2977 off-a-off-b ply 35 (lato al tratto: sconfitta),0.5/1.0
+2r5/8/3k4/1p6/1P1R4/6P1/K7/8 b - - 1 58,F,7,3,+3.16,,tests/results/g3-books/eggen-games.pgn.xz round 65 a-b ply 107 (lato al tratto: patta),0.5/0.5
+2kr3r/1pbb1pp1/p1p1qn2/4n1B1/4B2p/P1N2P1P/1PP1N1P1/R1QR3K b - - 7 18,P,28,12,+3.26,,tests/results/g3-tuning/nr/games.pgn round 3838 prover-auto-prover-off ply 27 (lato al tratto: patta),0.5/0.5
+2k3r1/pb4B1/3pp2P/RPp1nq2/2P4b/2N5/3P1P2/4KQR1 b - - 4 26,P,21,9,+4.22,,tests/results/g3-nr/games.pgn round 3632 prover-off-prover-auto ply 43 (lato al tratto: patta),0.5/0.5
+8/7p/1K1B1p2/p2B3P/1pPk1p1N/r7/2bP4/b1N5 w - - 0 1,M,17,8,#10,,tests/suites/mates2000.epd riga 1623 (off a 1500 ms: cp 137),0.5/0.5
+3rqb1r/1k3ppp/1p6/p1p5/Q2P1B2/N1P3P1/P6P/1R4K1 w - - 1 24,P,21,11,+5.67,,tests/results/g3-ltc/outcome-gen/games.pgn round 1186 off-b-off-a ply 38 (lato al tratto: patta),0.5/0.5
+7k/6b1/1p3q1p/p1p1p1pP/P1P1Bnb1/1PN2PB1/8/3Q1K2 w - - 0 46,P,21,11,+6.06,,tests/results/g3-ltc/outcome-gen/games.pgn round 2950 off-a-off-b ply 82 (lato al tratto: patta),0.5/0.5
+8/4rkp1/5p1p/pP6/P7/7P/4r1P1/1RR4K w - - 4 38,P,14,8,+3.52,,tests/results/g3-ltc/outcome-gen/games.pgn round 2098 off-a-off-b ply 66 (lato al tratto: patta),0.5/0.5
+8/p6k/1p1q3p/5R2/1PP4P/8/P4QK1/3r4 b - - 4 43,P,13,7,+6.62,,tests/results/g3-books/eggen-games.pgn.xz round 800 a-b ply 77 (lato al tratto: patta),0.5/0.5
+2k5/5Kpp/2r5/4B3/p3Pn1P/3R4/8/8 w - - 0 44,P,11,5,+4.37,,tests/results/g3-ltc/outcome-gen/games.pgn round 1959 off-b-off-a ply 78 (lato al tratto: patta),0.5/0.5
+1R6/8/P1p4k/1PK5/6p1/2R5/8/rr6 w - - 0 70,F,10,4,+4.35,,tests/results/g3-probeonly/games.pgn round 722 prover-off-prover-auto ply 130 (lato al tratto: patta),0.5/0.5
+4r3/1p2qr1k/p2p2pp/P1pP4/2PbPP1P/5R2/3B2Q1/1R5K b - - 6 34,P,22,12,+3.47,,tests/results/g3-aa/games.pgn round 1439 prover-auto-prover-off ply 59 (lato al tratto: patta),0.5/0.5
+r4br1/ppkq4/2pp4/3n2Bp/4R1pN/6P1/PPPQ1P1P/2KR4 w - - 3 21,P,24,12,+3.02,,tests/results/g3-tuning/nr/games.pgn round 8027 prover-auto-prover-off ply 32 (lato al tratto: sconfitta),1.0/0.5
+4k3/6p1/q3P3/2p1np1p/p1pb1P1P/P1N5/KP6/3Q4 w - - 0 41,P,18,11,+3.14,,tests/results/g3-nr/games.pgn round 5220 prover-auto-prover-off ply 72 (lato al tratto: patta),0.5/0.5
+r5k1/4P3/2qP2p1/8/2p1N1P1/2bnR3/p3Qp2/R6K w - - 0 44,P,17,7,+3.16,,tests/results/g3-books/eggen-games.pgn.xz round 253 a-b ply 78 (lato al tratto: sconfitta),0.5/0.5
+8/4k3/2p5/p2bP3/5R2/7B/3K4/r7 b - - 1 36,F,9,3,+3.24,,tests/results/g3-probeonly/games.pgn round 1118 prover-auto-prover-off ply 63 (lato al tratto: patta),0.5/0.5
+1k1r4/2pr2p1/1pR2pP1/p7/P1Q2P2/3P4/1P1q4/1KR5 w - - 1 35,P,18,10,+4.88,,tests/results/g3-ltc/outcome-gen/games.pgn round 1488 off-b-off-a ply 60 (lato al tratto: patta),0.5/0.5
+8/2p5/4R3/pp6/qp4r1/bp2R2p/1n2KBkr/7b w - - 0 1,M,17,6,#11,,tests/suites/mates2000.epd riga 1713 (off a 1500 ms: cp 0),0.5/0.5
+R1r2k2/1R2b1rb/4qp2/Q1Pp4/3Pn2N/6P1/6B1/6K1 w - - 11 39,P,18,5,+3.03,,tests/results/g3-nr/games.pgn round 473 prover-auto-prover-off ply 68 (lato al tratto: sconfitta),0.5/0.5
+4r3/8/8/8/5p2/6p1/R1k3P1/5K2 b - - 61 119,F,7,3,+5.24,,tests/results/g3-books/eggen-games.pgn.xz round 564 a-b ply 229 (lato al tratto: patta),0.5/0.5
+8/8/5KRp/7P/2k5/6P1/2b1N3/7r w - - 7 72,F,9,3,+3.01,,tests/results/g3-tuning/nr/games.pgn round 1190 prover-off-prover-auto ply 134 (lato al tratto: patta),0.5/0.5
+1r6/pB1Q2p1/1k1bR2p/8/2P2p2/Pp1P1P2/3K1qP1/8 w - - 9 42,P,18,10,+3.57,,tests/results/g3-nr/games.pgn round 1113 prover-auto-prover-off ply 74 (lato al tratto: patta),0.5/0.5
+r1bqr1k1/pp2pp2/3p1n1p/P2N2p1/1P3P2/3N1B2/2P3PP/Q3R2K w - - 2 24,P,25,13,+3.80,,tests/results/g3-ltc/outcome-gen/games.pgn round 2996 off-a-off-b ply 38 (lato al tratto: sconfitta),0.5/0.0
+8/4p2p/6p1/P3b3/4p3/1k1nP2P/R2B1PP1/1r3NK1 w - - 1 40,P,17,9,+3.88,,tests/results/g3-nr/games.pgn round 5011 prover-off-prover-auto ply 70 (lato al tratto: patta),0.5/0.5
+3r4/k7/P7/8/KR6/3p2P1/R4P2/2r5 w - - 0 50,F,10,4,+3.10,,tests/results/g3-endgames-b30/games.pgn round 61 prover-auto-prover-off ply 5 (lato al tratto: patta),0.5/0.5
+8/3KP3/8/2k2P2/7p/7P/3r4/8 w - - 9 64,F,7,4,+3.23,,tests/results/g3-ltc/outcome-gen/games.pgn round 2861 off-a-off-b ply 118 (lato al tratto: patta),0.5/0.5
+6k1/p7/6p1/2P2q2/8/1N2B1QP/P4PbK/3r4 w - - 0 33,P,14,6,+3.33,,tests/results/g3-books/eggen-games.pgn.xz round 703 a-b ply 56 (lato al tratto: patta),0.5/0.5
+4rrk1/pp4pp/2p1q3/2P2p2/P1nPbQ1P/5BP1/2PNPK2/R3R3 b - - 2 23,P,25,13,+3.05,,tests/results/g3-ltc/outcome-gen/games.pgn round 2537 off-b-off-a ply 37 (lato al tratto: sconfitta),0.5/0.5
+1rq5/8/8/3K4/p1p2rpp/p1PN4/2k5/QR6 w - - 0 1,M,14,6,#17,,tests/suites/mates2000.epd riga 1956 (off a 1500 ms: cp -3),0.5/0.5
+1k5r/pPp5/4b1p1/8/1P1Pp1pq/4P2P/6P1/R2N1QK1 w - - 4 27,P,19,11,+4.60,,tests/results/g3-aa/games.pgn round 1091 prover-auto-prover-off ply 44 (lato al tratto: patta),0.5/0.5
+3r3k/2R3p1/7p/5P1P/5K2/1R6/4b3/8 w - - 5 70,F,10,4,+3.17,,tests/results/g3-ltc/outcome-gen/games.pgn round 718 off-a-off-b ply 130 (lato al tratto: patta),1.0/0.5
+1B6/P7/7p/2k4P/3p2p1/6P1/q4P1K/5B2 w - - 3 57,P,12,7,+4.76,,tests/results/g3-ltc/outcome-gen/games.pgn round 353 off-b-off-a ply 104 (lato al tratto: patta),0.5/0.5
+2r3k1/5ppp/q3pb2/3pN2Q/Pp1P4/1Pn1P1P1/3N1P1P/5RK1 b - - 1 26,P,23,13,+3.82,,tests/results/g3-books/eggen-games.pgn.xz round 233 b-a ply 43 (lato al tratto: patta),0.5/0.5
+8/p2k1n2/3n1R1p/R7/7P/1P6/P5r1/1K6 b - - 1 44,P,12,5,+4.55,,tests/results/g3-books/eggen-games.pgn.xz round 661 b-a ply 79 (lato al tratto: patta),0.5/0.5
+4k1nQ/3bbp2/4p3/p7/P2N3p/2PB3P/1r3P2/R1B1K2q w Q - 3 24,P,20,8,+4.30,,tests/results/g3-ltc/outcome-gen/games.pgn round 2526 off-a-off-b ply 38 (lato al tratto: patta),0.5/0.5
+4r3/1kp5/ppb4P/5q2/2PB4/1P1P2Q1/P5p1/2K1R3 b - - 7 33,P,17,9,+5.89,,tests/results/g3-ltc/outcome-gen/games.pgn round 1741 off-a-off-b ply 57 (lato al tratto: patta),0.5/0.5
+n2K4/8/1p1k1BPp/6Pr/bpRNB1pq/r1p3bp/npP5/8 w - - 0 1,M,23,10,#17,,tests/suites/mates2000.epd riga 1964 (off a 1500 ms: cp 0),1.0/0.5
+2K5/2N2p2/1p6/pBkN1Rp1/2pp4/nb1pP1Bp/3nP2q/7r w - - 0 1,M,22,10,#10,,tests/suites/mates2000.epd riga 1585 (off a 1500 ms: cp 0),0.5/0.5
+r4knr/1p3R2/p1nqp3/3p2Q1/P5p1/2NP2P1/1P4BP/R5K1 b - - 0 25,P,22,10,+3.08,,tests/results/g3-books/eggen-games.pgn.xz round 256 b-a ply 41 (lato al tratto: patta),0.5/0.5
+r3kb1r/pppbnpp1/2nq4/3p4/5P2/1QPP3N/PP2PN2/R1B1KB1R w KQkq - 3 12,P,28,12,+3.61,,tests/results/g3-ltc/outcome-gen/games.pgn round 935 off-b-off-a ply 14 (lato al tratto: sconfitta),0.5/0.5
+r4kr1/pb5p/1pp5/4QNq1/2P5/1P2P3/P2PKPP1/R7 b - - 1 26,P,20,11,+3.16,,tests/results/g3-nr/games.pgn round 5799 prover-off-prover-auto ply 43 (lato al tratto: sconfitta),0.5/0.5
+4kb1r/3p1ppp/2nBpn2/2P5/2N1P3/1Q4P1/r2N3q/1R2KR2 b k - 1 25,P,22,8,+4.43,,tests/results/g3-ltc/outcome-gen/games.pgn round 1310 off-a-off-b ply 41 (lato al tratto: sconfitta),0.5/0.5
+1r3rk1/4bpp1/Qp1np3/1N1p1q1p/P2P1B2/2Pb2PP/1P1R2BK/R7 w - - 2 28,P,26,12,+5.26,,tests/results/g3-ltc/outcome-gen/games.pgn round 2133 off-b-off-a ply 46 (lato al tratto: sconfitta),0.5/0.5
+2r1k2r/p2bp1bp/1p1p2p1/n7/3PP3/qBPQ1N1P/3B1P2/1R2K1R1 w k - 4 20,P,25,11,+4.57,,tests/results/g3-books/eggen-games.pgn.xz round 177 a-b ply 30 (lato al tratto: sconfitta),1.0/0.5
+7k/8/7P/1p1R4/1Pp5/4K3/7r/8 w - - 4 48,F,8,4,+3.08,,tests/results/g3-tuning/nr/games.pgn round 3374 prover-off-prover-auto ply 86 (lato al tratto: patta),0.5/0.5
+5r2/p2r1pk1/1p2pRp1/2p1P2p/2q3P1/2P4P/PP3Q2/5RK1 b - - 0 33,P,21,13,+3.38,,tests/results/g3-ltc/outcome-gen/games.pgn round 182 off-a-off-b ply 57 (lato al tratto: patta),0.5/0.5
+2b1k2r/3qp1bp/2p4p/1pP2p2/1PpN2P1/7P/4PPB1/Q3K2R w Kk - 0 17,P,23,13,+6.15,,tests/results/g3-ltc/outcome-gen/games.pgn round 2805 off-b-off-a ply 24 (lato al tratto: sconfitta),0.5/0.5
+8/4k3/8/6p1/3N2Pp/3n3K/8/8 b - - 3 73,F,7,3,+3.10,,tests/results/g3-ltc/outcome-gen/games.pgn round 1121 off-a-off-b ply 137 (lato al tratto: patta),0.5/0.5
+8/8/8/2p5/1pp5/brpp4/1pprp2P/qnkbK3 w - - 0 1,M,17,9,#15,,tests/suites/mates2000.epd riga 1929 (off a 1500 ms: cp 0),0.5/0.5
+4r1k1/7p/5Bp1/2nRP3/1pr5/5K2/4N3/5R2 w - - 1 40,P,13,4,+3.28,,tests/results/g3-probeonly/games.pgn round 1201 prover-off-prover-auto ply 70 (lato al tratto: patta),0.5/0.5
+2r1r1k1/1n1q3p/6p1/1pQpRp2/pP1P1PP1/P2P2KP/8/4R3 w - - 0 44,P,22,13,+7.73,,tests/results/g3-ltc/outcome-gen/games.pgn round 1763 off-a-off-b ply 78 (lato al tratto: patta),0.5/0.5
+r4k2/1p2bq2/1Bn2p2/1Q1P4/2NP2P1/7r/PP6/K2R4 w - - 3 37,P,18,7,+4.09,,tests/results/g3-ltc/outcome-gen/games.pgn round 388 off-b-off-a ply 64 (lato al tratto: patta),0.5/0.5
+k3r3/1bB1q2p/p4np1/1p2Q1N1/3nP3/2RB4/P5PP/7K w - - 1 32,P,20,8,+4.18,,tests/results/g3-tuning/nr/games.pgn round 1223 prover-off-prover-auto ply 54 (lato al tratto: patta),0.5/0.5
+5k2/8/6p1/Q7/1p3q2/1P6/P1P5/1K2Rr2 w - - 1 44,P,11,5,+4.08,,tests/results/g3-ltc/outcome-gen/games.pgn round 1485 off-b-off-a ply 78 (lato al tratto: sconfitta),0.5/0.5
+4kr2/4rp1p/p3p3/P1pp1b2/1q1Q1Pn1/NPP1P3/R5PP/4KB1R b K - 0 18,P,25,13,+4.77,,tests/results/g3-ltc/outcome-gen/games.pgn round 2310 off-b-off-a ply 27 (lato al tratto: sconfitta),0.5/1.0
+1r4k1/3b4/p7/P1P5/3p1P1p/2PQpNq1/1r2R1PR/7K w - - 0 40,P,19,9,+3.19,,tests/results/g3-books/eggen-games.pgn.xz round 90 b-a ply 70 (lato al tratto: sconfitta),0.5/0.5
+3r3k/1pq1p1rp/p4R2/1p3p2/1P6/P3R3/2P2PP1/Q5K1 w - - 13 32,P,19,11,+7.79,,tests/results/g3-tuning/nr/games.pgn round 3327 prover-off-prover-auto ply 54 (lato al tratto: patta),0.5/0.5
+k3n3/3p4/PP6/2K5/p7/p1P2p2/4p2p/4B3 w - - 0 1,M,13,9,#11,,tests/suites/mates2000.epd riga 1732 (off a 1500 ms: cp 0),1.0/0.5
+2kr4/pp2rR1p/2p4p/6q1/4p2P/PQPp4/1P1N4/RK6 b - - 0 28,P,20,11,+3.29,,tests/results/g3-aa/games.pgn round 1211 prover-auto-prover-off ply 47 (lato al tratto: patta),0.5/0.5
+r2r2k1/1p3pb1/pR5B/5n1p/5Qb1/q1pB4/P5PP/5R1K w - - 4 32,P,21,8,+3.27,,tests/results/g3-ltc/outcome-gen/games.pgn round 2319 off-a-off-b ply 54 (lato al tratto: patta),0.5/0.5
+6k1/p1R4p/p2n4/2P1p1p1/2r5/5P2/P7/6K1 w - - 0 32,P,13,8,+3.53,,tests/results/g3-ltc/outcome-gen/games.pgn round 2258 off-a-off-b ply 54 (lato al tratto: patta),0.5/0.5
+8/8/P7/1p5R/3k4/1r5p/7K/8 b - - 0 72,F,7,3,+3.16,,tests/results/g3-ltc/outcome-gen/games.pgn round 42 off-a-off-b ply 135 (lato al tratto: patta),0.5/0.5
+1R3n2/4N1pk/2pn1r1p/p1q1p2P/R3P1Q1/2r1PB2/5P2/6K1 b - - 0 37,P,21,9,+5.32,,tests/results/g3-books/eggen-games.pgn.xz round 317 a-b ply 65 (lato al tratto: sconfitta),0.5/0.5
+6R1/1r2N3/p1R5/Pk2rP2/1P2ppP1/BPp2b2/P2b3K/1n6 w - - 0 1,M,21,10,#10,,tests/suites/mates2000.epd riga 1602 (off a 1500 ms: cp -4),0.5/0.5
+r3kr2/1p2q2p/b1n1p1p1/p2pP3/3P1NQP/P6R/3N1PP1/2R1K3 w q - 2 23,P,24,12,+3.30,,tests/results/g3-books/eggen-games.pgn.xz round 114 b-a ply 36 (lato al tratto: patta),0.5/0.5
+r7/P7/3K4/3R4/3Bk3/8/2r5/8 b - - 3 60,F,7,1,+4.45,,tests/results/g3-ltc/outcome-gen/games.pgn round 1961 off-a-off-b ply 111 (lato al tratto: patta),0.5/0.5
+4k3/6p1/4P2p/2R2P1P/8/8/4r1K1/8 w - - 1 72,F,9,5,+5.45,,tests/results/g3-ltc/outcome-gen/games.pgn round 1730 off-a-off-b ply 134 (lato al tratto: patta),0.5/0.5
+r3k1r1/ppnqpp1p/8/P3Pn2/2pPQR2/2P4b/3N2BP/R1B4K w q - 2 20,P,25,11,+8.06,,tests/results/g3-ltc/outcome-gen/games.pgn round 2365 off-b-off-a ply 30 (lato al tratto: sconfitta),0.5/0.5
+qr4k1/5pp1/r4b1p/1b2pP1P/PQ1pP3/3P1N1B/2P2PK1/R5R1 b - - 0 26,P,24,12,+6.38,,tests/results/g3-ltc/outcome-gen/games.pgn round 1877 off-b-off-a ply 43 (lato al tratto: patta),0.5/0.5
+3R1q2/2Q4p/4pkp1/1rn5/5p1P/5P2/5P2/5K2 b - - 3 46,P,14,7,+3.60,,tests/results/g3-ltc/outcome-gen/games.pgn round 2594 off-a-off-b ply 83 (lato al tratto: sconfitta),0.5/0.5
+3q1nKB/R1P1kPRB/N3p3/1p1n2p1/2r2p2/1p2b3/P2pb2N/3r4 w - - 0 1,M,24,9,#13,,tests/suites/mates2000.epd riga 1845 (off a 1500 ms: cp -361),0.0/0.0
+4r1k1/5pp1/3P2n1/8/2Pb2q1/2BQ2P1/6K1/5RN1 b - - 4 43,P,15,5,+4.57,,tests/results/g3-tuning/nr/games.pgn round 74 prover-auto-prover-off ply 77 (lato al tratto: patta),0.5/0.5
+8/2k5/1p3N2/pP6/P1PK4/8/8/3b4 w - - 0 72,F,9,5,+4.34,,tests/results/g3-ltc/outcome-gen/games.pgn round 2043 off-b-off-a ply 134 (lato al tratto: patta),0.5/0.5
+rBb3k1/1p3ppp/2p5/8/p3B3/P5P1/2P4P/1R5K b - - 0 27,P,17,10,+3.57,,tests/results/g3-ltc/outcome-gen/games.pgn round 1538 off-a-off-b ply 45 (lato al tratto: patta),0.5/0.5

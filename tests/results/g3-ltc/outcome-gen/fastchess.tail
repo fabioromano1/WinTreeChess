@@ -1,0 +1,20 @@
+Finished game 5999 (off-a vs off-b): 1-0 {White mates}
+Finished game 6000 (off-b vs off-a): 1-0 {White mates}
+--------------------------------------------------
+Results of off-a vs off-b (2+0.02, 1t, 16MB, openings8-filtered.epd):
+Elo: -4.46 +/- 6.04, nElo: -6.49 +/- 8.79
+LOS: 7.39 %, DrawRatio: 41.43 %, PairsRatio: 0.96
+Games: 6000, Wins: 1658, Losses: 1735, Draws: 2607, Points: 2961.5 (49.36 %)
+Ptnml(0-2): [198, 700, 1243, 699, 160], WL/DD Ratio: 1.06
+--------------------------------------------------
+
+Player: off-a
+  Timeouts: 1
+  Crashed: 0
+Player: off-b
+  Timeouts: 6
+  Crashed: 0
+
+Finished match
+Total Time: 01:25:02 (hours:minutes:seconds)
+

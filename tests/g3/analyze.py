@@ -37,10 +37,18 @@ def cls(msgs):   # classe della partita dalle righe del prover (priorità TB > m
 per = {e: defaultdict(list) for e in (AUTO, OFF)}
 timeloss, term, kinds = Counter(), Counter(), Counter()
 ratios = []   # per partita: nps di auto / nps di off (stessa partita: posizioni e carico della macchina simili)
+# (D) nps di ricerca di auto per tratto della partita, contro off dalla stessa semimossa: "saltato" = prima del primo avvio
+# del prover (probe H3 spento: tabella senza PROVEN); "dopo un avvio" = dopo il primo avvio e prima della prima prova
+# certificata (probe attivo se l'avvio ha scritto entry PROVEN interne: non visibile nel PGN); "dopo la prova" = dopo la
+# prima prova certificata (probe attivo). Mosse di auto senza riga del prover o con `no result` (tempo meno i ms del
+# prover: i nodi del prover non sono in n=); le mosse `proven` escono subito (H5) e sono escluse.
+NORES_MS = re.compile(r"no result after \d+ do_move in (\d+) ms")
+phase = {"saltato": [], "dopo un avvio": [], "dopo la prova": []}; phase_moves = Counter()
 pairs = defaultdict(list)   # Round -> [(punti di auto, ha righe del prover, classe, mosse diverse da off)]
 for g in games(pgn):
     t = g["tags"]; start = t.get("FEN", START); white = t["White"]
     stm_white = start.split()[1] == "w"; msgs, proved, offn = [], [], []; gsum = {AUTO: [0, 0.0], OFF: [0, 0.0]}
+    first_line = first_proven = None; mv_info = []   # (semimossa, motore, nodi, tempo di ricerca, mossa usabile)
     for i, (mv, c) in enumerate(zip(g["moves"], g["comments"])):
         side = white if (i % 2 == 0) == stm_white else (OFF if white == AUTO else AUTO)
         m = INFO.match(c)
@@ -49,15 +57,28 @@ for g in games(pgn):
             d["tl"].append(float(m[4])); gsum[side][0] += int(m[5]); gsum[side][1] += float(m[3])
             if not PROVER.search(c): d["depth_np"].append(int(m[2]))
             if side == OFF: offn.append(int(m[5]))
+            pl = PROVER.findall(c); ms = NORES_MS.search(pl[-1]) if pl else None
+            mv_info.append((i, side, int(m[5]), float(m[3]) - (int(ms[1]) / 1000 if ms else 0), not pl or bool(ms)))
+        if side == AUTO and PROVER.search(c):
+            if first_line is None: first_line = i
+            if first_proven is None and "proven" in c: first_proven = i
         for col in re.findall(r"(White|Black) loses on time", c):   # chi perde, non chi ha mosso
             timeloss[white if col == "White" else (OFF if white == AUTO else AUTO)] += 1
         for p in PROVER.findall(c):
-            msgs.append(p); kinds[re.sub(r" (in \d+ )?move.*| nodes.*", "", p)] += 1; proved.append((i, mv))
+            msgs.append(p); kinds[re.sub(r" (in \d+ )?move.*| nodes.*| after \d+ do_move in \d+ ms", "", p)] += 1; proved.append((i, mv))
     # budget di Prover=off: i nodi mediani di prover-off nella stessa partita (le mosse provate hanno pochi nodi: H5)
     nodes = int(st.median(offn)) if offn else 100000
     differs = sum(off_move(start, g["moves"][:i], nodes) != mv for i, mv in proved) if eng else 0
     if all(n > 0 and s > 0 for n, s in gsum.values()):
         ratios.append(gsum[AUTO][0] / gsum[AUTO][1] / (gsum[OFF][0] / gsum[OFF][1]))
+    for ph, sel in (("saltato", lambda i: first_line is None or i < first_line),
+                    ("dopo un avvio", lambda i: first_line is not None and i > first_line and (first_proven is None or i < first_proven)),
+                    ("dopo la prova", lambda i: first_proven is not None and i > first_proven)):
+        a = [(n, s) for i, e, n, s, ok in mv_info if e == AUTO and sel(i) and ok and s > 0]
+        o = [(n, s) for i, e, n, s, ok in mv_info if e == OFF and sel(i) and s > 0]
+        phase_moves[ph] += len(a)
+        if len(a) >= 5 and len(o) >= 5:   # >= 5 mosse per motore nel tratto
+            phase[ph].append(sum(n for n, _ in a) / sum(s for _, s in a) / (sum(n for n, _ in o) / sum(s for _, s in o)))
     term[t.get("Termination", "?")] += 1
     pts = POINTS[t["Result"]][0 if white == AUTO else 1]
     pairs[t["Round"]].append((pts, bool(msgs), cls(msgs) if msgs else None, differs))
@@ -76,6 +97,10 @@ if len(ratios) > 1:
     r = st.mean(ratios) - 1; h = 1.96 * st.stdev(ratios) / len(ratios) ** .5
     print(f"\nnps per partita, auto / off - 1: {r:+.2%} ± {h:.2%} (95 %, {len(ratios)} partite; mediana {st.median(ratios) - 1:+.2%})")
 print("\nTerminazioni (tag):", dict(term))
+for ph, rs in phase.items():
+    print(f"nps di ricerca, tratto '{ph}': {phase_moves[ph]} mosse di auto usabili; ", end="")
+    print(f"auto / off - 1 = {st.mean(rs) - 1:+.2%} ± {1.96 * st.stdev(rs) / len(rs) ** .5:.2%} (95 %, {len(rs)} partite "
+          f"con >= 5 mosse per motore; mediana {st.median(rs) - 1:+.2%})" if len(rs) > 1 else "meno di 2 partite con >= 5 mosse per motore")
 
 full = {r: v for r, v in pairs.items() if len(v) == 2}
 games_p = sum(x[1] for v in full.values() for x in v)

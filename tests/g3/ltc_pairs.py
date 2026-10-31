@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""G3 LTC: coppie a colori invertiti per classe del libro (CSV di build_hard_book.py: A, B, M) e coppie con esito
+"""G3 LTC: coppie a colori invertiti per classe del libro (CSV di build_hard_book.py: A, B, M; di outcome_book.py: F, M, P) e coppie con esito
 diverso dalla speculare, con la riga del libro e le righe del prover (`info string prover`) della coppia.
 Uso: ltc_pairs.py <games.pgn> <libro.csv> [out.csv]"""
 import csv, re, sys
@@ -19,7 +19,7 @@ full = [v for v in pairs.values() if len(v) == 2]
 penta = lambda vs: [sum(1 for v in vs if v[0][0] + v[1][0] == k / 2) for k in range(5)]
 print("| Classe | coppie | pentanomiale [0..2] di auto | punti di auto | coppie con il prover | non pari | non pari con il prover |")
 print("|---|---:|---|---:|---:|---:|---:|")
-for c in "ABM":
+for c in sorted({r["cls"] for r in cls.values()}):
     vs = [v for v in full if v[0][1]["cls"] == c]
     if not vs: continue
     pr = lambda v: v[0][2] or v[1][2]; odd = [v for v in vs if v[0][0] + v[1][0] != 1]

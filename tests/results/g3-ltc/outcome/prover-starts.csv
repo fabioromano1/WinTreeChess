@@ -1,0 +1,772 @@
+round,white,side,ply,mode,budget_ms,cap,do_move,ms,outcome,move_s,timeloss
+8,prover-off,prover-auto,39,?,-1,-1,506,2,budget,0.249,False
+8,prover-off,prover-auto,41,?,-1,-1,5954,4,not certified with a clock,0.158,False
+8,prover-off,prover-auto,43,?,-1,-1,0,0,not certified with a clock,0.775,False
+8,prover-off,prover-auto,45,?,-1,-1,599,1,not certified with a clock,0.193,False
+8,prover-off,prover-auto,47,?,-1,-1,2179,2,not certified with a clock,0.263,False
+8,prover-off,prover-auto,49,?,-1,-1,1505,6,not certified with a clock,0.428,False
+8,prover-off,prover-auto,51,?,-1,-1,0,0,not certified with a clock,0.046,False
+8,prover-off,prover-auto,53,?,-1,-1,0,0,not certified with a clock,0.005,False
+8,prover-off,prover-auto,55,?,-1,-1,0,0,not certified with a clock,0.0,False
+11,prover-auto,prover-auto,6,?,-1,-1,62007,70,budget,1.158,False
+11,prover-auto,prover-auto,8,?,-1,-1,100919,72,budget,1.214,False
+11,prover-auto,prover-auto,10,?,-1,-1,97750,74,budget,1.133,False
+11,prover-auto,prover-auto,12,?,-1,-1,29296,77,budget,1.23,False
+11,prover-auto,prover-auto,14,?,-1,-1,126512,78,budget,1.267,False
+11,prover-auto,prover-auto,16,?,-1,-1,107687,79,budget,1.185,False
+11,prover-auto,prover-auto,18,?,-1,-1,73855,81,budget,1.204,False
+11,prover-auto,prover-auto,20,?,-1,-1,97817,71,proven,0.071,False
+11,prover-auto,prover-auto,22,?,-1,-1,0,0,proven,0.0,False
+11,prover-auto,prover-auto,24,?,-1,-1,0,0,proven,0.0,False
+11,prover-auto,prover-auto,26,?,-1,-1,0,0,proven,0.0,False
+11,prover-auto,prover-auto,28,?,-1,-1,0,0,proven,0.0,False
+11,prover-off,prover-auto,3,?,-1,-1,4568,21,budget,0.525,False
+11,prover-off,prover-auto,5,?,-1,-1,13600,64,budget,1.222,False
+11,prover-off,prover-auto,7,?,-1,-1,13706,66,budget,0.999,False
+11,prover-off,prover-auto,9,?,-1,-1,88854,69,budget,1.098,False
+11,prover-off,prover-auto,11,?,-1,-1,100717,72,budget,0.539,False
+11,prover-off,prover-auto,13,?,-1,-1,104448,73,budget,1.112,False
+11,prover-off,prover-auto,15,?,-1,-1,60734,75,budget,1.11,False
+11,prover-off,prover-auto,17,?,-1,-1,67521,77,budget,1.104,False
+11,prover-off,prover-auto,19,?,-1,-1,20041,78,budget,1.069,False
+11,prover-off,prover-auto,21,?,-1,-1,25527,78,budget,0.186,False
+11,prover-off,prover-auto,23,?,-1,-1,826,1,not certified with a clock,0.009,False
+11,prover-off,prover-auto,25,?,-1,-1,0,0,not certified with a clock,0.0,False
+18,prover-auto,prover-auto,42,?,-1,-1,3195,11,budget,0.169,False
+18,prover-auto,prover-auto,44,?,-1,-1,13049,14,budget,0.2,False
+18,prover-auto,prover-auto,46,?,-1,-1,3471,2,not certified with a clock,0.051,False
+18,prover-auto,prover-auto,48,?,-1,-1,354,0,not certified with a clock,0.006,False
+18,prover-auto,prover-auto,50,?,-1,-1,0,0,not certified with a clock,0.0,False
+18,prover-off,prover-auto,39,?,-1,-1,85358,61,budget,1.067,False
+18,prover-off,prover-auto,41,?,-1,-1,21288,68,budget,1.023,False
+18,prover-off,prover-auto,43,?,-1,-1,34461,46,proven,0.049,False
+18,prover-off,prover-auto,45,?,-1,-1,0,1,proven,0.003,False
+18,prover-off,prover-auto,47,?,-1,-1,0,0,proven,0.0,False
+18,prover-off,prover-auto,49,?,-1,-1,0,0,proven,0.0,False
+18,prover-off,prover-auto,51,?,-1,-1,0,0,proven,0.0,False
+18,prover-off,prover-auto,53,?,-1,-1,0,0,proven,0.0,False
+18,prover-off,prover-auto,55,?,-1,-1,0,0,proven,0.0,False
+18,prover-off,prover-auto,57,?,-1,-1,0,0,proven,0.0,False
+29,prover-auto,prover-auto,155,?,-1,-1,701,1,budget,0.158,False
+29,prover-auto,prover-auto,157,?,-1,-1,1106,5,not certified with a clock,0.197,False
+29,prover-auto,prover-auto,159,?,-1,-1,0,0,not certified with a clock,0.008,False
+29,prover-auto,prover-auto,161,?,-1,-1,0,0,not certified with a clock,0.0,False
+29,prover-off,prover-auto,140,?,-1,-1,7169,6,proven,0.011,False
+29,prover-off,prover-auto,142,?,-1,-1,0,0,proven,0.006,False
+29,prover-off,prover-auto,144,?,-1,-1,0,0,proven,0.0,False
+56,prover-auto,prover-auto,158,?,-1,-1,2754,15,budget,0.141,False
+56,prover-auto,prover-auto,160,?,-1,-1,0,0,proven,0.012,False
+60,prover-off,prover-auto,136,?,-1,-1,2976,10,budget,0.122,False
+60,prover-off,prover-auto,138,?,-1,-1,6919,5,proven,0.016,False
+60,prover-off,prover-auto,140,?,-1,-1,0,1,proven,0.013,False
+60,prover-off,prover-auto,142,?,-1,-1,0,1,proven,0.012,False
+62,prover-auto,prover-auto,85,?,-1,-1,7661,6,not certified with a clock,0.117,False
+62,prover-auto,prover-auto,87,?,-1,-1,3671,14,budget,0.198,False
+62,prover-auto,prover-auto,89,?,-1,-1,8444,11,not certified with a clock,0.236,False
+62,prover-auto,prover-auto,91,?,-1,-1,0,0,not certified with a clock,0.139,False
+62,prover-auto,prover-auto,93,?,-1,-1,0,0,not certified with a clock,0.014,False
+62,prover-auto,prover-auto,95,?,-1,-1,0,0,not certified with a clock,0.0,False
+72,prover-auto,prover-auto,84,?,-1,-1,7728,38,budget,0.592,False
+72,prover-auto,prover-auto,86,?,-1,-1,4954,33,budget,0.582,False
+72,prover-auto,prover-auto,88,?,-1,-1,784,7,proven,0.018,False
+72,prover-auto,prover-auto,90,?,-1,-1,0,0,proven,0.039,False
+72,prover-auto,prover-auto,92,?,-1,-1,0,0,proven,0.009,False
+77,prover-auto,prover-auto,10,?,-1,-1,61091,70,budget,0.76,False
+77,prover-auto,prover-auto,12,?,-1,-1,26512,73,budget,1.145,False
+77,prover-auto,prover-auto,14,?,-1,-1,89578,61,proven,0.061,False
+77,prover-auto,prover-auto,16,?,-1,-1,0,0,proven,0.001,False
+77,prover-auto,prover-auto,18,?,-1,-1,0,0,proven,0.0,False
+77,prover-auto,prover-auto,20,?,-1,-1,0,0,proven,0.0,False
+77,prover-auto,prover-auto,22,?,-1,-1,0,0,proven,0.0,False
+77,prover-auto,prover-auto,24,?,-1,-1,0,0,proven,0.001,False
+82,prover-auto,prover-auto,94,?,-1,-1,3701,10,budget,0.149,False
+82,prover-auto,prover-auto,98,?,-1,-1,13161,12,budget,0.354,False
+82,prover-auto,prover-auto,100,?,-1,-1,5298,5,not certified with a clock,0.499,False
+82,prover-auto,prover-auto,102,?,-1,-1,0,0,not certified with a clock,0.208,False
+82,prover-auto,prover-auto,104,?,-1,-1,1894,7,not certified with a clock,0.253,False
+82,prover-off,prover-auto,77,?,-1,-1,46770,28,budget,0.309,False
+82,prover-off,prover-auto,79,?,-1,-1,46581,29,budget,0.463,False
+82,prover-off,prover-auto,81,?,-1,-1,9898,30,budget,0.485,False
+82,prover-off,prover-auto,83,?,-1,-1,21846,14,proven,0.015,False
+82,prover-off,prover-auto,85,?,-1,-1,0,0,proven,0.0,False
+82,prover-off,prover-auto,87,?,-1,-1,0,0,proven,0.002,False
+82,prover-off,prover-auto,89,?,-1,-1,0,0,proven,0.001,False
+82,prover-off,prover-auto,91,?,-1,-1,0,0,proven,0.001,False
+82,prover-off,prover-auto,93,?,-1,-1,0,0,proven,0.0,False
+82,prover-off,prover-auto,95,?,-1,-1,0,0,proven,0.0,False
+82,prover-off,prover-auto,97,?,-1,-1,0,0,proven,0.0,False
+82,prover-off,prover-auto,99,?,-1,-1,0,0,proven,0.0,False
+90,prover-auto,prover-auto,74,?,-1,-1,36106,37,budget,0.644,False
+90,prover-auto,prover-auto,76,?,-1,-1,9824,31,proven,0.032,False
+90,prover-auto,prover-auto,78,?,-1,-1,0,0,proven,0.0,False
+90,prover-auto,prover-auto,80,?,-1,-1,0,0,proven,0.005,False
+90,prover-auto,prover-auto,82,?,-1,-1,0,0,proven,0.004,False
+90,prover-off,prover-auto,85,?,-1,-1,15787,11,budget,1.163,False
+90,prover-off,prover-auto,89,?,-1,-1,9626,10,budget,0.156,False
+90,prover-off,prover-auto,91,?,-1,-1,92,0,not certified with a clock,0.553,False
+96,prover-auto,prover-auto,4,?,-1,-1,43248,60,budget,1.481,False
+96,prover-auto,prover-auto,6,?,-1,-1,6597,30,proven,0.03,False
+96,prover-auto,prover-auto,8,?,-1,-1,0,0,proven,0.0,False
+96,prover-auto,prover-auto,10,?,-1,-1,0,0,proven,0.002,False
+96,prover-auto,prover-auto,12,?,-1,-1,0,0,proven,0.0,False
+96,prover-auto,prover-auto,14,?,-1,-1,0,1,proven,0.0,False
+96,prover-auto,prover-auto,16,?,-1,-1,0,1,proven,0.0,False
+96,prover-auto,prover-auto,18,?,-1,-1,0,0,proven,0.0,False
+96,prover-auto,prover-auto,20,?,-1,-1,0,0,proven,0.0,False
+96,prover-auto,prover-auto,22,?,-1,-1,0,0,proven,0.0,False
+96,prover-auto,prover-auto,24,?,-1,-1,0,0,proven,0.001,False
+96,prover-auto,prover-auto,26,?,-1,-1,0,1,proven,0.0,False
+96,prover-auto,prover-auto,28,?,-1,-1,0,0,proven,0.0,False
+96,prover-auto,prover-auto,30,?,-1,-1,0,0,proven,0.0,False
+96,prover-auto,prover-auto,32,?,-1,-1,0,0,proven,0.0,False
+97,prover-auto,prover-auto,4,?,-1,-1,46651,63,budget,0.949,False
+97,prover-auto,prover-auto,6,?,-1,-1,35001,67,budget,1.387,False
+97,prover-auto,prover-auto,8,?,-1,-1,87086,69,budget,1.03,False
+97,prover-auto,prover-auto,10,?,-1,-1,67664,71,budget,1.496,False
+97,prover-auto,prover-auto,12,?,-1,-1,63367,72,budget,1.13,False
+97,prover-auto,prover-auto,14,?,-1,-1,72861,49,proven,0.049,False
+97,prover-auto,prover-auto,16,?,-1,-1,0,0,proven,0.0,False
+97,prover-auto,prover-auto,18,?,-1,-1,0,0,proven,0.0,False
+97,prover-auto,prover-auto,20,?,-1,-1,0,0,proven,0.0,False
+97,prover-auto,prover-auto,22,?,-1,-1,0,0,proven,0.0,False
+97,prover-off,prover-auto,3,?,-1,-1,52027,66,budget,0.528,False
+97,prover-off,prover-auto,5,?,-1,-1,17580,71,budget,0.53,False
+97,prover-off,prover-auto,7,?,-1,-1,107579,73,budget,0.508,False
+97,prover-off,prover-auto,9,?,-1,-1,62795,77,budget,0.502,False
+97,prover-off,prover-auto,11,?,-1,-1,76741,79,budget,0.501,False
+97,prover-off,prover-auto,13,?,-1,-1,1128,0,not certified with a clock,0.411,False
+97,prover-off,prover-auto,15,?,-1,-1,0,0,not certified with a clock,0.003,False
+97,prover-off,prover-auto,17,?,-1,-1,0,0,not certified with a clock,0.0,False
+96,prover-off,prover-auto,13,?,-1,-1,3526,10,not certified with a clock,0.659,False
+96,prover-off,prover-auto,15,?,-1,-1,0,0,not certified with a clock,0.79,False
+96,prover-off,prover-auto,17,?,-1,-1,0,0,not certified with a clock,0.504,False
+96,prover-off,prover-auto,19,?,-1,-1,0,0,not certified with a clock,0.64,False
+96,prover-off,prover-auto,21,?,-1,-1,0,0,not certified with a clock,0.734,False
+96,prover-off,prover-auto,23,?,-1,-1,0,0,not certified with a clock,0.742,False
+96,prover-off,prover-auto,25,?,-1,-1,0,0,not certified with a clock,0.791,False
+96,prover-off,prover-auto,27,?,-1,-1,0,0,not certified with a clock,0.506,False
+96,prover-off,prover-auto,29,?,-1,-1,0,0,not certified with a clock,0.506,False
+96,prover-off,prover-auto,31,?,-1,-1,0,0,not certified with a clock,0.155,False
+96,prover-off,prover-auto,33,?,-1,-1,0,0,not certified with a clock,0.005,False
+96,prover-off,prover-auto,35,?,-1,-1,0,0,not certified with a clock,0.0,False
+103,prover-off,prover-auto,119,?,-1,-1,1226,2,not certified with a clock,0.584,False
+103,prover-off,prover-auto,121,?,-1,-1,0,0,not certified with a clock,0.167,False
+109,prover-off,prover-auto,59,?,-1,-1,2484,10,budget,0.196,False
+109,prover-off,prover-auto,61,?,-1,-1,3262,17,budget,0.64,False
+109,prover-off,prover-auto,63,?,-1,-1,11497,15,budget,0.236,False
+109,prover-off,prover-auto,65,?,-1,-1,0,0,not certified with a clock,0.243,False
+109,prover-off,prover-auto,67,?,-1,-1,92,0,not certified with a clock,0.016,False
+124,prover-off,prover-auto,73,?,-1,-1,2848,9,budget,0.163,False
+124,prover-off,prover-auto,75,?,-1,-1,19522,14,budget,0.213,False
+124,prover-off,prover-auto,77,?,-1,-1,3751,21,budget,0.233,False
+124,prover-off,prover-auto,79,?,-1,-1,1734,1,not certified with a clock,0.271,False
+124,prover-off,prover-auto,81,?,-1,-1,21207,21,budget,0.254,False
+124,prover-off,prover-auto,83,?,-1,-1,0,0,not certified with a clock,0.129,False
+124,prover-off,prover-auto,85,?,-1,-1,0,0,not certified with a clock,0.017,False
+124,prover-off,prover-auto,87,?,-1,-1,0,0,not certified with a clock,0.0,False
+130,prover-auto,prover-auto,52,?,-1,-1,104,0,not certified with a clock,0.0,False
+130,prover-off,prover-auto,55,?,-1,-1,43732,52,budget,1.86,False
+130,prover-off,prover-auto,57,?,-1,-1,12313,53,budget,2.324,False
+130,prover-off,prover-auto,59,?,-1,-1,6557,52,budget,0.783,False
+130,prover-off,prover-auto,61,?,-1,-1,6185,29,proven,0.031,False
+130,prover-off,prover-auto,63,?,-1,-1,0,0,proven,0.0,False
+130,prover-off,prover-auto,65,?,-1,-1,0,0,proven,0.004,False
+130,prover-off,prover-auto,67,?,-1,-1,0,0,proven,0.005,False
+130,prover-off,prover-auto,69,?,-1,-1,0,0,proven,0.005,False
+136,prover-off,prover-auto,165,?,-1,-1,13905,10,budget,0.384,False
+136,prover-off,prover-auto,167,?,-1,-1,18232,13,budget,0.754,False
+136,prover-off,prover-auto,169,?,-1,-1,15504,11,budget,0.218,False
+139,prover-off,prover-auto,95,?,-1,-1,12929,10,budget,0.116,False
+139,prover-off,prover-auto,97,?,-1,-1,18480,13,budget,0.224,False
+139,prover-off,prover-auto,99,?,-1,-1,12720,10,proven,0.015,False
+139,prover-off,prover-auto,101,?,-1,-1,0,0,proven,0.003,False
+139,prover-off,prover-auto,103,?,-1,-1,0,0,proven,0.004,False
+140,prover-auto,prover-auto,92,?,-1,-1,845,5,proven,0.015,False
+140,prover-auto,prover-auto,94,?,-1,-1,0,0,proven,0.005,False
+140,prover-auto,prover-auto,96,?,-1,-1,0,0,proven,0.005,False
+141,prover-auto,prover-auto,40,?,-1,-1,66136,76,budget,3.395,False
+141,prover-auto,prover-auto,42,?,-1,-1,22834,70,budget,1.152,False
+141,prover-auto,prover-auto,44,?,-1,-1,83807,71,budget,1.108,False
+141,prover-auto,prover-auto,46,?,-1,-1,86836,69,budget,1.181,False
+141,prover-auto,prover-auto,48,?,-1,-1,64358,69,budget,1.057,False
+141,prover-auto,prover-auto,50,?,-1,-1,51729,68,budget,1.097,False
+141,prover-auto,prover-auto,52,?,-1,-1,12555,66,budget,0.993,False
+141,prover-auto,prover-auto,54,?,-1,-1,6589,68,budget,0.986,False
+141,prover-auto,prover-auto,56,?,-1,-1,14066,67,budget,1.327,False
+141,prover-auto,prover-auto,58,?,-1,-1,81159,62,budget,1.852,False
+141,prover-auto,prover-auto,60,?,-1,-1,10971,54,budget,0.942,False
+141,prover-auto,prover-auto,62,?,-1,-1,0,0,proven,0.012,False
+141,prover-auto,prover-auto,64,?,-1,-1,0,0,proven,0.008,False
+141,prover-off,prover-auto,65,?,-1,-1,2319,11,budget,0.166,False
+141,prover-off,prover-auto,67,?,-1,-1,2153,3,not certified with a clock,0.195,False
+144,prover-off,prover-auto,3,?,-1,-1,13765,60,budget,0.507,False
+144,prover-off,prover-auto,5,?,-1,-1,52508,64,budget,1.072,False
+144,prover-off,prover-auto,7,?,-1,-1,56037,66,budget,1.217,False
+144,prover-off,prover-auto,9,?,-1,-1,66627,69,budget,1.051,False
+144,prover-off,prover-auto,11,?,-1,-1,103952,70,budget,0.509,False
+144,prover-off,prover-auto,13,?,-1,-1,20550,73,budget,1.031,False
+144,prover-off,prover-auto,15,?,-1,-1,95827,76,budget,1.248,False
+144,prover-off,prover-auto,17,?,-1,-1,61343,73,budget,1.134,False
+144,prover-off,prover-auto,19,?,-1,-1,68938,77,budget,1.042,False
+144,prover-off,prover-auto,21,?,-1,-1,93860,80,budget,0.199,False
+144,prover-off,prover-auto,23,?,-1,-1,806,4,not certified with a clock,0.075,False
+144,prover-off,prover-auto,25,?,-1,-1,0,0,not certified with a clock,0.001,False
+151,prover-off,prover-auto,43,?,-1,-1,52700,68,budget,0.992,False
+151,prover-off,prover-auto,45,?,-1,-1,79111,69,budget,1.094,False
+151,prover-off,prover-auto,47,?,-1,-1,63283,68,budget,2.267,False
+151,prover-off,prover-auto,49,?,-1,-1,15397,68,budget,0.988,False
+151,prover-off,prover-auto,51,?,-1,-1,54313,67,budget,1.004,False
+151,prover-off,prover-auto,53,?,-1,-1,75977,67,budget,1.008,False
+151,prover-off,prover-auto,55,?,-1,-1,21463,31,proven,0.031,False
+151,prover-off,prover-auto,57,?,-1,-1,0,1,proven,0.004,False
+151,prover-off,prover-auto,59,?,-1,-1,0,0,proven,0.0,False
+151,prover-off,prover-auto,61,?,-1,-1,0,0,proven,0.0,False
+151,prover-off,prover-auto,63,?,-1,-1,0,0,proven,0.0,False
+151,prover-off,prover-auto,65,?,-1,-1,0,0,proven,0.0,False
+151,prover-off,prover-auto,67,?,-1,-1,0,0,proven,0.0,False
+151,prover-off,prover-auto,69,?,-1,-1,0,0,proven,0.0,False
+153,prover-off,prover-auto,35,?,-1,-1,4036,3,proven,0.003,False
+153,prover-off,prover-auto,37,?,-1,-1,0,0,proven,0.0,False
+153,prover-off,prover-auto,39,?,-1,-1,0,0,proven,0.0,False
+153,prover-off,prover-auto,41,?,-1,-1,0,0,proven,0.0,False
+153,prover-off,prover-auto,43,?,-1,-1,0,0,proven,0.0,False
+153,prover-off,prover-auto,45,?,-1,-1,0,0,proven,0.0,False
+153,prover-auto,prover-auto,42,?,-1,-1,3469,12,budget,0.177,False
+153,prover-auto,prover-auto,44,?,-1,-1,0,0,not certified with a clock,0.2,False
+153,prover-auto,prover-auto,46,?,-1,-1,382,0,not certified with a clock,0.012,False
+153,prover-auto,prover-auto,48,?,-1,-1,98,0,not certified with a clock,0.0,False
+162,prover-off,prover-auto,98,?,-1,-1,55611,45,budget,0.688,False
+162,prover-off,prover-auto,100,?,-1,-1,61384,45,budget,0.783,False
+162,prover-off,prover-auto,102,?,-1,-1,17766,25,proven,0.031,False
+162,prover-off,prover-auto,104,?,-1,-1,0,0,proven,0.008,False
+162,prover-off,prover-auto,106,?,-1,-1,0,1,proven,0.012,False
+162,prover-off,prover-auto,108,?,-1,-1,0,0,proven,0.003,False
+162,prover-off,prover-auto,110,?,-1,-1,0,0,proven,0.004,False
+162,prover-off,prover-auto,112,?,-1,-1,0,0,proven,0.009,False
+162,prover-off,prover-auto,114,?,-1,-1,0,0,proven,0.004,False
+171,prover-off,prover-auto,99,?,-1,-1,832,1,not certified with a clock,0.155,False
+171,prover-off,prover-auto,101,?,-1,-1,0,0,not certified with a clock,0.22,False
+171,prover-auto,prover-auto,166,?,-1,-1,1943,12,budget,0.193,False
+171,prover-auto,prover-auto,168,?,-1,-1,361,1,proven,0.006,False
+171,prover-auto,prover-auto,170,?,-1,-1,0,2,proven,0.013,False
+189,prover-auto,prover-auto,94,?,-1,-1,17006,20,budget,0.247,False
+189,prover-auto,prover-auto,96,?,-1,-1,16890,22,budget,0.357,False
+189,prover-auto,prover-auto,98,?,-1,-1,6178,25,budget,0.391,False
+189,prover-auto,prover-auto,100,?,-1,-1,2974,5,proven,0.014,False
+189,prover-auto,prover-auto,102,?,-1,-1,0,0,proven,0.005,False
+189,prover-auto,prover-auto,104,?,-1,-1,0,1,proven,0.004,False
+193,prover-auto,prover-auto,125,?,-1,-1,2946,10,budget,0.16,False
+193,prover-auto,prover-auto,127,?,-1,-1,1507,19,budget,0.197,False
+193,prover-auto,prover-auto,129,?,-1,-1,592,1,not certified with a clock,0.234,False
+193,prover-auto,prover-auto,131,?,-1,-1,0,0,not certified with a clock,0.29,False
+195,prover-off,prover-auto,234,?,-1,-1,22944,17,budget,0.239,False
+195,prover-off,prover-auto,236,?,-1,-1,4990,6,proven,0.014,False
+195,prover-off,prover-auto,238,?,-1,-1,0,1,proven,0.008,False
+195,prover-off,prover-auto,240,?,-1,-1,0,1,proven,0.011,False
+195,prover-off,prover-auto,242,?,-1,-1,0,1,proven,0.01,False
+205,prover-off,prover-auto,151,?,-1,-1,1806,9,budget,0.529,False
+205,prover-off,prover-auto,153,?,-1,-1,12952,10,budget,0.372,False
+205,prover-off,prover-auto,155,?,-1,-1,12980,11,not certified with a clock,0.289,False
+205,prover-off,prover-auto,157,?,-1,-1,23,0,not certified with a clock,0.508,False
+205,prover-off,prover-auto,159,?,-1,-1,0,0,not certified with a clock,0.361,False
+205,prover-off,prover-auto,161,?,-1,-1,551,0,not certified with a clock,0.199,False
+205,prover-off,prover-auto,163,?,-1,-1,223,0,not certified with a clock,0.155,False
+205,prover-off,prover-auto,165,?,-1,-1,0,0,not certified with a clock,0.01,False
+205,prover-off,prover-auto,167,?,-1,-1,33,0,not certified with a clock,0.0,False
+210,prover-auto,prover-auto,8,?,-1,-1,58877,72,budget,1.12,False
+210,prover-auto,prover-auto,10,?,-1,-1,13138,78,budget,1.635,False
+210,prover-auto,prover-auto,12,?,-1,-1,16565,77,budget,1.012,False
+210,prover-auto,prover-auto,14,?,-1,-1,32719,76,budget,1.246,False
+210,prover-auto,prover-auto,16,?,-1,-1,31920,80,budget,1.193,False
+210,prover-auto,prover-auto,18,?,-1,-1,20995,80,budget,1.201,False
+210,prover-auto,prover-auto,20,?,-1,-1,16146,12,proven,0.012,False
+210,prover-auto,prover-auto,22,?,-1,-1,0,1,proven,0.0,False
+210,prover-auto,prover-auto,24,?,-1,-1,0,0,proven,0.0,False
+210,prover-auto,prover-auto,26,?,-1,-1,0,0,proven,0.0,False
+215,prover-auto,prover-auto,100,?,-1,-1,11620,14,budget,0.637,False
+215,prover-auto,prover-auto,102,?,-1,-1,18920,14,budget,0.212,False
+215,prover-auto,prover-auto,104,?,-1,-1,7306,9,not certified with a clock,0.255,False
+215,prover-auto,prover-auto,106,?,-1,-1,0,1,not certified with a clock,0.277,False
+215,prover-auto,prover-auto,108,?,-1,-1,0,0,not certified with a clock,0.293,False
+215,prover-auto,prover-auto,110,?,-1,-1,798,3,not certified with a clock,0.331,False
+215,prover-auto,prover-auto,112,?,-1,-1,0,0,not certified with a clock,0.411,False
+215,prover-off,prover-auto,89,?,-1,-1,4039,11,budget,0.161,False
+215,prover-off,prover-auto,91,?,-1,-1,10416,13,budget,0.211,False
+215,prover-off,prover-auto,93,?,-1,-1,4515,16,budget,0.253,False
+215,prover-off,prover-auto,95,?,-1,-1,4362,4,proven,0.014,False
+215,prover-off,prover-auto,97,?,-1,-1,0,1,proven,0.013,False
+215,prover-off,prover-auto,99,?,-1,-1,0,1,proven,0.005,False
+215,prover-off,prover-auto,101,?,-1,-1,0,0,proven,0.01,False
+223,prover-auto,prover-auto,74,?,-1,-1,34409,25,budget,0.568,False
+223,prover-auto,prover-auto,76,?,-1,-1,21665,25,budget,0.602,False
+223,prover-auto,prover-auto,78,?,-1,-1,996,1,proven,0.006,False
+223,prover-auto,prover-auto,80,?,-1,-1,0,0,proven,0.005,False
+223,prover-auto,prover-auto,82,?,-1,-1,0,0,proven,0.006,False
+223,prover-auto,prover-auto,84,?,-1,-1,0,0,proven,0.009,False
+223,prover-off,prover-auto,77,?,-1,-1,7944,10,budget,0.157,False
+223,prover-off,prover-auto,79,?,-1,-1,3777,14,budget,0.332,False
+223,prover-off,prover-auto,81,?,-1,-1,6367,10,not certified with a clock,0.249,False
+223,prover-off,prover-auto,83,?,-1,-1,1551,16,budget,0.264,False
+223,prover-off,prover-auto,85,?,-1,-1,1795,5,not certified with a clock,0.818,False
+223,prover-off,prover-auto,87,?,-1,-1,0,0,not certified with a clock,0.261,False
+223,prover-off,prover-auto,89,?,-1,-1,1199,1,not certified with a clock,0.327,False
+223,prover-off,prover-auto,91,?,-1,-1,0,0,not certified with a clock,0.303,False
+223,prover-off,prover-auto,93,?,-1,-1,934,1,not certified with a clock,0.083,False
+229,prover-auto,prover-auto,4,?,-1,-1,44405,38,proven,0.039,False
+229,prover-auto,prover-auto,6,?,-1,-1,0,1,proven,0.0,False
+229,prover-auto,prover-auto,8,?,-1,-1,0,0,proven,0.0,False
+229,prover-auto,prover-auto,10,?,-1,-1,0,1,proven,0.0,False
+229,prover-auto,prover-auto,12,?,-1,-1,0,0,proven,0.0,False
+229,prover-auto,prover-auto,14,?,-1,-1,0,0,proven,0.0,False
+229,prover-auto,prover-auto,16,?,-1,-1,0,1,proven,0.0,False
+229,prover-auto,prover-auto,18,?,-1,-1,0,0,proven,0.0,False
+229,prover-auto,prover-auto,20,?,-1,-1,0,0,proven,0.0,False
+229,prover-auto,prover-auto,22,?,-1,-1,0,0,proven,0.002,False
+229,prover-auto,prover-auto,24,?,-1,-1,0,0,proven,0.0,False
+229,prover-auto,prover-auto,26,?,-1,-1,0,1,proven,0.001,False
+229,prover-auto,prover-auto,28,?,-1,-1,0,0,proven,0.0,False
+229,prover-auto,prover-auto,30,?,-1,-1,0,0,proven,0.0,False
+229,prover-auto,prover-auto,32,?,-1,-1,0,0,proven,0.0,False
+229,prover-auto,prover-auto,34,?,-1,-1,0,0,proven,0.0,False
+229,prover-auto,prover-auto,36,?,-1,-1,0,1,proven,0.0,False
+229,prover-off,prover-auto,5,?,-1,-1,42661,39,not certified with a clock,0.522,False
+229,prover-off,prover-auto,7,?,-1,-1,0,0,not certified with a clock,1.19,False
+229,prover-off,prover-auto,9,?,-1,-1,0,0,not certified with a clock,2.165,False
+229,prover-off,prover-auto,11,?,-1,-1,0,0,not certified with a clock,0.512,False
+229,prover-off,prover-auto,13,?,-1,-1,0,0,not certified with a clock,0.553,False
+229,prover-off,prover-auto,15,?,-1,-1,0,0,not certified with a clock,0.589,False
+229,prover-off,prover-auto,17,?,-1,-1,0,0,not certified with a clock,0.636,False
+229,prover-off,prover-auto,19,?,-1,-1,0,0,not certified with a clock,0.519,False
+229,prover-off,prover-auto,21,?,-1,-1,0,0,not certified with a clock,0.576,False
+229,prover-off,prover-auto,23,?,-1,-1,0,0,not certified with a clock,0.526,False
+229,prover-off,prover-auto,25,?,-1,-1,0,0,not certified with a clock,0.502,False
+229,prover-off,prover-auto,27,?,-1,-1,0,0,not certified with a clock,0.09,False
+229,prover-off,prover-auto,29,?,-1,-1,0,0,not certified with a clock,0.007,False
+229,prover-off,prover-auto,31,?,-1,-1,0,0,not certified with a clock,0.0,False
+230,prover-auto,prover-auto,4,?,-1,-1,86391,63,budget,1.185,False
+230,prover-auto,prover-auto,6,?,-1,-1,71241,67,budget,1.051,False
+230,prover-auto,prover-auto,8,?,-1,-1,97526,68,budget,1.087,False
+230,prover-auto,prover-auto,10,?,-1,-1,19866,72,budget,1.112,False
+230,prover-auto,prover-auto,12,?,-1,-1,103953,72,budget,1.265,False
+230,prover-auto,prover-auto,14,?,-1,-1,90769,74,budget,1.118,False
+230,prover-auto,prover-auto,16,?,-1,-1,93692,75,budget,1.132,False
+230,prover-auto,prover-auto,18,?,-1,-1,85,0,proven,0.0,False
+230,prover-auto,prover-auto,20,?,-1,-1,0,0,proven,0.0,False
+230,prover-auto,prover-auto,22,?,-1,-1,0,0,proven,0.0,False
+230,prover-off,prover-auto,5,?,-1,-1,50667,70,budget,1.331,False
+236,prover-off,prover-auto,99,?,-1,-1,1767,7,not certified with a clock,0.183,False
+236,prover-off,prover-auto,101,?,-1,-1,786,1,not certified with a clock,0.594,False
+236,prover-auto,prover-auto,96,?,-1,-1,7960,12,budget,0.166,False
+236,prover-auto,prover-auto,98,?,-1,-1,12947,15,budget,0.214,False
+236,prover-auto,prover-auto,100,?,-1,-1,9275,13,proven,0.022,False
+236,prover-auto,prover-auto,102,?,-1,-1,0,0,proven,0.009,False
+236,prover-auto,prover-auto,104,?,-1,-1,0,1,proven,0.013,False
+236,prover-auto,prover-auto,106,?,-1,-1,0,0,proven,0.011,False
+236,prover-auto,prover-auto,108,?,-1,-1,0,0,proven,0.005,False
+242,prover-auto,prover-auto,64,?,-1,-1,2969,4,proven,0.004,False
+242,prover-auto,prover-auto,66,?,-1,-1,0,0,proven,0.0,False
+242,prover-auto,prover-auto,68,?,-1,-1,0,0,proven,0.0,False
+242,prover-auto,prover-auto,70,?,-1,-1,0,1,proven,0.01,False
+242,prover-auto,prover-auto,72,?,-1,-1,0,0,proven,0.0,False
+242,prover-auto,prover-auto,74,?,-1,-1,0,0,proven,0.001,False
+242,prover-auto,prover-auto,76,?,-1,-1,0,1,proven,0.002,False
+242,prover-auto,prover-auto,78,?,-1,-1,0,0,proven,0.0,False
+242,prover-auto,prover-auto,80,?,-1,-1,0,0,proven,0.0,False
+247,prover-auto,prover-auto,115,?,-1,-1,343,0,not certified with a clock,0.152,False
+247,prover-auto,prover-auto,117,?,-1,-1,0,0,not certified with a clock,0.051,False
+247,prover-auto,prover-auto,119,?,-1,-1,105,0,not certified with a clock,0.0,False
+263,prover-auto,prover-auto,50,?,-1,-1,13044,13,not certified with a clock,0.194,False
+263,prover-auto,prover-auto,52,?,-1,-1,0,0,not certified with a clock,0.213,False
+263,prover-auto,prover-auto,54,?,-1,-1,0,0,not certified with a clock,0.185,False
+263,prover-auto,prover-auto,56,?,-1,-1,72,1,not certified with a clock,0.012,False
+263,prover-auto,prover-auto,58,?,-1,-1,42,0,not certified with a clock,0.0,False
+263,prover-off,prover-auto,43,?,-1,-1,12615,72,budget,0.755,False
+263,prover-off,prover-auto,45,?,-1,-1,1488,1,proven,0.001,False
+263,prover-off,prover-auto,47,?,-1,-1,0,1,proven,0.002,False
+263,prover-off,prover-auto,49,?,-1,-1,0,0,proven,0.002,False
+263,prover-off,prover-auto,51,?,-1,-1,0,0,proven,0.0,False
+263,prover-off,prover-auto,53,?,-1,-1,0,0,proven,0.0,False
+263,prover-off,prover-auto,55,?,-1,-1,0,0,proven,0.0,False
+263,prover-off,prover-auto,57,?,-1,-1,0,1,proven,0.0,False
+272,prover-auto,prover-auto,86,?,-1,-1,10860,11,not certified with a clock,0.52,False
+272,prover-auto,prover-auto,88,?,-1,-1,9978,10,not certified with a clock,0.659,False
+272,prover-auto,prover-auto,90,?,-1,-1,4743,6,not certified with a clock,0.141,False
+272,prover-auto,prover-auto,92,?,-1,-1,1450,2,not certified with a clock,0.08,False
+272,prover-auto,prover-auto,94,?,-1,-1,398,1,not certified with a clock,0.011,False
+272,prover-off,prover-auto,87,?,-1,-1,2037,16,budget,0.21,False
+272,prover-off,prover-auto,89,?,-1,-1,1543,16,budget,0.411,False
+272,prover-off,prover-auto,91,?,-1,-1,76,1,proven,0.005,False
+272,prover-off,prover-auto,93,?,-1,-1,0,1,proven,0.005,False
+274,prover-auto,prover-auto,78,?,-1,-1,16503,16,budget,0.171,False
+274,prover-auto,prover-auto,80,?,-1,-1,8297,5,proven,0.011,False
+274,prover-auto,prover-auto,82,?,-1,-1,0,0,proven,0.006,False
+274,prover-auto,prover-auto,84,?,-1,-1,0,0,proven,0.005,False
+274,prover-auto,prover-auto,86,?,-1,-1,0,0,proven,0.006,False
+274,prover-auto,prover-auto,88,?,-1,-1,0,0,proven,0.001,False
+274,prover-off,prover-auto,75,?,-1,-1,2843,2,not certified with a clock,0.18,False
+277,prover-auto,prover-auto,10,?,-1,-1,98622,72,budget,0.775,False
+277,prover-auto,prover-auto,12,?,-1,-1,105102,74,budget,1.166,False
+277,prover-auto,prover-auto,14,?,-1,-1,62654,76,budget,1.14,False
+277,prover-auto,prover-auto,16,?,-1,-1,8911,79,budget,1.204,False
+277,prover-auto,prover-auto,18,?,-1,-1,48214,78,budget,1.191,False
+277,prover-auto,prover-auto,20,?,-1,-1,58936,81,budget,1.037,False
+277,prover-auto,prover-auto,22,?,-1,-1,29895,29,proven,0.029,False
+277,prover-auto,prover-auto,24,?,-1,-1,0,0,proven,0.0,False
+277,prover-auto,prover-auto,26,?,-1,-1,0,0,proven,0.0,False
+277,prover-auto,prover-auto,28,?,-1,-1,0,0,proven,0.0,False
+277,prover-off,prover-auto,3,?,-1,-1,6609,58,budget,2.477,False
+277,prover-off,prover-auto,5,?,-1,-1,52147,61,budget,0.974,False
+277,prover-off,prover-auto,9,?,-1,-1,49396,64,budget,1.055,False
+277,prover-off,prover-auto,11,?,-1,-1,14683,67,budget,0.509,False
+277,prover-off,prover-auto,13,?,-1,-1,73490,72,budget,1.12,False
+277,prover-off,prover-auto,15,?,-1,-1,9213,71,budget,1.194,False
+277,prover-off,prover-auto,17,?,-1,-1,100324,74,budget,1.114,False
+277,prover-off,prover-auto,19,?,-1,-1,59064,76,budget,1.1,False
+277,prover-off,prover-auto,21,?,-1,-1,61093,50,not certified with a clock,0.24,False
+277,prover-off,prover-auto,23,?,-1,-1,0,0,not certified with a clock,0.178,False
+277,prover-off,prover-auto,25,?,-1,-1,0,0,not certified with a clock,0.0,False
+284,prover-auto,prover-auto,38,?,-1,-1,8613,12,budget,0.175,False
+284,prover-auto,prover-auto,40,?,-1,-1,17639,14,budget,0.22,False
+284,prover-auto,prover-auto,42,?,-1,-1,4633,6,not certified with a clock,0.309,False
+284,prover-auto,prover-auto,44,?,-1,-1,0,0,not certified with a clock,0.275,False
+282,prover-off,prover-auto,190,?,-1,-1,860,1,proven,0.007,False
+282,prover-off,prover-auto,192,?,-1,-1,0,0,proven,0.001,False
+282,prover-off,prover-auto,194,?,-1,-1,0,0,proven,0.005,False
+284,prover-off,prover-auto,55,?,-1,-1,75876,60,budget,0.809,False
+284,prover-off,prover-auto,57,?,-1,-1,9551,13,proven,0.013,False
+284,prover-off,prover-auto,59,?,-1,-1,0,1,proven,0.001,False
+284,prover-off,prover-auto,61,?,-1,-1,0,0,proven,0.0,False
+284,prover-off,prover-auto,63,?,-1,-1,0,0,proven,0.0,False
+284,prover-off,prover-auto,65,?,-1,-1,0,0,proven,0.006,False
+284,prover-off,prover-auto,67,?,-1,-1,0,0,proven,0.011,False
+284,prover-off,prover-auto,69,?,-1,-1,0,0,proven,0.005,False
+286,prover-auto,prover-auto,36,?,-1,-1,364,0,not certified with a clock,0.138,False
+286,prover-auto,prover-auto,38,?,-1,-1,0,0,not certified with a clock,0.182,False
+286,prover-auto,prover-auto,40,?,-1,-1,0,0,not certified with a clock,0.007,False
+286,prover-auto,prover-auto,42,?,-1,-1,0,0,not certified with a clock,0.0,False
+286,prover-off,prover-auto,41,?,-1,-1,18452,81,budget,0.855,False
+286,prover-off,prover-auto,43,?,-1,-1,7334,13,proven,0.013,False
+286,prover-off,prover-auto,45,?,-1,-1,0,1,proven,0.0,False
+286,prover-off,prover-auto,47,?,-1,-1,0,1,proven,0.004,False
+286,prover-off,prover-auto,49,?,-1,-1,0,1,proven,0.004,False
+286,prover-off,prover-auto,51,?,-1,-1,0,0,proven,0.0,False
+286,prover-off,prover-auto,53,?,-1,-1,0,0,proven,0.0,False
+286,prover-off,prover-auto,55,?,-1,-1,0,0,proven,0.0,False
+286,prover-off,prover-auto,57,?,-1,-1,0,0,proven,0.0,False
+286,prover-off,prover-auto,59,?,-1,-1,0,0,proven,0.0,False
+286,prover-off,prover-auto,61,?,-1,-1,0,0,proven,0.0,False
+286,prover-off,prover-auto,63,?,-1,-1,0,0,proven,0.0,False
+286,prover-off,prover-auto,65,?,-1,-1,0,0,proven,0.002,False
+286,prover-off,prover-auto,67,?,-1,-1,0,0,proven,0.002,False
+286,prover-off,prover-auto,69,?,-1,-1,0,1,proven,0.005,False
+286,prover-off,prover-auto,71,?,-1,-1,0,1,proven,0.002,False
+286,prover-off,prover-auto,73,?,-1,-1,0,0,proven,0.001,False
+295,prover-off,prover-auto,158,?,-1,-1,3015,17,budget,0.449,False
+295,prover-off,prover-auto,160,?,-1,-1,15774,19,budget,0.228,False
+295,prover-off,prover-auto,162,?,-1,-1,6761,12,proven,0.022,False
+295,prover-off,prover-auto,164,?,-1,-1,0,0,proven,0.011,False
+295,prover-off,prover-auto,166,?,-1,-1,0,0,proven,0.008,False
+295,prover-off,prover-auto,168,?,-1,-1,0,0,proven,0.008,False
+322,prover-auto,prover-auto,100,?,-1,-1,8249,7,proven,0.012,False
+322,prover-auto,prover-auto,102,?,-1,-1,0,0,proven,0.0,False
+322,prover-off,prover-auto,125,?,-1,-1,257,4,not certified with a clock,0.162,False
+322,prover-off,prover-auto,127,?,-1,-1,0,0,not certified with a clock,0.009,False
+322,prover-off,prover-auto,129,?,-1,-1,0,0,not certified with a clock,0.0,False
+326,prover-auto,prover-auto,93,?,-1,-1,2885,11,budget,0.176,False
+326,prover-auto,prover-auto,95,?,-1,-1,10197,9,not certified with a clock,0.203,False
+326,prover-auto,prover-auto,97,?,-1,-1,0,0,not certified with a clock,0.174,False
+326,prover-auto,prover-auto,99,?,-1,-1,173,0,not certified with a clock,0.005,False
+326,prover-auto,prover-auto,101,?,-1,-1,0,0,not certified with a clock,0.0,False
+328,prover-off,prover-auto,118,?,-1,-1,2367,17,budget,0.257,False
+328,prover-off,prover-auto,120,?,-1,-1,2799,4,proven,0.01,False
+328,prover-off,prover-auto,122,?,-1,-1,0,0,proven,0.005,False
+328,prover-off,prover-auto,124,?,-1,-1,0,0,proven,0.005,False
+328,prover-off,prover-auto,126,?,-1,-1,0,0,proven,0.008,False
+328,prover-off,prover-auto,128,?,-1,-1,0,0,proven,0.006,False
+328,prover-off,prover-auto,130,?,-1,-1,0,1,proven,0.008,False
+328,prover-off,prover-auto,132,?,-1,-1,0,0,proven,0.006,False
+328,prover-off,prover-auto,134,?,-1,-1,0,0,proven,0.007,False
+338,prover-off,prover-auto,113,?,-1,-1,1140,2,not certified with a clock,0.509,False
+338,prover-off,prover-auto,115,?,-1,-1,0,0,not certified with a clock,0.176,False
+348,prover-auto,prover-auto,106,?,-1,-1,8468,11,budget,0.164,False
+348,prover-auto,prover-auto,108,?,-1,-1,4553,5,not certified with a clock,0.197,False
+348,prover-auto,prover-auto,110,?,-1,-1,4027,18,budget,0.242,False
+348,prover-auto,prover-auto,112,?,-1,-1,870,0,not certified with a clock,0.029,False
+348,prover-auto,prover-auto,114,?,-1,-1,0,0,not certified with a clock,0.01,False
+348,prover-auto,prover-auto,116,?,-1,-1,126,0,not certified with a clock,0.0,False
+348,prover-off,prover-auto,149,?,-1,-1,5026,13,budget,0.209,False
+348,prover-off,prover-auto,151,?,-1,-1,505,0,proven,0.002,False
+348,prover-off,prover-auto,153,?,-1,-1,0,0,proven,0.001,False
+356,prover-auto,prover-auto,74,?,-1,-1,20498,21,budget,0.325,False
+356,prover-auto,prover-auto,76,?,-1,-1,8357,23,budget,0.344,False
+356,prover-auto,prover-auto,78,?,-1,-1,185,0,proven,0.005,False
+356,prover-auto,prover-auto,80,?,-1,-1,0,0,proven,0.005,False
+356,prover-auto,prover-auto,82,?,-1,-1,0,0,proven,0.005,False
+356,prover-off,prover-auto,97,?,-1,-1,4146,10,budget,0.546,False
+356,prover-off,prover-auto,99,?,-1,-1,2546,13,budget,0.301,False
+356,prover-off,prover-auto,101,?,-1,-1,8035,8,not certified with a clock,0.172,False
+356,prover-off,prover-auto,103,?,-1,-1,0,0,not certified with a clock,0.237,False
+356,prover-off,prover-auto,105,?,-1,-1,673,2,not certified with a clock,0.299,False
+362,prover-auto,prover-auto,4,?,-1,-1,42956,56,budget,1.279,False
+362,prover-auto,prover-auto,6,?,-1,-1,3804,14,proven,0.015,False
+362,prover-auto,prover-auto,8,?,-1,-1,0,0,proven,0.0,False
+362,prover-auto,prover-auto,10,?,-1,-1,0,1,proven,0.002,False
+362,prover-auto,prover-auto,12,?,-1,-1,0,0,proven,0.0,False
+362,prover-auto,prover-auto,14,?,-1,-1,0,1,proven,0.001,False
+362,prover-auto,prover-auto,16,?,-1,-1,0,1,proven,0.0,False
+362,prover-auto,prover-auto,18,?,-1,-1,0,1,proven,0.0,False
+362,prover-auto,prover-auto,20,?,-1,-1,0,1,proven,0.0,False
+362,prover-auto,prover-auto,22,?,-1,-1,0,1,proven,0.001,False
+362,prover-auto,prover-auto,24,?,-1,-1,0,0,proven,0.0,False
+362,prover-auto,prover-auto,26,?,-1,-1,0,0,proven,0.001,False
+362,prover-auto,prover-auto,28,?,-1,-1,0,0,proven,0.0,False
+362,prover-auto,prover-auto,30,?,-1,-1,0,0,proven,0.0,False
+362,prover-auto,prover-auto,32,?,-1,-1,0,0,proven,0.0,False
+362,prover-auto,prover-auto,34,?,-1,-1,0,0,proven,0.0,False
+362,prover-auto,prover-auto,36,?,-1,-1,0,0,proven,0.0,False
+362,prover-off,prover-auto,9,?,-1,-1,3526,4,not certified with a clock,0.521,False
+362,prover-off,prover-auto,11,?,-1,-1,0,1,not certified with a clock,0.544,False
+362,prover-off,prover-auto,13,?,-1,-1,0,0,not certified with a clock,0.509,False
+362,prover-off,prover-auto,15,?,-1,-1,0,0,not certified with a clock,0.532,False
+362,prover-off,prover-auto,17,?,-1,-1,0,0,not certified with a clock,0.62,False
+362,prover-off,prover-auto,19,?,-1,-1,0,0,not certified with a clock,0.55,False
+362,prover-off,prover-auto,21,?,-1,-1,0,0,not certified with a clock,0.503,False
+362,prover-off,prover-auto,23,?,-1,-1,0,0,not certified with a clock,0.502,False
+362,prover-off,prover-auto,25,?,-1,-1,0,0,not certified with a clock,0.501,False
+362,prover-off,prover-auto,27,?,-1,-1,0,0,not certified with a clock,0.255,False
+362,prover-off,prover-auto,29,?,-1,-1,0,0,not certified with a clock,0.01,False
+362,prover-off,prover-auto,31,?,-1,-1,0,0,not certified with a clock,0.0,False
+363,prover-off,prover-auto,5,?,-1,-1,89725,70,budget,1.214,False
+369,prover-off,prover-auto,85,?,-1,-1,1470,4,not certified with a clock,0.186,False
+369,prover-off,prover-auto,87,?,-1,-1,0,0,not certified with a clock,0.107,False
+369,prover-off,prover-auto,89,?,-1,-1,0,0,not certified with a clock,0.011,False
+369,prover-off,prover-auto,91,?,-1,-1,86,0,not certified with a clock,0.0,False
+369,prover-auto,prover-auto,110,?,-1,-1,2877,14,budget,0.189,False
+369,prover-auto,prover-auto,112,?,-1,-1,23039,17,budget,0.256,False
+369,prover-auto,prover-auto,114,?,-1,-1,4470,20,budget,0.389,False
+369,prover-auto,prover-auto,116,?,-1,-1,10379,12,proven,0.012,False
+369,prover-auto,prover-auto,118,?,-1,-1,0,0,proven,0.0,False
+369,prover-auto,prover-auto,120,?,-1,-1,0,0,proven,0.008,False
+390,prover-off,prover-auto,113,?,-1,-1,13904,10,budget,0.308,False
+390,prover-off,prover-auto,115,?,-1,-1,2789,11,budget,0.2,False
+390,prover-off,prover-auto,117,?,-1,-1,317,0,not certified with a clock,1.485,False
+396,prover-auto,prover-auto,54,?,-1,-1,1819,1,not certified with a clock,0.104,False
+396,prover-auto,prover-auto,56,?,-1,-1,1325,1,not certified with a clock,0.013,False
+396,prover-auto,prover-auto,58,?,-1,-1,0,0,not certified with a clock,0.0,False
+396,prover-off,prover-auto,67,?,-1,-1,48372,51,budget,0.846,False
+396,prover-off,prover-auto,69,?,-1,-1,15895,51,budget,1.616,False
+396,prover-off,prover-auto,71,?,-1,-1,13031,49,budget,0.568,False
+396,prover-off,prover-auto,73,?,-1,-1,44854,50,budget,0.76,False
+396,prover-off,prover-auto,75,?,-1,-1,403,1,proven,0.0,False
+396,prover-off,prover-auto,77,?,-1,-1,0,0,proven,0.0,False
+396,prover-off,prover-auto,79,?,-1,-1,0,0,proven,0.0,False
+405,prover-off,prover-auto,105,?,-1,-1,36266,26,budget,0.406,False
+405,prover-off,prover-auto,107,?,-1,-1,26349,28,budget,0.526,False
+405,prover-off,prover-auto,109,?,-1,-1,0,0,proven,0.006,False
+406,prover-auto,prover-auto,124,?,-1,-1,22554,16,budget,0.224,False
+406,prover-auto,prover-auto,126,?,-1,-1,528,1,proven,0.007,False
+406,prover-auto,prover-auto,128,?,-1,-1,0,0,proven,0.011,False
+407,prover-auto,prover-auto,40,?,-1,-1,82771,87,budget,1.086,False
+407,prover-auto,prover-auto,42,?,-1,-1,134819,87,budget,1.773,False
+407,prover-auto,prover-auto,44,?,-1,-1,25724,87,budget,11.406,False
+407,prover-auto,prover-auto,46,?,-1,-1,16368,11,proven,0.017,False
+407,prover-auto,prover-auto,48,?,-1,-1,0,1,proven,0.005,False
+407,prover-auto,prover-auto,50,?,-1,-1,0,0,proven,0.005,False
+407,prover-auto,prover-auto,52,?,-1,-1,0,1,proven,0.006,False
+407,prover-auto,prover-auto,54,?,-1,-1,0,1,proven,0.006,False
+407,prover-auto,prover-auto,56,?,-1,-1,0,0,proven,0.007,False
+407,prover-auto,prover-auto,58,?,-1,-1,0,0,proven,0.006,False
+410,prover-auto,prover-auto,6,?,-1,-1,96181,70,budget,1.094,False
+410,prover-auto,prover-auto,8,?,-1,-1,17295,72,budget,1.157,False
+410,prover-auto,prover-auto,10,?,-1,-1,64359,75,budget,1.211,False
+410,prover-auto,prover-auto,12,?,-1,-1,116249,78,budget,1.171,False
+410,prover-auto,prover-auto,14,?,-1,-1,107032,79,budget,1.182,False
+410,prover-auto,prover-auto,16,?,-1,-1,100018,81,budget,1.253,False
+410,prover-auto,prover-auto,18,?,-1,-1,63833,83,budget,1.24,False
+410,prover-auto,prover-auto,20,?,-1,-1,58,1,proven,0.0,False
+410,prover-auto,prover-auto,22,?,-1,-1,0,1,proven,0.002,False
+410,prover-auto,prover-auto,24,?,-1,-1,0,0,proven,0.002,False
+410,prover-auto,prover-auto,26,?,-1,-1,0,0,proven,0.001,False
+410,prover-off,prover-auto,3,?,-1,-1,47977,62,budget,0.563,False
+410,prover-off,prover-auto,5,?,-1,-1,82107,66,budget,0.979,False
+410,prover-off,prover-auto,7,?,-1,-1,75009,68,budget,1.057,False
+410,prover-off,prover-auto,9,?,-1,-1,91714,71,budget,1.09,False
+410,prover-off,prover-auto,11,?,-1,-1,103533,73,budget,0.537,False
+410,prover-off,prover-auto,13,?,-1,-1,65689,76,budget,1.198,False
+410,prover-off,prover-auto,15,?,-1,-1,65520,77,budget,1.173,False
+410,prover-off,prover-auto,17,?,-1,-1,72084,78,budget,1.121,False
+410,prover-off,prover-auto,19,?,-1,-1,22182,15,not certified with a clock,1.096,False
+410,prover-off,prover-auto,21,?,-1,-1,0,0,not certified with a clock,0.159,False
+410,prover-off,prover-auto,23,?,-1,-1,0,0,not certified with a clock,0.035,False
+410,prover-off,prover-auto,25,?,-1,-1,0,0,not certified with a clock,0.0,False
+407,prover-off,prover-auto,111,?,-1,-1,17186,12,budget,0.197,False
+407,prover-off,prover-auto,113,?,-1,-1,3852,15,budget,0.229,False
+407,prover-off,prover-auto,115,?,-1,-1,13873,17,budget,0.31,False
+407,prover-off,prover-auto,117,?,-1,-1,28092,19,budget,0.317,False
+407,prover-off,prover-auto,119,?,-1,-1,34220,21,budget,0.343,False
+407,prover-off,prover-auto,121,?,-1,-1,8707,22,budget,0.353,False
+407,prover-off,prover-auto,123,?,-1,-1,5117,24,budget,0.375,False
+407,prover-off,prover-auto,125,?,-1,-1,1027,1,not certified with a clock,0.374,False
+417,prover-auto,prover-auto,52,?,-1,-1,2199,10,budget,0.153,False
+417,prover-auto,prover-auto,54,?,-1,-1,20868,13,budget,0.193,False
+417,prover-auto,prover-auto,56,?,-1,-1,6587,18,budget,0.225,False
+417,prover-auto,prover-auto,58,?,-1,-1,23191,17,budget,0.155,False
+417,prover-auto,prover-auto,60,?,-1,-1,6766,5,not certified with a clock,0.013,False
+417,prover-auto,prover-auto,62,?,-1,-1,0,0,not certified with a clock,0.0,False
+417,prover-off,prover-auto,57,?,-1,-1,25237,59,budget,0.903,False
+417,prover-off,prover-auto,59,?,-1,-1,80699,60,budget,0.89,False
+417,prover-off,prover-auto,61,?,-1,-1,824,1,proven,0.001,False
+417,prover-off,prover-auto,63,?,-1,-1,0,0,proven,0.0,False
+417,prover-off,prover-auto,65,?,-1,-1,0,0,proven,0.0,False
+417,prover-off,prover-auto,67,?,-1,-1,0,1,proven,0.001,False
+417,prover-off,prover-auto,69,?,-1,-1,0,0,proven,0.0,False
+417,prover-off,prover-auto,71,?,-1,-1,0,0,proven,0.0,False
+417,prover-off,prover-auto,73,?,-1,-1,0,0,proven,0.0,False
+417,prover-off,prover-auto,75,?,-1,-1,0,0,proven,0.0,False
+419,prover-off,prover-auto,9,?,-1,-1,79299,61,budget,2.883,False
+419,prover-off,prover-auto,11,?,-1,-1,18129,62,budget,1.092,False
+419,prover-off,prover-auto,13,?,-1,-1,84817,63,budget,1.076,False
+419,prover-off,prover-auto,15,?,-1,-1,93002,64,budget,1.108,False
+419,prover-off,prover-auto,17,?,-1,-1,56668,64,budget,0.511,False
+419,prover-off,prover-auto,19,?,-1,-1,12957,68,budget,1.039,False
+419,prover-off,prover-auto,21,?,-1,-1,3600,3,not certified with a clock,0.954,False
+419,prover-off,prover-auto,23,?,-1,-1,0,0,not certified with a clock,1.003,False
+419,prover-off,prover-auto,25,?,-1,-1,0,0,not certified with a clock,0.98,False
+419,prover-off,prover-auto,27,?,-1,-1,0,0,not certified with a clock,0.54,False
+419,prover-off,prover-auto,29,?,-1,-1,0,0,not certified with a clock,1.003,False
+419,prover-off,prover-auto,31,?,-1,-1,0,0,not certified with a clock,0.939,False
+419,prover-off,prover-auto,33,?,-1,-1,0,0,not certified with a clock,0.061,False
+419,prover-off,prover-auto,35,?,-1,-1,0,0,not certified with a clock,0.006,False
+419,prover-off,prover-auto,37,?,-1,-1,0,0,not certified with a clock,0.0,False
+428,prover-off,prover-auto,104,?,-1,-1,19953,13,budget,0.135,False
+428,prover-off,prover-auto,106,?,-1,-1,14025,17,budget,0.248,False
+428,prover-off,prover-auto,108,?,-1,-1,8186,10,proven,0.016,False
+428,prover-off,prover-auto,110,?,-1,-1,0,0,proven,0.005,False
+428,prover-off,prover-auto,112,?,-1,-1,0,0,proven,0.005,False
+428,prover-off,prover-auto,114,?,-1,-1,0,0,proven,0.005,False
+428,prover-auto,prover-auto,117,?,-1,-1,661,3,not certified with a clock,0.58,False
+428,prover-auto,prover-auto,119,?,-1,-1,156,1,not certified with a clock,0.18,False
+428,prover-auto,prover-auto,121,?,-1,-1,276,1,not certified with a clock,0.129,False
+428,prover-auto,prover-auto,123,?,-1,-1,347,0,not certified with a clock,0.009,False
+428,prover-auto,prover-auto,125,?,-1,-1,0,0,not certified with a clock,0.0,False
+455,prover-auto,prover-auto,64,?,-1,-1,19810,22,budget,0.44,False
+455,prover-auto,prover-auto,66,?,-1,-1,9527,23,budget,0.311,False
+455,prover-auto,prover-auto,68,?,-1,-1,30480,25,budget,0.39,False
+455,prover-auto,prover-auto,70,?,-1,-1,5967,17,proven,0.023,False
+455,prover-auto,prover-auto,72,?,-1,-1,0,2,proven,0.007,False
+455,prover-auto,prover-auto,74,?,-1,-1,0,0,proven,0.005,False
+455,prover-off,prover-auto,177,?,-1,-1,233,1,not certified with a clock,0.002,False
+459,prover-auto,prover-auto,125,?,-1,-1,14955,11,budget,0.211,False
+459,prover-auto,prover-auto,127,?,-1,-1,18655,14,budget,0.35,False
+459,prover-auto,prover-auto,129,?,-1,-1,24369,16,budget,0.536,False
+459,prover-auto,prover-auto,131,?,-1,-1,6723,15,budget,1.801,False
+459,prover-auto,prover-auto,137,?,-1,-1,204,1,not certified with a clock,0.262,False
+461,prover-off,prover-auto,108,?,-1,-1,41835,27,budget,0.379,False
+461,prover-off,prover-auto,110,?,-1,-1,32428,29,budget,0.461,False
+461,prover-off,prover-auto,112,?,-1,-1,12649,30,budget,0.462,False
+461,prover-off,prover-auto,114,?,-1,-1,46957,31,budget,0.497,False
+461,prover-off,prover-auto,116,?,-1,-1,54008,32,budget,0.479,False
+461,prover-off,prover-auto,118,?,-1,-1,8462,34,budget,0.492,False
+461,prover-off,prover-auto,120,?,-1,-1,28949,33,budget,0.523,False
+461,prover-off,prover-auto,122,?,-1,-1,35921,35,budget,0.509,False
+461,prover-off,prover-auto,124,?,-1,-1,5806,4,proven,0.012,False
+461,prover-off,prover-auto,126,?,-1,-1,0,0,proven,0.011,False
+471,prover-auto,prover-auto,116,?,-1,-1,2718,12,budget,0.459,False
+471,prover-auto,prover-auto,118,?,-1,-1,4750,12,budget,0.182,False
+471,prover-auto,prover-auto,120,?,-1,-1,20982,16,budget,0.23,False
+471,prover-auto,prover-auto,122,?,-1,-1,9948,13,proven,0.017,False
+471,prover-auto,prover-auto,124,?,-1,-1,0,2,proven,0.01,False
+471,prover-auto,prover-auto,126,?,-1,-1,0,1,proven,0.001,False
+471,prover-auto,prover-auto,128,?,-1,-1,0,1,proven,0.0,False
+471,prover-auto,prover-auto,130,?,-1,-1,0,0,proven,0.005,False
+471,prover-off,prover-auto,111,?,-1,-1,2411,1,not certified with a clock,0.157,False
+471,prover-off,prover-auto,113,?,-1,-1,826,1,not certified with a clock,0.199,False
+471,prover-off,prover-auto,115,?,-1,-1,0,0,not certified with a clock,0.227,False
+471,prover-off,prover-auto,117,?,-1,-1,34,0,not certified with a clock,0.014,False
+471,prover-off,prover-auto,119,?,-1,-1,31,0,not certified with a clock,0.0,False
+476,prover-auto,prover-auto,8,?,-1,-1,16536,70,budget,0.724,False
+476,prover-auto,prover-auto,10,?,-1,-1,104351,72,budget,1.127,False
+476,prover-auto,prover-auto,12,?,-1,-1,108729,74,budget,1.114,False
+476,prover-auto,prover-auto,14,?,-1,-1,97698,76,budget,1.147,False
+476,prover-auto,prover-auto,16,?,-1,-1,29866,78,budget,1.183,False
+476,prover-auto,prover-auto,18,?,-1,-1,19820,81,budget,1.209,False
+476,prover-auto,prover-auto,20,?,-1,-1,13082,57,proven,0.058,False
+476,prover-auto,prover-auto,22,?,-1,-1,0,0,proven,0.0,False
+476,prover-auto,prover-auto,24,?,-1,-1,0,0,proven,0.0,False
+476,prover-auto,prover-auto,26,?,-1,-1,0,0,proven,0.0,False
+476,prover-off,prover-auto,9,?,-1,-1,115087,72,budget,1.145,False
+476,prover-off,prover-auto,11,?,-1,-1,103931,74,budget,1.114,False
+476,prover-off,prover-auto,13,?,-1,-1,108142,76,budget,1.14,False
+476,prover-off,prover-auto,15,?,-1,-1,40103,36,not certified with a clock,1.148,False
+476,prover-off,prover-auto,17,?,-1,-1,0,0,not certified with a clock,1.079,False
+476,prover-off,prover-auto,19,?,-1,-1,0,0,not certified with a clock,0.812,False
+476,prover-off,prover-auto,21,?,-1,-1,0,0,not certified with a clock,0.111,False
+476,prover-off,prover-auto,23,?,-1,-1,0,0,not certified with a clock,0.011,False
+476,prover-off,prover-auto,25,?,-1,-1,0,0,not certified with a clock,0.0,False
+481,prover-auto,prover-auto,100,?,-1,-1,8568,11,budget,0.408,False
+481,prover-auto,prover-auto,102,?,-1,-1,16657,12,budget,0.409,False
+481,prover-auto,prover-auto,104,?,-1,-1,19001,14,budget,0.276,False
+481,prover-auto,prover-auto,106,?,-1,-1,14980,13,not certified with a clock,0.692,False
+481,prover-auto,prover-auto,108,?,-1,-1,0,0,not certified with a clock,0.225,False
+481,prover-auto,prover-auto,110,?,-1,-1,4953,6,not certified with a clock,0.245,False
+481,prover-auto,prover-auto,112,?,-1,-1,0,0,not certified with a clock,0.025,False
+481,prover-auto,prover-auto,114,?,-1,-1,0,0,not certified with a clock,0.01,False
+481,prover-auto,prover-auto,116,?,-1,-1,0,0,not certified with a clock,0.0,False
+481,prover-off,prover-auto,115,?,-1,-1,28849,18,budget,0.278,False
+481,prover-off,prover-auto,117,?,-1,-1,21171,20,budget,0.315,False
+481,prover-off,prover-auto,119,?,-1,-1,37450,22,budget,0.349,False
+481,prover-off,prover-auto,121,?,-1,-1,36742,24,budget,0.372,False
+481,prover-off,prover-auto,123,?,-1,-1,44264,25,budget,0.384,False
+481,prover-off,prover-auto,125,?,-1,-1,6336,27,budget,0.407,False
+481,prover-off,prover-auto,127,?,-1,-1,12608,8,proven,0.01,False
+481,prover-off,prover-auto,129,?,-1,-1,0,0,proven,0.006,False
+481,prover-off,prover-auto,131,?,-1,-1,0,0,proven,0.007,False
+489,prover-auto,prover-auto,64,?,-1,-1,44347,48,budget,0.986,False
+489,prover-auto,prover-auto,66,?,-1,-1,71184,45,budget,0.679,False
+489,prover-auto,prover-auto,68,?,-1,-1,40755,45,budget,0.667,False
+489,prover-auto,prover-auto,70,?,-1,-1,27141,19,proven,0.024,False
+489,prover-auto,prover-auto,72,?,-1,-1,0,1,proven,0.006,False
+489,prover-auto,prover-auto,74,?,-1,-1,0,1,proven,0.006,False
+489,prover-auto,prover-auto,76,?,-1,-1,0,0,proven,0.005,False
+489,prover-off,prover-auto,127,?,-1,-1,9266,10,budget,0.534,False
+489,prover-off,prover-auto,129,?,-1,-1,10238,11,budget,0.515,False
+489,prover-off,prover-auto,131,?,-1,-1,10219,11,budget,0.191,False
+489,prover-off,prover-auto,133,?,-1,-1,15534,13,budget,0.923,False
+489,prover-off,prover-auto,135,?,-1,-1,10475,12,budget,0.328,False
+489,prover-off,prover-auto,137,?,-1,-1,9914,12,not certified with a clock,0.166,False
+489,prover-off,prover-auto,139,?,-1,-1,0,0,not certified with a clock,0.71,False
+489,prover-off,prover-auto,141,?,-1,-1,3913,4,not certified with a clock,0.241,False
+489,prover-off,prover-auto,143,?,-1,-1,0,0,not certified with a clock,0.268,False
+489,prover-off,prover-auto,145,?,-1,-1,1556,1,not certified with a clock,0.015,False
+489,prover-off,prover-auto,147,?,-1,-1,0,0,not certified with a clock,0.008,False
+495,prover-auto,prover-auto,2,?,-1,-1,50843,40,proven,0.04,False
+495,prover-auto,prover-auto,4,?,-1,-1,0,1,proven,0.001,False
+495,prover-auto,prover-auto,6,?,-1,-1,0,0,proven,0.0,False
+495,prover-auto,prover-auto,8,?,-1,-1,0,0,proven,0.002,False
+495,prover-auto,prover-auto,10,?,-1,-1,0,0,proven,0.0,False
+495,prover-auto,prover-auto,12,?,-1,-1,0,0,proven,0.0,False
+495,prover-auto,prover-auto,14,?,-1,-1,0,0,proven,0.0,False
+495,prover-auto,prover-auto,16,?,-1,-1,0,0,proven,0.0,False
+495,prover-auto,prover-auto,18,?,-1,-1,0,0,proven,0.0,False
+495,prover-auto,prover-auto,20,?,-1,-1,0,0,proven,0.001,False
+495,prover-auto,prover-auto,22,?,-1,-1,0,0,proven,0.0,False
+495,prover-auto,prover-auto,24,?,-1,-1,0,0,proven,0.001,False
+495,prover-auto,prover-auto,26,?,-1,-1,0,0,proven,0.0,False
+495,prover-auto,prover-auto,28,?,-1,-1,0,0,proven,0.0,False
+495,prover-auto,prover-auto,30,?,-1,-1,0,0,proven,0.0,False
+495,prover-auto,prover-auto,32,?,-1,-1,0,0,proven,0.0,False
+495,prover-off,prover-auto,5,?,-1,-1,45821,38,not certified with a clock,0.513,False
+495,prover-off,prover-auto,7,?,-1,-1,0,0,not certified with a clock,1.025,False
+495,prover-off,prover-auto,9,?,-1,-1,0,0,not certified with a clock,0.547,False
+495,prover-off,prover-auto,11,?,-1,-1,0,0,not certified with a clock,0.534,False
+495,prover-off,prover-auto,13,?,-1,-1,0,0,not certified with a clock,0.512,False
+495,prover-off,prover-auto,15,?,-1,-1,0,0,not certified with a clock,0.506,False
+495,prover-off,prover-auto,17,?,-1,-1,0,0,not certified with a clock,0.782,False
+495,prover-off,prover-auto,19,?,-1,-1,0,0,not certified with a clock,0.547,False
+495,prover-off,prover-auto,21,?,-1,-1,0,0,not certified with a clock,0.519,False
+495,prover-off,prover-auto,23,?,-1,-1,0,0,not certified with a clock,0.504,False
+495,prover-off,prover-auto,25,?,-1,-1,0,0,not certified with a clock,0.501,False
+495,prover-off,prover-auto,27,?,-1,-1,0,0,not certified with a clock,0.083,False
+495,prover-off,prover-auto,29,?,-1,-1,0,0,not certified with a clock,0.005,False
+495,prover-off,prover-auto,31,?,-1,-1,0,0,not certified with a clock,0.0,False
+496,prover-off,prover-auto,5,?,-1,-1,51592,66,budget,1.484,False

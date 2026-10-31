@@ -245,4 +245,122 @@ il rapporto di nps per partita (−4,42 % ± 0,88 %, mediana −2,10 %) non è c
   parte spesso (0,3 % del tempo); il ramo NOWIN può essere tolto senza perdite.
 - **Un set più sensibile per il risultato** dovrebbe essere scelto per esito, non per valutazione: posizioni che `off`
   non converte a 60+0.6 in una corsa preliminare (o finali a 7 pezzi con DTZ lunga), più matti lunghi a ≥ 15 mosse,
-  dove già qui stanno le 3 coppie non pari. Non fatto.
+  dove già qui stanno le 3 coppie non pari. Fatto il 2026-10-31 (sezione 6): nessun effetto sull'esito.
+
+## 6. Set scelto per esito e campione a 60+0.6 (2026-10-30/31)
+
+Domanda (§5, ultimo punto): dove `off` non converte, il prover cambia l'esito? **No, entro l'intervallo**: punti di `auto`
+meno punti di `off` col lato in vantaggio +0,002 per coppia [−0,010; +0,014], 40 vittorie contro 40.
+
+Risultati in `tests/results/g3-ltc/outcome/` (`run.sh` con le fasi `filter`, `more`, `sample`; `analysis.md`,
+`conversion.md`, `pairs.md`, `pairs-odd.csv`, `prover-log.md`, `prover-starts.csv`, `games.pgn.xz`), filtri in
+`outcome-filter/` e `outcome-filter2/`, partite nuove in `outcome-gen/`. Binario sha256 `5d91e4d6…cad607` (lo stesso di
+`g4b-skip`), `bench` 2497913.
+
+### 6.1 Costruzione del set: `tests/books/endgames-outcome.epd` (133 posizioni)
+
+Il lato in vantaggio è sempre il lato al tratto della FEN. `tests/books/endgames-outcome.csv` ha una riga per posizione,
+nello stesso ordine: classe, pezzi, pedoni, valutazione o matto, WDL 6-man, provenienza (PGN, round, ply, oppure riga di
+`mates2000`), esito delle 2 partite del filtro.
+
+1. **Candidati da partita** (`outcome_candidates.py`): per partita e per lato che non l'ha vinta, la prima posizione con quel
+   lato al tratto a ≥ +3,00 o a matto nel commento della sua mossa, con ≥ 6 pezzi. **Le partite a 60+0.6 non bastano**: dalle
+   2300 da libro di aperture zero candidati (nelle patte l'eval non arriva a +3: massimo 2,x), dalle 2000 sul set
+   sensibile 2. Fonti aggiunte rispetto al mandato: le corse a 10+0.1 e le 2000 partite a 2+0.02 di `g3-books`
+   (205 candidati in tutto, 90 da queste ultime).
+2. **Candidati da matti** (`mate_candidates.py`): dei 243 matti di `mates2000` con N ≥ 10 e ≥ 6 pezzi, i 66 che `off` non vede
+   con `go movetime 1500`.
+3. **Primo filtro**: 267 candidati (tolte 4 posizioni a 6 pezzi non vinte nelle 6-man), 2 partite `off` contro `off` a colori
+   invertiti, 60+0.6, adjudication solo TB 5-man, concorrenza 4: 534 partite, 4 h 24. Restavano 84 posizioni, sotto l'obiettivo
+   di 150.
+4. **Secondo giro** (fase `more`, fuori mandato: partite nuove, non già giocate): 6000 partite `off` contro `off` a 2+0.02 dal
+   libro di aperture (seme 8, nessuna adjudication, concorrenza 8; 1 h 25), 262 candidati, 260 dopo le 6-man (2 patte), stesso
+   filtro: 520 partite, 5 h 22.
+5. **Regola di selezione**: resta una posizione con almeno una partita del filtro non vinta dal lato in vantaggio. Le prime 170
+   posizioni così ottenute comprendevano 39 posizioni perse in entrambe le partite dal lato "in vantaggio": 37 da partita, dove il
+   +3 di una partita veloce era sbagliato e `off` converte per l'altro lato. **Tolte su decisione dell'utente** (2026-10-31);
+   restano i 2 matti persi due volte, dove il matto è forzato. Il set scende a 133, **sotto l'obiettivo di 150-300**.
+
+| Classe | candidati | nel set |
+|---|---:|---:|
+| F: da partita, 6-10 pezzi | 57 | 19 |
+| P: da partita, 11-32 pezzi | 404 | 101 |
+| M: matti di `mates2000`, N ≥ 10 | 66 | 13 |
+
+Esito delle 2 partite del filtro per il lato in vantaggio, sulle 133: due patte 120, una patta e una vittoria 9, una patta e una
+sconfitta 2, due sconfitte 2 (matti). Il nome `endgames-outcome` è improprio: il 76 % del set ha 11-32 pezzi. Il primo filtro ha
+girato per 24 minuti con due processi `ssh-add` esterni a ~98 % di CPU (terminati dall'utente): pesa sui tempi, non sulla regola.
+
+### 6.2 Campione: `auto` contro `off`, 60+0.6, 500 coppie
+
+`auto` con `ProverBudget=30`, `ProverLog=true`, trigger ristretto e memoria dei fallimenti contro `off`, libro in ordine (ogni
+posizione in ~3,8 coppie), Hash 16, un thread, Syzygy 5-man, adjudication solo TB, concorrenza 4. Stima scritta prima del via:
+~8,7 h; sul via dell'utente, 2026-10-31 dalle 08:07 alle 16:07 (8 h 00). Nessun timeout, nessun crash.
+
+| Partite | Elo (logistic) | nElo | Pentanomiale [0..2] di `auto` | V/S/P | Terminazioni |
+|---:|---|---|---|---|---|
+| 1000 | **+0,69 ± 3,85** | +3,9 ± 21,5 | **[0, 15, 468, 17, 0]** | 56 / 54 / 890 | 583 TB, 417 normali (matto, ripetizione, 50 mosse) |
+
+**Conversione del lato in vantaggio** (`outcome_analysis.py`; intervallo bootstrap al 95 % sulle posizioni, perché le coppie
+sulla stessa posizione non sono indipendenti):
+
+| Sottoinsieme | posizioni | coppie | V/P/S con `auto` | V/P/S con `off` | punti `auto` − `off` per coppia | vittorie `auto` − `off` |
+|---|---:|---:|---|---|---:|---:|
+| tutte | 133 | 500 | 40/446/14 | 40/444/16 | **+0,002 [−0,010; +0,014]** | **0,0 % [−2,2 %; +2,4 %]** |
+| F | 19 | 70 | 4/66/0 | 4/66/0 | 0 (nessuna coppia non pari) | 0 |
+| P | 101 | 382 | 24/353/5 | 25/350/7 | +0,001 [−0,013; +0,016] | −0,3 % [−2,9 %; +2,4 %] |
+| M | 13 | 48 | 12/27/9 | 11/28/9 | +0,010 [−0,041; +0,067] | +2,1 % [−8,2 %; +13,3 %] |
+| patta due volte nel filtro | 120 | 452 | 20/430/2 | 16/434/2 | +0,004 [−0,006; +0,015] | +0,9 % [−1,1 %; +3,0 %] |
+| esiti diversi nel filtro | 11 | 41 | 20/16/5 | 24/10/7 | −0,024 [−0,115; +0,071] | −9,8 % [−25,0 %; +5,1 %] |
+
+**Registro del prover** (`prover-log.md`, `analysis-raw.md`):
+
+| | |
+|---:|---:|
+| partite con almeno un avvio | 111 su 1000 (coppie con il prover: 73 su 500; F 4/70, P 44/382, M 25/48) |
+| avvii | 771 |
+| esiti certificati | 298 in 56 partite (165 matti, 133 vittorie a foglie TB) |
+| senza esito | 473 (261 budget, 212 non certificabili con l'orologio), 12,2 s in tutto, mediana 12 ms, max 87 ms |
+| tempo senza esito per partita con avvio | 110 ms (~0,2 % dei ~57 s di riflessione di `auto`) |
+
+**Conversione dopo il primo punteggio decisivo** (banda matto/TB): `auto` 56 vinte su 56, `off` 54 su 54.
+
+**Coppie non pari**: 32 su 18 posizioni, 17 a favore di `auto`, 15 a favore di `off` (`conversion.md`, una riga per coppia con la
+semimossa della prima prova e il punteggio della mossa precedente).
+
+**Velocità.** nps per partita −0,06 % ± 0,63 % (mediana +0,08 %), aggregata 422 279 contro 422 514. Per tratto della partita
+(tempo di mossa meno i ms del prover, `analyze.py`):
+
+| Tratto | mosse di `auto` | partite | nps di ricerca `auto` / `off` − 1 |
+|---|---:|---:|---:|
+| prima del primo avvio (probe saltato) | 32 108 | 945 | +0,44 % ± 0,53 % |
+| dopo un avvio, prima di una prova (probe attivo se l'avvio ha scritto entry PROVEN: non visibile nel PGN) | 422 | 34 | −0,23 % ± 7,47 % |
+| dopo la prima prova certificata (probe attivo) | 0 | 0 | non misurabile |
+
+### 6.3 Lettura (prudente)
+
+1. **Il prover non cambia l'esito dove `off` non converte.** L'estremo alto dell'intervallo, +0,014 punti per coppia, equivale
+   a una patta in più trasformata in vittoria in meno di 3 coppie su 100. Sui soli casi più netti (due patte nel filtro) 20 vittorie
+   contro 16, intervallo che comprende zero.
+2. **Il motivo è strutturale, non di campione.** Il prover alla radice parte solo se il punteggio della mossa precedente è già
+   decisivo (`is_decisive(bestPreviousScore)`), e ogni partita che ha raggiunto un punteggio decisivo è stata vinta, con entrambi i
+   motori: 110 casi su 110. Il primo punteggio decisivo arriva da Stockfish prima del prover, e dopo non c'è nulla da salvare.
+   Le posizioni che `off` non converte sono quelle in cui la ricerca non arriva mai a quel punteggio, e lì il prover non parte:
+   427 coppie su 500 senza una riga del prover.
+3. **"Con una riga del prover" non vuol dire "per merito del prover".** Tutte le 32 coppie non pari hanno una riga del prover,
+   ma è un effetto del trigger: una partita decisa fa partire il prover in chi vince o perde. Nelle 15 coppie a favore di `auto` con una
+   prova, la mossa precedente era già a +199,xx o a matto. Il bilancio 17 contro 15 è compatibile con il rumore: nel filtro, `off`
+   contro `off` sulle stesse posizioni, le coppie non pari erano 11 su 133 (8,3 %, gonfiato dalla selezione) contro il 6,4 % qui.
+4. **Matti lunghi**: 3 coppie a favore di `auto` e 2 a favore di `off`. Nelle 3 a favore di `auto` la ricerca mostrava già il matto
+   (+M7, +M9, +M13) alla mossa prima della prova: lo scarto nasce prima che il prover parta.
+5. **La colonna "mossa provata != `Prover=off`" di `analysis-raw.md` non è informativa qui**: la ricerca di controllo riparte con la
+   tabella vuota e un altro numero di nodi, e la differenza compare anche nelle partite perse (35 su 42 nella classe "altro").
+6. **Costo del probe con entry PROVEN in partita: non risolto.** Dopo la prima prova ogni mossa di `auto` rilegge la prova ed esce
+   subito (H5): zero mosse usabili, qui come nel campione di §4. Il tratto intermedio ha solo 422 mosse (1,3 %) e un intervallo di
+   ±7,5 %, e non si sa quante abbiano la tabella con PROVEN. Sull'intera partita il costo non si vede (−0,06 % ± 0,63 %) perché il
+   probe attivo copre pochissime mosse. Una misura vera richiederebbe posizioni fisse con la tabella riempita prima (non fatto).
+7. **Limiti.** 133 posizioni sotto l'obiettivo, in maggioranza non finali; ogni posizione è filtrata da 2 sole partite, quindi una
+   parte delle 133 è convertibile e ci è finita per rumore; il ciclo del libro dà ~3,8 coppie per posizione; nella classe F il prover
+   parte in 4 coppie su 70, quindi lo zero di F dice poco sul prover. Il campione misura il trigger attuale e non dice nulla su un
+   trigger che parta prima del punteggio decisivo, l'unico modo di lasciare spazio al prover (`README-tuning.md` §7: il trigger "pochi
+   pezzi" a 60+0.6, non misurato). `Prover=off` resta il default e §5 non cambia.

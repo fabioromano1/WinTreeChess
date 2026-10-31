@@ -1,0 +1,17 @@
+tests/results/g3-tuning/ltc/games.pgn 0
+tests/results/g3-ltc/g4b/games.pgn 0
+tests/results/g3-ltc/g4b-skip/games.pgn 0
+tests/results/g3-ltc/ltc/games.pgn 2
+tests/results/g3-nr/games.pgn 39
+tests/results/g3-tuning/nr/games.pgn 52
+tests/results/g3-tuning/pre400/games.pgn 2
+tests/results/g3-aa/games.pgn 8
+tests/results/g3-probeonly/games.pgn 11
+tests/results/g3-endgames/games.pgn 0
+tests/results/g3-endgames-b0/games.pgn 0
+tests/results/g3-endgames-b30/games.pgn 1
+tests/results/g3-endgames-n2e5/games.pgn 0
+tests/results/g3-books/eggen-games.pgn.xz 90
+205 candidati
+243 matti lunghi, 66 non visti in 1500 ms
+267 candidati (F 34, M 66, P 167); tolti a 6 pezzi non vinti in TB: 4 Counter({'D': 3, 'L': 1})
