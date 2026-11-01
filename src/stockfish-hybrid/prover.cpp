@@ -47,6 +47,7 @@ int  probeDepth     = 6;
 int  budgetPermille = 100;
 int  maxNodes       = 1000000;
 bool logRoot        = false;
+int  advantageCp    = 0;
 std::atomic<uint64_t> provenEntries{0};
 
 namespace {
@@ -184,9 +185,12 @@ void Search::Worker::prove_root() {
     else if (Prover::mode == Prover::AUTO)
     {
         // Trigger (G3, tuning): `go mate` o punteggio precedente decisivo; il trigger "pochi pezzi" di M3 partiva a
-        // ogni mossa dei finali senza esito (tests/g3/README-tuning.md).
-        bool decisive = prev != VALUE_INFINITE && is_decisive(prev);
-        if (!limits.mate && !decisive)
+        // ogni mossa dei finali senza esito (tests/g3/README-tuning.md). ProverAdvantage=N (tests/g3/README-ltc.md §7):
+        // parte anche con punteggio precedente >= N cp per il lato al tratto, cioe' prima del punteggio decisivo.
+        bool decisive  = prev != VALUE_INFINITE && is_decisive(prev);
+        bool advantage = Prover::advantageCp && prev != VALUE_INFINITE
+                      && UCIEngine::to_cp(prev, rootPos) >= Prover::advantageCp;
+        if (!limits.mate && !decisive && !advantage)
             return;
         if (!limits.mate && prev != VALUE_INFINITE && prev < 0)
             goal = ~us;  // in svantaggio si cerca la patta certificata, NOWIN(opp) (§6.2)

@@ -37,7 +37,7 @@ namespace Prover {
 
 enum Mode {
     OFF,   // nessun prover, nessun probe: ricerca identica a Stockfish 19
-    AUTO,  // probe attivo; prover alla radice su trigger (go mate, punteggio precedente decisivo)
+    AUTO,  // probe attivo; prover alla radice su trigger (go mate, punteggio precedente decisivo o >= ProverAdvantage cp)
     MATE,  // probe attivo; prover alla radice sempre, in modalità WIN(us)
     DRAW   // probe attivo; prover alla radice sempre, in modalità WIN(opp) (cerca PROVEN_NOWIN(opp): patta certificata)
 };
@@ -48,6 +48,7 @@ extern int  probeDepth;      // ProverProbeDepth: probe solo con depth >= probeD
 extern int  budgetPermille;  // ProverBudget: quota di tm.optimum() (o di movetime) per il prover alla radice
 extern int  maxNodes;        // ProverMaxNodes: tetto in do_move del prover (il "nodo" di §9.4); 0 = prover spento
 extern bool logRoot;         // ProverLog: `info string prover: start ...` / `no result after N do_move in T ms`
+extern int  advantageCp;     // ProverAdvantage: in `auto` il prover parte anche con punteggio precedente >= N cp; 0 = mai
 // Scritture PROVEN nella tabella dall'ultimo clear() (aggiornato dal prover alla radice, helper fermi): a 0 il probe H3
 // non può dare nulla e la ricerca lo salta con un solo test.
 extern std::atomic<uint64_t> provenEntries;

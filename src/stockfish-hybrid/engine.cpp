@@ -180,6 +180,11 @@ Engine::Engine(std::optional<std::filesystem::path> path) :
         return std::nullopt;
     }));
 
+    options.add("ProverAdvantage", Option(0, 0, 10000, [](const Option& o) {
+        Prover::advantageCp = int(o);
+        return std::nullopt;
+    }));
+
     threads.clear();
     threads.ensure_network_replicated();
     resize_threads();

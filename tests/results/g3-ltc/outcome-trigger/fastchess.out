@@ -1,0 +1,2056 @@
+Started game 1 of 1000 (prover-auto vs prover-off)
+Started game 4 of 1000 (prover-off vs prover-auto)
+Started game 2 of 1000 (prover-off vs prover-auto)
+Started game 3 of 1000 (prover-auto vs prover-off)
+Finished game 4 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 5 of 1000 (prover-auto vs prover-off)
+Finished game 2 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 6 of 1000 (prover-off vs prover-auto)
+Finished game 1 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 7 of 1000 (prover-auto vs prover-off)
+Finished game 3 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 8 of 1000 (prover-off vs prover-auto)
+Finished game 6 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 9 of 1000 (prover-auto vs prover-off)
+Finished game 5 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 10 of 1000 (prover-off vs prover-auto)
+Finished game 7 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 11 of 1000 (prover-auto vs prover-off)
+Finished game 8 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 12 of 1000 (prover-off vs prover-auto)
+Finished game 11 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 13 of 1000 (prover-auto vs prover-off)
+Finished game 12 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 14 of 1000 (prover-off vs prover-auto)
+Finished game 9 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 15 of 1000 (prover-auto vs prover-off)
+Finished game 10 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 16 of 1000 (prover-off vs prover-auto)
+Finished game 13 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 17 of 1000 (prover-auto vs prover-off)
+Finished game 14 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 18 of 1000 (prover-off vs prover-auto)
+Finished game 16 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 19 of 1000 (prover-auto vs prover-off)
+Finished game 18 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 20 of 1000 (prover-off vs prover-auto)
+Finished game 17 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 21 of 1000 (prover-auto vs prover-off)
+Finished game 15 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 22 of 1000 (prover-off vs prover-auto)
+Finished game 22 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 23 of 1000 (prover-auto vs prover-off)
+Finished game 20 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 24 of 1000 (prover-off vs prover-auto)
+Finished game 19 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 25 of 1000 (prover-auto vs prover-off)
+Finished game 21 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 26 of 1000 (prover-off vs prover-auto)
+Finished game 24 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 27 of 1000 (prover-auto vs prover-off)
+Finished game 23 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 28 of 1000 (prover-off vs prover-auto)
+Finished game 25 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 29 of 1000 (prover-auto vs prover-off)
+Finished game 27 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 30 of 1000 (prover-off vs prover-auto)
+Finished game 26 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 31 of 1000 (prover-auto vs prover-off)
+Finished game 31 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 32 of 1000 (prover-off vs prover-auto)
+Finished game 30 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 33 of 1000 (prover-auto vs prover-off)
+Finished game 29 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 34 of 1000 (prover-off vs prover-auto)
+Finished game 28 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 35 of 1000 (prover-auto vs prover-off)
+Finished game 32 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 36 of 1000 (prover-off vs prover-auto)
+Finished game 33 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 37 of 1000 (prover-auto vs prover-off)
+Finished game 35 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 38 of 1000 (prover-off vs prover-auto)
+Finished game 34 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 39 of 1000 (prover-auto vs prover-off)
+Finished game 38 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 40 of 1000 (prover-off vs prover-auto)
+Finished game 36 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 41 of 1000 (prover-auto vs prover-off)
+Finished game 37 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 42 of 1000 (prover-off vs prover-auto)
+Finished game 39 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 43 of 1000 (prover-auto vs prover-off)
+Finished game 40 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 44 of 1000 (prover-off vs prover-auto)
+Finished game 41 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 45 of 1000 (prover-auto vs prover-off)
+Finished game 42 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 46 of 1000 (prover-off vs prover-auto)
+Finished game 44 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 47 of 1000 (prover-auto vs prover-off)
+Finished game 43 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 48 of 1000 (prover-off vs prover-auto)
+Finished game 46 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 49 of 1000 (prover-auto vs prover-off)
+Finished game 45 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 50 of 1000 (prover-off vs prover-auto)
+Finished game 47 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 51 of 1000 (prover-auto vs prover-off)
+Finished game 48 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 52 of 1000 (prover-off vs prover-auto)
+Finished game 49 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 53 of 1000 (prover-auto vs prover-off)
+Finished game 52 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 54 of 1000 (prover-off vs prover-auto)
+Finished game 51 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 55 of 1000 (prover-auto vs prover-off)
+Finished game 50 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 56 of 1000 (prover-off vs prover-auto)
+Finished game 53 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 57 of 1000 (prover-auto vs prover-off)
+Finished game 54 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 58 of 1000 (prover-off vs prover-auto)
+Finished game 56 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 59 of 1000 (prover-auto vs prover-off)
+Finished game 55 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 60 of 1000 (prover-off vs prover-auto)
+Finished game 57 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 61 of 1000 (prover-auto vs prover-off)
+Finished game 58 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 62 of 1000 (prover-off vs prover-auto)
+Finished game 60 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 63 of 1000 (prover-auto vs prover-off)
+Finished game 59 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 64 of 1000 (prover-off vs prover-auto)
+Finished game 63 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 65 of 1000 (prover-auto vs prover-off)
+Finished game 61 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 66 of 1000 (prover-off vs prover-auto)
+Finished game 64 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 67 of 1000 (prover-auto vs prover-off)
+Finished game 62 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 68 of 1000 (prover-off vs prover-auto)
+Finished game 65 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 69 of 1000 (prover-auto vs prover-off)
+Finished game 66 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 70 of 1000 (prover-off vs prover-auto)
+Finished game 67 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 71 of 1000 (prover-auto vs prover-off)
+Finished game 68 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 72 of 1000 (prover-off vs prover-auto)
+Finished game 69 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 73 of 1000 (prover-auto vs prover-off)
+Finished game 70 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 74 of 1000 (prover-off vs prover-auto)
+Finished game 73 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 75 of 1000 (prover-auto vs prover-off)
+Finished game 71 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 76 of 1000 (prover-off vs prover-auto)
+Finished game 72 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 77 of 1000 (prover-auto vs prover-off)
+Finished game 74 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 78 of 1000 (prover-off vs prover-auto)
+Finished game 75 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 79 of 1000 (prover-auto vs prover-off)
+Finished game 78 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 80 of 1000 (prover-off vs prover-auto)
+Finished game 77 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 81 of 1000 (prover-auto vs prover-off)
+Finished game 76 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 82 of 1000 (prover-off vs prover-auto)
+Finished game 79 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 83 of 1000 (prover-auto vs prover-off)
+Finished game 80 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 84 of 1000 (prover-off vs prover-auto)
+Finished game 81 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 85 of 1000 (prover-auto vs prover-off)
+Finished game 82 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 86 of 1000 (prover-off vs prover-auto)
+Finished game 83 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 87 of 1000 (prover-auto vs prover-off)
+Finished game 84 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 88 of 1000 (prover-off vs prover-auto)
+Finished game 85 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 89 of 1000 (prover-auto vs prover-off)
+Finished game 87 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 90 of 1000 (prover-off vs prover-auto)
+Finished game 86 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 91 of 1000 (prover-auto vs prover-off)
+Finished game 88 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 92 of 1000 (prover-off vs prover-auto)
+Finished game 89 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 93 of 1000 (prover-auto vs prover-off)
+Finished game 90 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 94 of 1000 (prover-off vs prover-auto)
+Finished game 91 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 95 of 1000 (prover-auto vs prover-off)
+Finished game 92 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 96 of 1000 (prover-off vs prover-auto)
+Finished game 93 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 97 of 1000 (prover-auto vs prover-off)
+Finished game 94 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 98 of 1000 (prover-off vs prover-auto)
+Finished game 95 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 99 of 1000 (prover-auto vs prover-off)
+Finished game 97 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 100 of 1000 (prover-off vs prover-auto)
+Finished game 96 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 101 of 1000 (prover-auto vs prover-off)
+Finished game 98 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 102 of 1000 (prover-off vs prover-auto)
+Finished game 99 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 103 of 1000 (prover-auto vs prover-off)
+Finished game 100 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 104 of 1000 (prover-off vs prover-auto)
+Finished game 103 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 105 of 1000 (prover-auto vs prover-off)
+Finished game 101 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 106 of 1000 (prover-off vs prover-auto)
+Finished game 102 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 107 of 1000 (prover-auto vs prover-off)
+Finished game 104 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 108 of 1000 (prover-off vs prover-auto)
+Finished game 105 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 109 of 1000 (prover-auto vs prover-off)
+Finished game 106 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 110 of 1000 (prover-off vs prover-auto)
+Finished game 108 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 111 of 1000 (prover-auto vs prover-off)
+Finished game 109 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 112 of 1000 (prover-off vs prover-auto)
+Finished game 107 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 113 of 1000 (prover-auto vs prover-off)
+Finished game 110 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 114 of 1000 (prover-off vs prover-auto)
+Finished game 111 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 115 of 1000 (prover-auto vs prover-off)
+Finished game 112 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 116 of 1000 (prover-off vs prover-auto)
+Finished game 113 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 117 of 1000 (prover-auto vs prover-off)
+Finished game 115 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 118 of 1000 (prover-off vs prover-auto)
+Finished game 116 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 119 of 1000 (prover-auto vs prover-off)
+Finished game 114 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 120 of 1000 (prover-off vs prover-auto)
+Finished game 117 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 121 of 1000 (prover-auto vs prover-off)
+Finished game 119 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 122 of 1000 (prover-off vs prover-auto)
+Finished game 120 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 123 of 1000 (prover-auto vs prover-off)
+Finished game 118 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 124 of 1000 (prover-off vs prover-auto)
+Finished game 123 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 125 of 1000 (prover-auto vs prover-off)
+Finished game 121 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 126 of 1000 (prover-off vs prover-auto)
+Finished game 122 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 127 of 1000 (prover-auto vs prover-off)
+Finished game 124 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 128 of 1000 (prover-off vs prover-auto)
+Finished game 125 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 129 of 1000 (prover-auto vs prover-off)
+Finished game 127 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 130 of 1000 (prover-off vs prover-auto)
+Finished game 126 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 131 of 1000 (prover-auto vs prover-off)
+Finished game 128 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 132 of 1000 (prover-off vs prover-auto)
+Finished game 129 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 133 of 1000 (prover-auto vs prover-off)
+Finished game 131 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 134 of 1000 (prover-off vs prover-auto)
+Finished game 130 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 135 of 1000 (prover-auto vs prover-off)
+Finished game 132 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 136 of 1000 (prover-off vs prover-auto)
+Finished game 133 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 137 of 1000 (prover-auto vs prover-off)
+Finished game 134 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 138 of 1000 (prover-off vs prover-auto)
+Finished game 135 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 139 of 1000 (prover-auto vs prover-off)
+Finished game 136 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 140 of 1000 (prover-off vs prover-auto)
+Finished game 137 (prover-auto vs prover-off): 1/2-1/2 {Draw by stalemate}
+Started game 141 of 1000 (prover-auto vs prover-off)
+Finished game 138 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 142 of 1000 (prover-off vs prover-auto)
+Finished game 140 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 143 of 1000 (prover-auto vs prover-off)
+Finished game 139 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 144 of 1000 (prover-off vs prover-auto)
+Finished game 141 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 145 of 1000 (prover-auto vs prover-off)
+Finished game 142 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 146 of 1000 (prover-off vs prover-auto)
+Finished game 143 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 147 of 1000 (prover-auto vs prover-off)
+Finished game 144 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 148 of 1000 (prover-off vs prover-auto)
+Finished game 146 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 149 of 1000 (prover-auto vs prover-off)
+Finished game 148 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 150 of 1000 (prover-off vs prover-auto)
+Finished game 147 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 151 of 1000 (prover-auto vs prover-off)
+Finished game 149 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 152 of 1000 (prover-off vs prover-auto)
+Finished game 145 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 153 of 1000 (prover-auto vs prover-off)
+Finished game 150 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 154 of 1000 (prover-off vs prover-auto)
+Finished game 151 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 155 of 1000 (prover-auto vs prover-off)
+Finished game 152 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 156 of 1000 (prover-off vs prover-auto)
+Finished game 153 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 157 of 1000 (prover-auto vs prover-off)
+Finished game 154 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 158 of 1000 (prover-off vs prover-auto)
+Finished game 156 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 159 of 1000 (prover-auto vs prover-off)
+Finished game 155 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 160 of 1000 (prover-off vs prover-auto)
+Finished game 157 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 161 of 1000 (prover-auto vs prover-off)
+Finished game 161 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 162 of 1000 (prover-off vs prover-auto)
+Finished game 159 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 163 of 1000 (prover-auto vs prover-off)
+Finished game 158 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 164 of 1000 (prover-off vs prover-auto)
+Finished game 160 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 165 of 1000 (prover-auto vs prover-off)
+Finished game 162 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 166 of 1000 (prover-off vs prover-auto)
+Finished game 165 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 167 of 1000 (prover-auto vs prover-off)
+Finished game 163 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 168 of 1000 (prover-off vs prover-auto)
+Finished game 164 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 169 of 1000 (prover-auto vs prover-off)
+Finished game 167 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 170 of 1000 (prover-off vs prover-auto)
+Finished game 169 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 171 of 1000 (prover-auto vs prover-off)
+Finished game 166 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 172 of 1000 (prover-off vs prover-auto)
+Finished game 168 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 173 of 1000 (prover-auto vs prover-off)
+Finished game 173 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 174 of 1000 (prover-off vs prover-auto)
+Finished game 170 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 175 of 1000 (prover-auto vs prover-off)
+Finished game 172 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 176 of 1000 (prover-off vs prover-auto)
+Finished game 171 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 177 of 1000 (prover-auto vs prover-off)
+Finished game 174 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 178 of 1000 (prover-off vs prover-auto)
+Finished game 175 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 179 of 1000 (prover-auto vs prover-off)
+Finished game 176 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 180 of 1000 (prover-off vs prover-auto)
+Finished game 177 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 181 of 1000 (prover-auto vs prover-off)
+Finished game 178 (prover-off vs prover-auto): 0-1 {Black mates}
+Started game 182 of 1000 (prover-off vs prover-auto)
+Finished game 179 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 183 of 1000 (prover-auto vs prover-off)
+Finished game 180 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 184 of 1000 (prover-off vs prover-auto)
+Finished game 181 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 185 of 1000 (prover-auto vs prover-off)
+Finished game 182 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 186 of 1000 (prover-off vs prover-auto)
+Finished game 184 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 187 of 1000 (prover-auto vs prover-off)
+Finished game 185 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 188 of 1000 (prover-off vs prover-auto)
+Finished game 186 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 189 of 1000 (prover-auto vs prover-off)
+Finished game 183 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 190 of 1000 (prover-off vs prover-auto)
+Finished game 187 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 191 of 1000 (prover-auto vs prover-off)
+Finished game 188 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 192 of 1000 (prover-off vs prover-auto)
+Finished game 189 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 193 of 1000 (prover-auto vs prover-off)
+Finished game 190 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 194 of 1000 (prover-off vs prover-auto)
+Finished game 191 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 195 of 1000 (prover-auto vs prover-off)
+Finished game 193 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 196 of 1000 (prover-off vs prover-auto)
+Finished game 194 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 197 of 1000 (prover-auto vs prover-off)
+Finished game 192 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 198 of 1000 (prover-off vs prover-auto)
+Finished game 195 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 199 of 1000 (prover-auto vs prover-off)
+Finished game 198 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 200 of 1000 (prover-off vs prover-auto)
+Finished game 197 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 201 of 1000 (prover-auto vs prover-off)
+Finished game 196 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 202 of 1000 (prover-off vs prover-auto)
+Finished game 199 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 203 of 1000 (prover-auto vs prover-off)
+Finished game 201 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 204 of 1000 (prover-off vs prover-auto)
+Finished game 200 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+--------------------------------------------------
+Results of prover-auto vs prover-off (60+0.6, 1t, 16MB, endgames-outcome-adv100.epd):
+Elo: 5.21 +/- 14.01, nElo: 17.92 +/- 48.15
+LOS: 76.72 %, DrawRatio: 83.00 %, PairsRatio: 1.43
+Games: 200, Wins: 32, Losses: 29, Draws: 139, Points: 101.5 (50.75 %)
+Ptnml(0-2): [0, 7, 83, 10, 0], WL/DD Ratio: 0.36
+--------------------------------------------------
+Started game 205 of 1000 (prover-auto vs prover-off)
+Loading config file: config.json
+Started game 199 of 1000 (prover-auto vs prover-off)
+Started game 201 of 1000 (prover-auto vs prover-off)
+Started game 200 of 1000 (prover-off vs prover-auto)
+Started game 202 of 1000 (prover-off vs prover-auto)
+Finished game 201 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 203 of 1000 (prover-auto vs prover-off)
+Finished game 202 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 204 of 1000 (prover-off vs prover-auto)
+Finished game 200 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 205 of 1000 (prover-auto vs prover-off)
+Finished game 199 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+--------------------------------------------------
+Results of prover-auto vs prover-off (60+0.6, 1t, 16MB, endgames-outcome-adv100.epd):
+Elo: 3.44 +/- 14.30, nElo: 11.54 +/- 47.91
+LOS: 68.15 %, DrawRatio: 82.18 %, PairsRatio: 1.25
+Games: 202, Wins: 33, Losses: 31, Draws: 138, Points: 102.0 (50.50 %)
+Ptnml(0-2): [0, 8, 83, 10, 0], WL/DD Ratio: 0.38
+--------------------------------------------------
+Started game 206 of 1000 (prover-off vs prover-auto)
+Finished game 203 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 207 of 1000 (prover-auto vs prover-off)
+Finished game 205 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 208 of 1000 (prover-off vs prover-auto)
+Finished game 204 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 209 of 1000 (prover-auto vs prover-off)
+Finished game 206 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 210 of 1000 (prover-off vs prover-auto)
+Finished game 207 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 211 of 1000 (prover-auto vs prover-off)
+Finished game 209 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 212 of 1000 (prover-off vs prover-auto)
+Finished game 208 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 213 of 1000 (prover-auto vs prover-off)
+Finished game 210 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 214 of 1000 (prover-off vs prover-auto)
+Finished game 211 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 215 of 1000 (prover-auto vs prover-off)
+Finished game 213 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 216 of 1000 (prover-off vs prover-auto)
+Finished game 214 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 217 of 1000 (prover-auto vs prover-off)
+Finished game 212 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 218 of 1000 (prover-off vs prover-auto)
+Finished game 216 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 219 of 1000 (prover-auto vs prover-off)
+Finished game 215 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 220 of 1000 (prover-off vs prover-auto)
+Finished game 217 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 221 of 1000 (prover-auto vs prover-off)
+Finished game 218 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 222 of 1000 (prover-off vs prover-auto)
+Finished game 219 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 223 of 1000 (prover-auto vs prover-off)
+Finished game 220 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 224 of 1000 (prover-off vs prover-auto)
+Finished game 221 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 225 of 1000 (prover-auto vs prover-off)
+Finished game 223 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 226 of 1000 (prover-off vs prover-auto)
+Finished game 222 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 227 of 1000 (prover-auto vs prover-off)
+Finished game 224 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 228 of 1000 (prover-off vs prover-auto)
+Finished game 225 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 229 of 1000 (prover-auto vs prover-off)
+Finished game 227 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 230 of 1000 (prover-off vs prover-auto)
+Finished game 226 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 231 of 1000 (prover-auto vs prover-off)
+Finished game 228 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 232 of 1000 (prover-off vs prover-auto)
+Finished game 230 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 233 of 1000 (prover-auto vs prover-off)
+Finished game 231 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 234 of 1000 (prover-off vs prover-auto)
+Finished game 229 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 235 of 1000 (prover-auto vs prover-off)
+Finished game 232 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 236 of 1000 (prover-off vs prover-auto)
+Finished game 234 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 237 of 1000 (prover-auto vs prover-off)
+Finished game 235 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 238 of 1000 (prover-off vs prover-auto)
+Finished game 233 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 239 of 1000 (prover-auto vs prover-off)
+Finished game 236 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 240 of 1000 (prover-off vs prover-auto)
+Finished game 237 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 241 of 1000 (prover-auto vs prover-off)
+Finished game 239 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 242 of 1000 (prover-off vs prover-auto)
+Finished game 238 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 243 of 1000 (prover-auto vs prover-off)
+Finished game 241 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 244 of 1000 (prover-off vs prover-auto)
+Finished game 243 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 245 of 1000 (prover-auto vs prover-off)
+Finished game 240 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 246 of 1000 (prover-off vs prover-auto)
+Finished game 244 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 247 of 1000 (prover-auto vs prover-off)
+Finished game 242 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 248 of 1000 (prover-off vs prover-auto)
+Finished game 245 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 249 of 1000 (prover-auto vs prover-off)
+Finished game 246 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 250 of 1000 (prover-off vs prover-auto)
+Finished game 248 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 251 of 1000 (prover-auto vs prover-off)
+Finished game 247 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 252 of 1000 (prover-off vs prover-auto)
+Finished game 249 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 253 of 1000 (prover-auto vs prover-off)
+Finished game 253 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 254 of 1000 (prover-off vs prover-auto)
+Finished game 251 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 255 of 1000 (prover-auto vs prover-off)
+Finished game 252 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 256 of 1000 (prover-off vs prover-auto)
+Finished game 254 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 257 of 1000 (prover-auto vs prover-off)
+Finished game 250 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 258 of 1000 (prover-off vs prover-auto)
+Finished game 258 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 259 of 1000 (prover-auto vs prover-off)
+Finished game 257 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 260 of 1000 (prover-off vs prover-auto)
+Finished game 255 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 261 of 1000 (prover-auto vs prover-off)
+Finished game 256 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 262 of 1000 (prover-off vs prover-auto)
+Finished game 259 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 263 of 1000 (prover-auto vs prover-off)
+Finished game 262 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 264 of 1000 (prover-off vs prover-auto)
+Finished game 260 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 265 of 1000 (prover-auto vs prover-off)
+Finished game 261 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 266 of 1000 (prover-off vs prover-auto)
+Finished game 265 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 267 of 1000 (prover-auto vs prover-off)
+Finished game 266 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 268 of 1000 (prover-off vs prover-auto)
+Finished game 264 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 269 of 1000 (prover-auto vs prover-off)
+Finished game 263 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 270 of 1000 (prover-off vs prover-auto)
+Finished game 267 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 271 of 1000 (prover-auto vs prover-off)
+Finished game 268 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 272 of 1000 (prover-off vs prover-auto)
+Finished game 269 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 273 of 1000 (prover-auto vs prover-off)
+Finished game 270 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 274 of 1000 (prover-off vs prover-auto)
+Finished game 271 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 275 of 1000 (prover-auto vs prover-off)
+Finished game 272 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 276 of 1000 (prover-off vs prover-auto)
+Finished game 273 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 277 of 1000 (prover-auto vs prover-off)
+Finished game 274 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 278 of 1000 (prover-off vs prover-auto)
+Finished game 275 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 279 of 1000 (prover-auto vs prover-off)
+Finished game 276 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 280 of 1000 (prover-off vs prover-auto)
+Finished game 277 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 281 of 1000 (prover-auto vs prover-off)
+Finished game 278 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 282 of 1000 (prover-off vs prover-auto)
+Finished game 279 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 283 of 1000 (prover-auto vs prover-off)
+Finished game 281 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 284 of 1000 (prover-off vs prover-auto)
+Finished game 280 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 285 of 1000 (prover-auto vs prover-off)
+Finished game 282 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 286 of 1000 (prover-off vs prover-auto)
+Finished game 283 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 287 of 1000 (prover-auto vs prover-off)
+Finished game 284 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 288 of 1000 (prover-off vs prover-auto)
+Finished game 285 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 289 of 1000 (prover-auto vs prover-off)
+Finished game 286 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 290 of 1000 (prover-off vs prover-auto)
+Finished game 287 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 291 of 1000 (prover-auto vs prover-off)
+Finished game 289 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 292 of 1000 (prover-off vs prover-auto)
+Finished game 288 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 293 of 1000 (prover-auto vs prover-off)
+Finished game 290 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 294 of 1000 (prover-off vs prover-auto)
+Finished game 291 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 295 of 1000 (prover-auto vs prover-off)
+Finished game 293 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 296 of 1000 (prover-off vs prover-auto)
+Finished game 292 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 297 of 1000 (prover-auto vs prover-off)
+Finished game 294 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 298 of 1000 (prover-off vs prover-auto)
+Finished game 295 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 299 of 1000 (prover-auto vs prover-off)
+Finished game 296 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 300 of 1000 (prover-off vs prover-auto)
+Finished game 297 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 301 of 1000 (prover-auto vs prover-off)
+Finished game 300 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 302 of 1000 (prover-off vs prover-auto)
+Finished game 299 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 303 of 1000 (prover-auto vs prover-off)
+Finished game 298 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 304 of 1000 (prover-off vs prover-auto)
+Finished game 302 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 305 of 1000 (prover-auto vs prover-off)
+Finished game 301 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 306 of 1000 (prover-off vs prover-auto)
+Finished game 304 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 307 of 1000 (prover-auto vs prover-off)
+Finished game 303 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 308 of 1000 (prover-off vs prover-auto)
+Finished game 305 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 309 of 1000 (prover-auto vs prover-off)
+Finished game 306 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 310 of 1000 (prover-off vs prover-auto)
+Finished game 307 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 311 of 1000 (prover-auto vs prover-off)
+Finished game 308 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 312 of 1000 (prover-off vs prover-auto)
+Finished game 309 (prover-auto vs prover-off): 1-0 {White mates}
+Started game 313 of 1000 (prover-auto vs prover-off)
+Finished game 311 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 314 of 1000 (prover-off vs prover-auto)
+Finished game 310 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 315 of 1000 (prover-auto vs prover-off)
+Finished game 312 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 316 of 1000 (prover-off vs prover-auto)
+Finished game 314 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 317 of 1000 (prover-auto vs prover-off)
+Finished game 313 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 318 of 1000 (prover-off vs prover-auto)
+Finished game 316 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 319 of 1000 (prover-auto vs prover-off)
+Finished game 315 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 320 of 1000 (prover-off vs prover-auto)
+Finished game 318 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 321 of 1000 (prover-auto vs prover-off)
+Finished game 317 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 322 of 1000 (prover-off vs prover-auto)
+Finished game 319 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 323 of 1000 (prover-auto vs prover-off)
+Finished game 320 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 324 of 1000 (prover-off vs prover-auto)
+Finished game 321 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 325 of 1000 (prover-auto vs prover-off)
+Finished game 322 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 326 of 1000 (prover-off vs prover-auto)
+Finished game 323 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 327 of 1000 (prover-auto vs prover-off)
+Finished game 324 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 328 of 1000 (prover-off vs prover-auto)
+Finished game 325 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 329 of 1000 (prover-auto vs prover-off)
+Finished game 327 (prover-auto vs prover-off): 1-0 {White mates}
+Started game 330 of 1000 (prover-off vs prover-auto)
+Finished game 328 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 331 of 1000 (prover-auto vs prover-off)
+Finished game 326 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 332 of 1000 (prover-off vs prover-auto)
+Finished game 329 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 333 of 1000 (prover-auto vs prover-off)
+Finished game 330 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 334 of 1000 (prover-off vs prover-auto)
+Finished game 331 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 335 of 1000 (prover-auto vs prover-off)
+Finished game 332 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 336 of 1000 (prover-off vs prover-auto)
+Finished game 333 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 337 of 1000 (prover-auto vs prover-off)
+Finished game 334 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 338 of 1000 (prover-off vs prover-auto)
+Finished game 336 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 339 of 1000 (prover-auto vs prover-off)
+Finished game 335 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 340 of 1000 (prover-off vs prover-auto)
+Finished game 337 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 341 of 1000 (prover-auto vs prover-off)
+Finished game 338 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 342 of 1000 (prover-off vs prover-auto)
+Finished game 339 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 343 of 1000 (prover-auto vs prover-off)
+Finished game 340 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 344 of 1000 (prover-off vs prover-auto)
+Finished game 341 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 345 of 1000 (prover-auto vs prover-off)
+Finished game 342 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 346 of 1000 (prover-off vs prover-auto)
+Finished game 345 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 347 of 1000 (prover-auto vs prover-off)
+Finished game 343 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 348 of 1000 (prover-off vs prover-auto)
+Finished game 346 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 349 of 1000 (prover-auto vs prover-off)
+Finished game 344 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 350 of 1000 (prover-off vs prover-auto)
+Finished game 347 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 351 of 1000 (prover-auto vs prover-off)
+Finished game 348 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 352 of 1000 (prover-off vs prover-auto)
+Finished game 350 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 353 of 1000 (prover-auto vs prover-off)
+Finished game 349 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 354 of 1000 (prover-off vs prover-auto)
+Finished game 351 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 355 of 1000 (prover-auto vs prover-off)
+Finished game 354 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 356 of 1000 (prover-off vs prover-auto)
+Finished game 352 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 357 of 1000 (prover-auto vs prover-off)
+Finished game 353 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 358 of 1000 (prover-off vs prover-auto)
+Finished game 357 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 359 of 1000 (prover-auto vs prover-off)
+Finished game 358 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 360 of 1000 (prover-off vs prover-auto)
+Finished game 356 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 361 of 1000 (prover-auto vs prover-off)
+Finished game 355 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 362 of 1000 (prover-off vs prover-auto)
+Finished game 360 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 363 of 1000 (prover-auto vs prover-off)
+Finished game 359 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 364 of 1000 (prover-off vs prover-auto)
+Finished game 362 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 365 of 1000 (prover-auto vs prover-off)
+Finished game 361 (prover-auto vs prover-off): 1/2-1/2 {Draw by stalemate}
+Started game 366 of 1000 (prover-off vs prover-auto)
+Finished game 363 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 367 of 1000 (prover-auto vs prover-off)
+Finished game 364 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 368 of 1000 (prover-off vs prover-auto)
+Finished game 366 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 369 of 1000 (prover-auto vs prover-off)
+Finished game 365 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 370 of 1000 (prover-off vs prover-auto)
+Finished game 368 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 371 of 1000 (prover-auto vs prover-off)
+Finished game 369 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 372 of 1000 (prover-off vs prover-auto)
+Finished game 367 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 373 of 1000 (prover-auto vs prover-off)
+Finished game 370 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 374 of 1000 (prover-off vs prover-auto)
+Finished game 371 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 375 of 1000 (prover-auto vs prover-off)
+Finished game 373 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 376 of 1000 (prover-off vs prover-auto)
+Finished game 372 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 377 of 1000 (prover-auto vs prover-off)
+Finished game 374 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 378 of 1000 (prover-off vs prover-auto)
+Finished game 375 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 379 of 1000 (prover-auto vs prover-off)
+Finished game 376 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 380 of 1000 (prover-off vs prover-auto)
+Finished game 377 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 381 of 1000 (prover-auto vs prover-off)
+Finished game 378 (prover-off vs prover-auto): 0-1 {Black mates}
+Started game 382 of 1000 (prover-off vs prover-auto)
+Finished game 379 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 383 of 1000 (prover-auto vs prover-off)
+Finished game 381 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 384 of 1000 (prover-off vs prover-auto)
+Finished game 380 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 385 of 1000 (prover-auto vs prover-off)
+Finished game 382 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 386 of 1000 (prover-off vs prover-auto)
+Finished game 383 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 387 of 1000 (prover-auto vs prover-off)
+Finished game 385 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 388 of 1000 (prover-off vs prover-auto)
+Finished game 386 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 389 of 1000 (prover-auto vs prover-off)
+Finished game 384 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 390 of 1000 (prover-off vs prover-auto)
+Finished game 388 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 391 of 1000 (prover-auto vs prover-off)
+Finished game 389 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 392 of 1000 (prover-off vs prover-auto)
+Finished game 390 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 393 of 1000 (prover-auto vs prover-off)
+Finished game 387 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 394 of 1000 (prover-off vs prover-auto)
+Finished game 391 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 395 of 1000 (prover-auto vs prover-off)
+Finished game 392 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 396 of 1000 (prover-off vs prover-auto)
+Finished game 394 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 397 of 1000 (prover-auto vs prover-off)
+Finished game 395 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 398 of 1000 (prover-off vs prover-auto)
+Finished game 393 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 399 of 1000 (prover-auto vs prover-off)
+Finished game 396 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 400 of 1000 (prover-off vs prover-auto)
+Finished game 399 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 401 of 1000 (prover-auto vs prover-off)
+Finished game 400 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+--------------------------------------------------
+Results of prover-auto vs prover-off (60+0.6, 1t, 16MB, endgames-outcome-adv100.epd):
+Elo: -0.87 +/- 10.12, nElo: -2.94 +/- 34.13
+LOS: 43.29 %, DrawRatio: 82.41 %, PairsRatio: 0.94
+Games: 398, Wins: 63, Losses: 64, Draws: 271, Points: 198.5 (49.87 %)
+Ptnml(0-2): [0, 18, 164, 17, 0], WL/DD Ratio: 0.39
+--------------------------------------------------
+Started game 402 of 1000 (prover-off vs prover-auto)
+Finished game 397 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 403 of 1000 (prover-auto vs prover-off)
+Finished game 398 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 404 of 1000 (prover-off vs prover-auto)
+Finished game 403 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 405 of 1000 (prover-auto vs prover-off)
+Finished game 404 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 406 of 1000 (prover-off vs prover-auto)
+Finished game 402 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 407 of 1000 (prover-auto vs prover-off)
+Finished game 401 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 408 of 1000 (prover-off vs prover-auto)
+Finished game 406 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 409 of 1000 (prover-auto vs prover-off)
+Finished game 407 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 410 of 1000 (prover-off vs prover-auto)
+Finished game 405 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 411 of 1000 (prover-auto vs prover-off)
+Finished game 408 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 412 of 1000 (prover-off vs prover-auto)
+Finished game 409 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 413 of 1000 (prover-auto vs prover-off)
+Finished game 411 (prover-auto vs prover-off): 1-0 {White mates}
+Started game 414 of 1000 (prover-off vs prover-auto)
+Finished game 410 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 415 of 1000 (prover-auto vs prover-off)
+Finished game 412 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 416 of 1000 (prover-off vs prover-auto)
+Finished game 415 (prover-auto vs prover-off): 1/2-1/2 {Draw by stalemate}
+Started game 417 of 1000 (prover-auto vs prover-off)
+Finished game 413 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 418 of 1000 (prover-off vs prover-auto)
+Finished game 414 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 419 of 1000 (prover-auto vs prover-off)
+Finished game 416 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 420 of 1000 (prover-off vs prover-auto)
+Finished game 417 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 421 of 1000 (prover-auto vs prover-off)
+Finished game 420 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 422 of 1000 (prover-off vs prover-auto)
+Finished game 419 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 423 of 1000 (prover-auto vs prover-off)
+Finished game 418 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 424 of 1000 (prover-off vs prover-auto)
+Finished game 421 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 425 of 1000 (prover-auto vs prover-off)
+Finished game 422 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 426 of 1000 (prover-off vs prover-auto)
+Finished game 423 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 427 of 1000 (prover-auto vs prover-off)
+Finished game 425 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 428 of 1000 (prover-off vs prover-auto)
+Finished game 424 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 429 of 1000 (prover-auto vs prover-off)
+Finished game 426 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 430 of 1000 (prover-off vs prover-auto)
+Finished game 427 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 431 of 1000 (prover-auto vs prover-off)
+Finished game 428 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 432 of 1000 (prover-off vs prover-auto)
+Finished game 429 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 433 of 1000 (prover-auto vs prover-off)
+Finished game 430 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 434 of 1000 (prover-off vs prover-auto)
+Finished game 432 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 435 of 1000 (prover-auto vs prover-off)
+Finished game 431 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 436 of 1000 (prover-off vs prover-auto)
+Finished game 433 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 437 of 1000 (prover-auto vs prover-off)
+Finished game 437 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 438 of 1000 (prover-off vs prover-auto)
+Finished game 434 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 439 of 1000 (prover-auto vs prover-off)
+Finished game 435 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 440 of 1000 (prover-off vs prover-auto)
+Finished game 436 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 441 of 1000 (prover-auto vs prover-off)
+Finished game 438 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 442 of 1000 (prover-off vs prover-auto)
+Finished game 439 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 443 of 1000 (prover-auto vs prover-off)
+Finished game 440 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 444 of 1000 (prover-off vs prover-auto)
+Finished game 441 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 445 of 1000 (prover-auto vs prover-off)
+Finished game 442 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 446 of 1000 (prover-off vs prover-auto)
+Finished game 443 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 447 of 1000 (prover-auto vs prover-off)
+Finished game 444 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 448 of 1000 (prover-off vs prover-auto)
+Finished game 445 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 449 of 1000 (prover-auto vs prover-off)
+Finished game 446 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 450 of 1000 (prover-off vs prover-auto)
+Finished game 450 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 451 of 1000 (prover-auto vs prover-off)
+Finished game 449 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 452 of 1000 (prover-off vs prover-auto)
+Finished game 447 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 453 of 1000 (prover-auto vs prover-off)
+Finished game 448 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 454 of 1000 (prover-off vs prover-auto)
+Finished game 451 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 455 of 1000 (prover-auto vs prover-off)
+Finished game 452 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 456 of 1000 (prover-off vs prover-auto)
+Finished game 453 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 457 of 1000 (prover-auto vs prover-off)
+Finished game 454 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 458 of 1000 (prover-off vs prover-auto)
+Finished game 455 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 459 of 1000 (prover-auto vs prover-off)
+Finished game 456 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 460 of 1000 (prover-off vs prover-auto)
+Finished game 457 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 461 of 1000 (prover-auto vs prover-off)
+Finished game 458 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 462 of 1000 (prover-off vs prover-auto)
+Finished game 459 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 463 of 1000 (prover-auto vs prover-off)
+Finished game 461 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 464 of 1000 (prover-off vs prover-auto)
+Finished game 460 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 465 of 1000 (prover-auto vs prover-off)
+Finished game 462 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 466 of 1000 (prover-off vs prover-auto)
+Finished game 463 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 467 of 1000 (prover-auto vs prover-off)
+Finished game 464 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 468 of 1000 (prover-off vs prover-auto)
+Finished game 466 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 469 of 1000 (prover-auto vs prover-off)
+Finished game 465 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 470 of 1000 (prover-off vs prover-auto)
+Finished game 467 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 471 of 1000 (prover-auto vs prover-off)
+Finished game 468 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 472 of 1000 (prover-off vs prover-auto)
+Finished game 470 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 473 of 1000 (prover-auto vs prover-off)
+Finished game 469 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 474 of 1000 (prover-off vs prover-auto)
+Finished game 472 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 475 of 1000 (prover-auto vs prover-off)
+Finished game 473 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 476 of 1000 (prover-off vs prover-auto)
+Finished game 474 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 477 of 1000 (prover-auto vs prover-off)
+Finished game 471 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 478 of 1000 (prover-off vs prover-auto)
+Finished game 475 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 479 of 1000 (prover-auto vs prover-off)
+Finished game 478 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 480 of 1000 (prover-off vs prover-auto)
+Finished game 477 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 481 of 1000 (prover-auto vs prover-off)
+Finished game 476 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 482 of 1000 (prover-off vs prover-auto)
+Finished game 479 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 483 of 1000 (prover-auto vs prover-off)
+Finished game 480 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 484 of 1000 (prover-off vs prover-auto)
+Finished game 481 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 485 of 1000 (prover-auto vs prover-off)
+Finished game 482 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 486 of 1000 (prover-off vs prover-auto)
+Finished game 483 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 487 of 1000 (prover-auto vs prover-off)
+Finished game 485 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 488 of 1000 (prover-off vs prover-auto)
+Finished game 484 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 489 of 1000 (prover-auto vs prover-off)
+Finished game 487 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 490 of 1000 (prover-off vs prover-auto)
+Finished game 486 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 491 of 1000 (prover-auto vs prover-off)
+Finished game 488 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 492 of 1000 (prover-off vs prover-auto)
+Finished game 490 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 493 of 1000 (prover-auto vs prover-off)
+Finished game 489 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 494 of 1000 (prover-off vs prover-auto)
+Finished game 491 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 495 of 1000 (prover-auto vs prover-off)
+Finished game 492 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 496 of 1000 (prover-off vs prover-auto)
+Finished game 493 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 497 of 1000 (prover-auto vs prover-off)
+Finished game 494 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 498 of 1000 (prover-off vs prover-auto)
+Finished game 495 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 499 of 1000 (prover-auto vs prover-off)
+Finished game 496 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 500 of 1000 (prover-off vs prover-auto)
+Finished game 497 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 501 of 1000 (prover-auto vs prover-off)
+Finished game 499 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 502 of 1000 (prover-off vs prover-auto)
+Finished game 498 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 503 of 1000 (prover-auto vs prover-off)
+Finished game 500 (prover-off vs prover-auto): 0-1 {Black mates}
+Started game 504 of 1000 (prover-off vs prover-auto)
+Finished game 501 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 505 of 1000 (prover-auto vs prover-off)
+Finished game 502 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 506 of 1000 (prover-off vs prover-auto)
+Finished game 503 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 507 of 1000 (prover-auto vs prover-off)
+Finished game 504 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 508 of 1000 (prover-off vs prover-auto)
+Finished game 505 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 509 of 1000 (prover-auto vs prover-off)
+Finished game 508 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 510 of 1000 (prover-off vs prover-auto)
+Finished game 506 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 511 of 1000 (prover-auto vs prover-off)
+Finished game 507 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 512 of 1000 (prover-off vs prover-auto)
+Finished game 509 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 513 of 1000 (prover-auto vs prover-off)
+Finished game 512 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 514 of 1000 (prover-off vs prover-auto)
+Finished game 510 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 515 of 1000 (prover-auto vs prover-off)
+Finished game 511 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 516 of 1000 (prover-off vs prover-auto)
+Finished game 513 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 517 of 1000 (prover-auto vs prover-off)
+Finished game 517 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 518 of 1000 (prover-off vs prover-auto)
+Finished game 515 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 519 of 1000 (prover-auto vs prover-off)
+Finished game 514 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 520 of 1000 (prover-off vs prover-auto)
+Finished game 518 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 521 of 1000 (prover-auto vs prover-off)
+Finished game 516 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 522 of 1000 (prover-off vs prover-auto)
+Finished game 519 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 523 of 1000 (prover-auto vs prover-off)
+Finished game 520 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 524 of 1000 (prover-off vs prover-auto)
+Finished game 523 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 525 of 1000 (prover-auto vs prover-off)
+Finished game 522 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 526 of 1000 (prover-off vs prover-auto)
+Finished game 521 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 527 of 1000 (prover-auto vs prover-off)
+Finished game 524 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 528 of 1000 (prover-off vs prover-auto)
+Finished game 525 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 529 of 1000 (prover-auto vs prover-off)
+Finished game 527 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 530 of 1000 (prover-off vs prover-auto)
+Finished game 528 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 531 of 1000 (prover-auto vs prover-off)
+Finished game 526 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 532 of 1000 (prover-off vs prover-auto)
+Finished game 530 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 533 of 1000 (prover-auto vs prover-off)
+Finished game 529 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 534 of 1000 (prover-off vs prover-auto)
+Finished game 532 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 535 of 1000 (prover-auto vs prover-off)
+Finished game 531 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 536 of 1000 (prover-off vs prover-auto)
+Finished game 533 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 537 of 1000 (prover-auto vs prover-off)
+Finished game 534 (prover-off vs prover-auto): 1/2-1/2 {Draw by stalemate}
+Started game 538 of 1000 (prover-off vs prover-auto)
+Finished game 535 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 539 of 1000 (prover-auto vs prover-off)
+Finished game 537 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 540 of 1000 (prover-off vs prover-auto)
+Finished game 538 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 541 of 1000 (prover-auto vs prover-off)
+Finished game 536 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 542 of 1000 (prover-off vs prover-auto)
+Finished game 539 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 543 of 1000 (prover-auto vs prover-off)
+Finished game 541 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 544 of 1000 (prover-off vs prover-auto)
+Finished game 540 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 545 of 1000 (prover-auto vs prover-off)
+Finished game 542 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 546 of 1000 (prover-off vs prover-auto)
+Finished game 543 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 547 of 1000 (prover-auto vs prover-off)
+Finished game 545 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 548 of 1000 (prover-off vs prover-auto)
+Finished game 544 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 549 of 1000 (prover-auto vs prover-off)
+Finished game 547 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 550 of 1000 (prover-off vs prover-auto)
+Finished game 546 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 551 of 1000 (prover-auto vs prover-off)
+Finished game 548 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 552 of 1000 (prover-off vs prover-auto)
+Finished game 549 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 553 of 1000 (prover-auto vs prover-off)
+Finished game 550 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 554 of 1000 (prover-off vs prover-auto)
+Finished game 551 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 555 of 1000 (prover-auto vs prover-off)
+Finished game 552 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 556 of 1000 (prover-off vs prover-auto)
+Finished game 553 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 557 of 1000 (prover-auto vs prover-off)
+Finished game 554 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 558 of 1000 (prover-off vs prover-auto)
+Finished game 555 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 559 of 1000 (prover-auto vs prover-off)
+Finished game 556 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 560 of 1000 (prover-off vs prover-auto)
+Finished game 558 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 561 of 1000 (prover-auto vs prover-off)
+Finished game 557 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 562 of 1000 (prover-off vs prover-auto)
+Finished game 560 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 563 of 1000 (prover-auto vs prover-off)
+Finished game 559 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 564 of 1000 (prover-off vs prover-auto)
+Finished game 561 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 565 of 1000 (prover-auto vs prover-off)
+Finished game 562 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 566 of 1000 (prover-off vs prover-auto)
+Finished game 563 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 567 of 1000 (prover-auto vs prover-off)
+Finished game 566 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 568 of 1000 (prover-off vs prover-auto)
+Finished game 565 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 569 of 1000 (prover-auto vs prover-off)
+Finished game 564 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 570 of 1000 (prover-off vs prover-auto)
+Finished game 570 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 571 of 1000 (prover-auto vs prover-off)
+Finished game 569 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 572 of 1000 (prover-off vs prover-auto)
+Finished game 567 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 573 of 1000 (prover-auto vs prover-off)
+Finished game 568 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 574 of 1000 (prover-off vs prover-auto)
+Finished game 571 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 575 of 1000 (prover-auto vs prover-off)
+Finished game 573 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 576 of 1000 (prover-off vs prover-auto)
+Finished game 575 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 577 of 1000 (prover-auto vs prover-off)
+Finished game 574 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 578 of 1000 (prover-off vs prover-auto)
+Finished game 572 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 579 of 1000 (prover-auto vs prover-off)
+Finished game 576 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 580 of 1000 (prover-off vs prover-auto)
+Finished game 577 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 581 of 1000 (prover-auto vs prover-off)
+Finished game 579 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 582 of 1000 (prover-off vs prover-auto)
+Finished game 578 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 583 of 1000 (prover-auto vs prover-off)
+Finished game 580 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 584 of 1000 (prover-off vs prover-auto)
+Finished game 581 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 585 of 1000 (prover-auto vs prover-off)
+Finished game 584 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 586 of 1000 (prover-off vs prover-auto)
+Finished game 582 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 587 of 1000 (prover-auto vs prover-off)
+Finished game 583 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 588 of 1000 (prover-off vs prover-auto)
+Finished game 587 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 589 of 1000 (prover-auto vs prover-off)
+Finished game 588 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 590 of 1000 (prover-off vs prover-auto)
+Finished game 586 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 591 of 1000 (prover-auto vs prover-off)
+Finished game 585 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 592 of 1000 (prover-off vs prover-auto)
+Finished game 592 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 593 of 1000 (prover-auto vs prover-off)
+Finished game 589 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 594 of 1000 (prover-off vs prover-auto)
+Finished game 590 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 595 of 1000 (prover-auto vs prover-off)
+Finished game 593 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 596 of 1000 (prover-off vs prover-auto)
+Finished game 591 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 597 of 1000 (prover-auto vs prover-off)
+Finished game 594 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 598 of 1000 (prover-off vs prover-auto)
+Finished game 595 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 599 of 1000 (prover-auto vs prover-off)
+Finished game 596 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 600 of 1000 (prover-off vs prover-auto)
+Finished game 597 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 601 of 1000 (prover-auto vs prover-off)
+Finished game 598 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 602 of 1000 (prover-off vs prover-auto)
+Finished game 599 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 603 of 1000 (prover-auto vs prover-off)
+Finished game 600 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+--------------------------------------------------
+Results of prover-auto vs prover-off (60+0.6, 1t, 16MB, endgames-outcome-adv100.epd):
+Elo: -5.21 +/- 8.85, nElo: -16.38 +/- 27.80
+LOS: 12.41 %, DrawRatio: 79.67 %, PairsRatio: 0.74
+Games: 600, Wins: 93, Losses: 102, Draws: 405, Points: 295.5 (49.25 %)
+Ptnml(0-2): [0, 35, 239, 26, 0], WL/DD Ratio: 0.39
+--------------------------------------------------
+Started game 604 of 1000 (prover-off vs prover-auto)
+Finished game 601 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 605 of 1000 (prover-auto vs prover-off)
+Finished game 602 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 606 of 1000 (prover-off vs prover-auto)
+Finished game 603 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 607 of 1000 (prover-auto vs prover-off)
+Finished game 604 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 608 of 1000 (prover-off vs prover-auto)
+Finished game 606 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 609 of 1000 (prover-auto vs prover-off)
+Finished game 605 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 610 of 1000 (prover-off vs prover-auto)
+Finished game 607 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 611 of 1000 (prover-auto vs prover-off)
+Finished game 609 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 612 of 1000 (prover-off vs prover-auto)
+Finished game 611 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 613 of 1000 (prover-auto vs prover-off)
+Finished game 608 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 614 of 1000 (prover-off vs prover-auto)
+Finished game 612 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 615 of 1000 (prover-auto vs prover-off)
+Finished game 610 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 616 of 1000 (prover-off vs prover-auto)
+Finished game 615 (prover-auto vs prover-off): 1-0 {White mates}
+Started game 617 of 1000 (prover-auto vs prover-off)
+Finished game 613 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 618 of 1000 (prover-off vs prover-auto)
+Finished game 616 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 619 of 1000 (prover-auto vs prover-off)
+Finished game 614 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 620 of 1000 (prover-off vs prover-auto)
+Finished game 618 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 621 of 1000 (prover-auto vs prover-off)
+Finished game 617 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 622 of 1000 (prover-off vs prover-auto)
+Finished game 621 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 623 of 1000 (prover-auto vs prover-off)
+Finished game 619 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 624 of 1000 (prover-off vs prover-auto)
+Finished game 620 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 625 of 1000 (prover-auto vs prover-off)
+Finished game 622 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 626 of 1000 (prover-off vs prover-auto)
+Finished game 625 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 627 of 1000 (prover-auto vs prover-off)
+Finished game 624 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 628 of 1000 (prover-off vs prover-auto)
+Finished game 623 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 629 of 1000 (prover-auto vs prover-off)
+Finished game 626 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 630 of 1000 (prover-off vs prover-auto)
+Finished game 629 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 631 of 1000 (prover-auto vs prover-off)
+Finished game 628 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 632 of 1000 (prover-off vs prover-auto)
+Finished game 630 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 633 of 1000 (prover-auto vs prover-off)
+Finished game 627 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 634 of 1000 (prover-off vs prover-auto)
+Finished game 634 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 635 of 1000 (prover-auto vs prover-off)
+Finished game 633 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 636 of 1000 (prover-off vs prover-auto)
+Finished game 631 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 637 of 1000 (prover-auto vs prover-off)
+Finished game 632 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 638 of 1000 (prover-off vs prover-auto)
+Finished game 636 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 639 of 1000 (prover-auto vs prover-off)
+Finished game 637 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 640 of 1000 (prover-off vs prover-auto)
+Finished game 635 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 641 of 1000 (prover-auto vs prover-off)
+Finished game 638 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 642 of 1000 (prover-off vs prover-auto)
+Finished game 639 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 643 of 1000 (prover-auto vs prover-off)
+Finished game 640 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 644 of 1000 (prover-off vs prover-auto)
+Finished game 641 (prover-auto vs prover-off): 1-0 {White mates}
+Started game 645 of 1000 (prover-auto vs prover-off)
+Finished game 642 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 646 of 1000 (prover-off vs prover-auto)
+Finished game 643 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 647 of 1000 (prover-auto vs prover-off)
+Finished game 646 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 648 of 1000 (prover-off vs prover-auto)
+Finished game 645 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 649 of 1000 (prover-auto vs prover-off)
+Finished game 644 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 650 of 1000 (prover-off vs prover-auto)
+Finished game 647 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 651 of 1000 (prover-auto vs prover-off)
+Finished game 648 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 652 of 1000 (prover-off vs prover-auto)
+Finished game 649 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 653 of 1000 (prover-auto vs prover-off)
+Finished game 650 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 654 of 1000 (prover-off vs prover-auto)
+Finished game 651 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 655 of 1000 (prover-auto vs prover-off)
+Finished game 652 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 656 of 1000 (prover-off vs prover-auto)
+Finished game 654 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 657 of 1000 (prover-auto vs prover-off)
+Finished game 653 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 658 of 1000 (prover-off vs prover-auto)
+Finished game 655 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 659 of 1000 (prover-auto vs prover-off)
+Finished game 656 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 660 of 1000 (prover-off vs prover-auto)
+Finished game 658 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 661 of 1000 (prover-auto vs prover-off)
+Finished game 657 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 662 of 1000 (prover-off vs prover-auto)
+Finished game 659 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 663 of 1000 (prover-auto vs prover-off)
+Finished game 661 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 664 of 1000 (prover-off vs prover-auto)
+Finished game 660 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 665 of 1000 (prover-auto vs prover-off)
+Finished game 662 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 666 of 1000 (prover-off vs prover-auto)
+Finished game 665 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 667 of 1000 (prover-auto vs prover-off)
+Finished game 663 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 668 of 1000 (prover-off vs prover-auto)
+Finished game 664 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 669 of 1000 (prover-auto vs prover-off)
+Finished game 666 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 670 of 1000 (prover-off vs prover-auto)
+Finished game 668 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 671 of 1000 (prover-auto vs prover-off)
+Finished game 669 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 672 of 1000 (prover-off vs prover-auto)
+Finished game 667 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 673 of 1000 (prover-auto vs prover-off)
+Finished game 670 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 674 of 1000 (prover-off vs prover-auto)
+Finished game 671 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 675 of 1000 (prover-auto vs prover-off)
+Finished game 673 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 676 of 1000 (prover-off vs prover-auto)
+Finished game 672 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 677 of 1000 (prover-auto vs prover-off)
+Finished game 674 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 678 of 1000 (prover-off vs prover-auto)
+Finished game 675 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 679 of 1000 (prover-auto vs prover-off)
+Finished game 676 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 680 of 1000 (prover-off vs prover-auto)
+Finished game 677 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 681 of 1000 (prover-auto vs prover-off)
+Finished game 678 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 682 of 1000 (prover-off vs prover-auto)
+Finished game 680 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 683 of 1000 (prover-auto vs prover-off)
+Finished game 679 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 684 of 1000 (prover-off vs prover-auto)
+Finished game 682 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 685 of 1000 (prover-auto vs prover-off)
+Finished game 681 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 686 of 1000 (prover-off vs prover-auto)
+Finished game 683 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 687 of 1000 (prover-auto vs prover-off)
+Finished game 684 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 688 of 1000 (prover-off vs prover-auto)
+Finished game 685 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 689 of 1000 (prover-auto vs prover-off)
+Finished game 686 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 690 of 1000 (prover-off vs prover-auto)
+Finished game 687 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 691 of 1000 (prover-auto vs prover-off)
+Finished game 688 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 692 of 1000 (prover-off vs prover-auto)
+Finished game 689 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 693 of 1000 (prover-auto vs prover-off)
+Finished game 691 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 694 of 1000 (prover-off vs prover-auto)
+Finished game 690 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 695 of 1000 (prover-auto vs prover-off)
+Finished game 692 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 696 of 1000 (prover-off vs prover-auto)
+Finished game 693 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 697 of 1000 (prover-auto vs prover-off)
+Finished game 695 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 698 of 1000 (prover-off vs prover-auto)
+Finished game 694 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 699 of 1000 (prover-auto vs prover-off)
+Finished game 696 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 700 of 1000 (prover-off vs prover-auto)
+Finished game 698 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 701 of 1000 (prover-auto vs prover-off)
+Finished game 697 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 702 of 1000 (prover-off vs prover-auto)
+Finished game 699 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 703 of 1000 (prover-auto vs prover-off)
+Finished game 700 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 704 of 1000 (prover-off vs prover-auto)
+Finished game 701 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 705 of 1000 (prover-auto vs prover-off)
+Finished game 702 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 706 of 1000 (prover-off vs prover-auto)
+Finished game 703 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 707 of 1000 (prover-auto vs prover-off)
+Finished game 704 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 708 of 1000 (prover-off vs prover-auto)
+Finished game 706 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 709 of 1000 (prover-auto vs prover-off)
+Finished game 705 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 710 of 1000 (prover-off vs prover-auto)
+Finished game 707 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 711 of 1000 (prover-auto vs prover-off)
+Finished game 708 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 712 of 1000 (prover-off vs prover-auto)
+Finished game 709 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 713 of 1000 (prover-auto vs prover-off)
+Finished game 710 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 714 of 1000 (prover-off vs prover-auto)
+Finished game 711 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 715 of 1000 (prover-auto vs prover-off)
+Finished game 712 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 716 of 1000 (prover-off vs prover-auto)
+Finished game 714 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 717 of 1000 (prover-auto vs prover-off)
+Finished game 713 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 718 of 1000 (prover-off vs prover-auto)
+Finished game 715 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 719 of 1000 (prover-auto vs prover-off)
+Finished game 716 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 720 of 1000 (prover-off vs prover-auto)
+Finished game 717 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 721 of 1000 (prover-auto vs prover-off)
+Finished game 718 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 722 of 1000 (prover-off vs prover-auto)
+Finished game 719 (prover-auto vs prover-off): 1-0 {White mates}
+Started game 723 of 1000 (prover-auto vs prover-off)
+Finished game 720 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 724 of 1000 (prover-off vs prover-auto)
+Finished game 722 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 725 of 1000 (prover-auto vs prover-off)
+Finished game 721 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 726 of 1000 (prover-off vs prover-auto)
+Finished game 723 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 727 of 1000 (prover-auto vs prover-off)
+Finished game 725 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 728 of 1000 (prover-off vs prover-auto)
+Finished game 726 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 729 of 1000 (prover-auto vs prover-off)
+Finished game 724 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 730 of 1000 (prover-off vs prover-auto)
+Finished game 727 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 731 of 1000 (prover-auto vs prover-off)
+Finished game 729 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 732 of 1000 (prover-off vs prover-auto)
+Finished game 728 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 733 of 1000 (prover-auto vs prover-off)
+Finished game 730 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 734 of 1000 (prover-off vs prover-auto)
+Finished game 731 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 735 of 1000 (prover-auto vs prover-off)
+Finished game 732 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 736 of 1000 (prover-off vs prover-auto)
+Finished game 733 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 737 of 1000 (prover-auto vs prover-off)
+Finished game 734 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 738 of 1000 (prover-off vs prover-auto)
+Finished game 737 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 739 of 1000 (prover-auto vs prover-off)
+Finished game 735 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 740 of 1000 (prover-off vs prover-auto)
+Finished game 736 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 741 of 1000 (prover-auto vs prover-off)
+Finished game 738 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 742 of 1000 (prover-off vs prover-auto)
+Finished game 740 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 743 of 1000 (prover-auto vs prover-off)
+Finished game 739 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 744 of 1000 (prover-off vs prover-auto)
+Finished game 741 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 745 of 1000 (prover-auto vs prover-off)
+Finished game 743 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 746 of 1000 (prover-off vs prover-auto)
+Finished game 742 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 747 of 1000 (prover-auto vs prover-off)
+Finished game 744 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 748 of 1000 (prover-off vs prover-auto)
+Finished game 747 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 749 of 1000 (prover-auto vs prover-off)
+Finished game 745 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 750 of 1000 (prover-off vs prover-auto)
+Finished game 748 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 751 of 1000 (prover-auto vs prover-off)
+Finished game 746 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 752 of 1000 (prover-off vs prover-auto)
+Finished game 749 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 753 of 1000 (prover-auto vs prover-off)
+Finished game 751 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 754 of 1000 (prover-off vs prover-auto)
+Finished game 750 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 755 of 1000 (prover-auto vs prover-off)
+Finished game 753 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 756 of 1000 (prover-off vs prover-auto)
+Finished game 752 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 757 of 1000 (prover-auto vs prover-off)
+Finished game 756 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 758 of 1000 (prover-off vs prover-auto)
+Finished game 755 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 759 of 1000 (prover-auto vs prover-off)
+Finished game 754 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 760 of 1000 (prover-off vs prover-auto)
+Finished game 757 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 761 of 1000 (prover-auto vs prover-off)
+Finished game 760 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 762 of 1000 (prover-off vs prover-auto)
+Finished game 759 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 763 of 1000 (prover-auto vs prover-off)
+Finished game 758 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 764 of 1000 (prover-off vs prover-auto)
+Finished game 761 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 765 of 1000 (prover-auto vs prover-off)
+Finished game 763 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 766 of 1000 (prover-off vs prover-auto)
+Finished game 764 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 767 of 1000 (prover-auto vs prover-off)
+Finished game 762 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 768 of 1000 (prover-off vs prover-auto)
+Finished game 767 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 769 of 1000 (prover-auto vs prover-off)
+Finished game 766 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 770 of 1000 (prover-off vs prover-auto)
+Finished game 768 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 771 of 1000 (prover-auto vs prover-off)
+Finished game 765 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 772 of 1000 (prover-off vs prover-auto)
+Finished game 769 (prover-auto vs prover-off): 1-0 {White mates}
+Started game 773 of 1000 (prover-auto vs prover-off)
+Finished game 770 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 774 of 1000 (prover-off vs prover-auto)
+Finished game 771 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 775 of 1000 (prover-auto vs prover-off)
+Finished game 772 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 776 of 1000 (prover-off vs prover-auto)
+Finished game 773 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 777 of 1000 (prover-auto vs prover-off)
+Finished game 774 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 778 of 1000 (prover-off vs prover-auto)
+Finished game 775 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 779 of 1000 (prover-auto vs prover-off)
+Finished game 776 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 780 of 1000 (prover-off vs prover-auto)
+Finished game 778 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 781 of 1000 (prover-auto vs prover-off)
+Finished game 777 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 782 of 1000 (prover-off vs prover-auto)
+Finished game 779 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 783 of 1000 (prover-auto vs prover-off)
+Finished game 780 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 784 of 1000 (prover-off vs prover-auto)
+Finished game 781 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 785 of 1000 (prover-auto vs prover-off)
+Finished game 783 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 786 of 1000 (prover-off vs prover-auto)
+Finished game 782 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 787 of 1000 (prover-auto vs prover-off)
+Finished game 784 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 788 of 1000 (prover-off vs prover-auto)
+Finished game 787 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 789 of 1000 (prover-auto vs prover-off)
+Finished game 785 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 790 of 1000 (prover-off vs prover-auto)
+Finished game 786 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 791 of 1000 (prover-auto vs prover-off)
+Finished game 788 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 792 of 1000 (prover-off vs prover-auto)
+Finished game 790 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 793 of 1000 (prover-auto vs prover-off)
+Finished game 791 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 794 of 1000 (prover-off vs prover-auto)
+Finished game 789 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 795 of 1000 (prover-auto vs prover-off)
+Finished game 792 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 796 of 1000 (prover-off vs prover-auto)
+Finished game 794 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 797 of 1000 (prover-auto vs prover-off)
+Finished game 795 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 798 of 1000 (prover-off vs prover-auto)
+Finished game 793 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 799 of 1000 (prover-auto vs prover-off)
+Finished game 796 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 800 of 1000 (prover-off vs prover-auto)
+Finished game 800 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 801 of 1000 (prover-auto vs prover-off)
+Finished game 799 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+--------------------------------------------------
+Results of prover-auto vs prover-off (60+0.6, 1t, 16MB, endgames-outcome-adv100.epd):
+Elo: -6.97 +/- 8.07, nElo: -20.82 +/- 24.11
+LOS: 4.53 %, DrawRatio: 77.44 %, PairsRatio: 0.70
+Games: 798, Wins: 122, Losses: 138, Draws: 538, Points: 391.0 (49.00 %)
+Ptnml(0-2): [0, 53, 309, 37, 0], WL/DD Ratio: 0.38
+--------------------------------------------------
+Started game 802 of 1000 (prover-off vs prover-auto)
+Finished game 798 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 803 of 1000 (prover-auto vs prover-off)
+Finished game 797 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 804 of 1000 (prover-off vs prover-auto)
+Finished game 802 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 805 of 1000 (prover-auto vs prover-off)
+Finished game 803 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 806 of 1000 (prover-off vs prover-auto)
+Finished game 801 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 807 of 1000 (prover-auto vs prover-off)
+Finished game 804 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 808 of 1000 (prover-off vs prover-auto)
+Finished game 805 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 809 of 1000 (prover-auto vs prover-off)
+Finished game 806 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 810 of 1000 (prover-off vs prover-auto)
+Finished game 807 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 811 of 1000 (prover-auto vs prover-off)
+Finished game 809 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 812 of 1000 (prover-off vs prover-auto)
+Finished game 808 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 813 of 1000 (prover-auto vs prover-off)
+Finished game 811 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 814 of 1000 (prover-off vs prover-auto)
+Finished game 813 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 815 of 1000 (prover-auto vs prover-off)
+Finished game 810 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 816 of 1000 (prover-off vs prover-auto)
+Finished game 812 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 817 of 1000 (prover-auto vs prover-off)
+Finished game 814 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 818 of 1000 (prover-off vs prover-auto)
+Finished game 817 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 819 of 1000 (prover-auto vs prover-off)
+Finished game 815 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 820 of 1000 (prover-off vs prover-auto)
+Finished game 816 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 821 of 1000 (prover-auto vs prover-off)
+Finished game 819 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 822 of 1000 (prover-off vs prover-auto)
+Finished game 818 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 823 of 1000 (prover-auto vs prover-off)
+Finished game 821 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 824 of 1000 (prover-off vs prover-auto)
+Finished game 820 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 825 of 1000 (prover-auto vs prover-off)
+Finished game 822 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 826 of 1000 (prover-off vs prover-auto)
+Finished game 823 (prover-auto vs prover-off): 1/2-1/2 {Draw by stalemate}
+Started game 827 of 1000 (prover-auto vs prover-off)
+Finished game 825 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 828 of 1000 (prover-off vs prover-auto)
+Finished game 824 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 829 of 1000 (prover-auto vs prover-off)
+Finished game 826 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 830 of 1000 (prover-off vs prover-auto)
+Finished game 827 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 831 of 1000 (prover-auto vs prover-off)
+Finished game 828 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 832 of 1000 (prover-off vs prover-auto)
+Finished game 831 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 833 of 1000 (prover-auto vs prover-off)
+Finished game 829 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 834 of 1000 (prover-off vs prover-auto)
+Finished game 830 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 835 of 1000 (prover-auto vs prover-off)
+Finished game 834 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 836 of 1000 (prover-off vs prover-auto)
+Finished game 833 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 837 of 1000 (prover-auto vs prover-off)
+Finished game 832 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 838 of 1000 (prover-off vs prover-auto)
+Finished game 835 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 839 of 1000 (prover-auto vs prover-off)
+Finished game 836 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 840 of 1000 (prover-off vs prover-auto)
+Finished game 837 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 841 of 1000 (prover-auto vs prover-off)
+Finished game 839 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 842 of 1000 (prover-off vs prover-auto)
+Finished game 838 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 843 of 1000 (prover-auto vs prover-off)
+Finished game 840 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 844 of 1000 (prover-off vs prover-auto)
+Finished game 842 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 845 of 1000 (prover-auto vs prover-off)
+Finished game 841 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 846 of 1000 (prover-off vs prover-auto)
+Finished game 843 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 847 of 1000 (prover-auto vs prover-off)
+Finished game 844 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 848 of 1000 (prover-off vs prover-auto)
+Finished game 845 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 849 of 1000 (prover-auto vs prover-off)
+Finished game 846 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 850 of 1000 (prover-off vs prover-auto)
+Finished game 847 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 851 of 1000 (prover-auto vs prover-off)
+Finished game 849 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 852 of 1000 (prover-off vs prover-auto)
+Finished game 848 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 853 of 1000 (prover-auto vs prover-off)
+Finished game 850 (prover-off vs prover-auto): 0-1 {Black mates}
+Started game 854 of 1000 (prover-off vs prover-auto)
+Finished game 851 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 855 of 1000 (prover-auto vs prover-off)
+Finished game 852 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 856 of 1000 (prover-off vs prover-auto)
+Finished game 853 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 857 of 1000 (prover-auto vs prover-off)
+Finished game 855 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 858 of 1000 (prover-off vs prover-auto)
+Finished game 854 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 859 of 1000 (prover-auto vs prover-off)
+Finished game 856 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 860 of 1000 (prover-off vs prover-auto)
+Finished game 857 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 861 of 1000 (prover-auto vs prover-off)
+Finished game 860 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 862 of 1000 (prover-off vs prover-auto)
+Finished game 858 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 863 of 1000 (prover-auto vs prover-off)
+Finished game 859 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 864 of 1000 (prover-off vs prover-auto)
+Finished game 863 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 865 of 1000 (prover-auto vs prover-off)
+Finished game 861 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 866 of 1000 (prover-off vs prover-auto)
+Finished game 864 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 867 of 1000 (prover-auto vs prover-off)
+Finished game 862 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 868 of 1000 (prover-off vs prover-auto)
+Finished game 865 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 869 of 1000 (prover-auto vs prover-off)
+Finished game 866 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 870 of 1000 (prover-off vs prover-auto)
+Finished game 867 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 871 of 1000 (prover-auto vs prover-off)
+Finished game 868 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 872 of 1000 (prover-off vs prover-auto)
+Finished game 869 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 873 of 1000 (prover-auto vs prover-off)
+Finished game 870 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 874 of 1000 (prover-off vs prover-auto)
+Finished game 872 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 875 of 1000 (prover-auto vs prover-off)
+Finished game 871 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 876 of 1000 (prover-off vs prover-auto)
+Finished game 873 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 877 of 1000 (prover-auto vs prover-off)
+Finished game 874 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 878 of 1000 (prover-off vs prover-auto)
+Finished game 875 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 879 of 1000 (prover-auto vs prover-off)
+Finished game 876 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 880 of 1000 (prover-off vs prover-auto)
+Finished game 877 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 881 of 1000 (prover-auto vs prover-off)
+Finished game 878 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 882 of 1000 (prover-off vs prover-auto)
+Finished game 879 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 883 of 1000 (prover-auto vs prover-off)
+Finished game 880 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 884 of 1000 (prover-off vs prover-auto)
+Finished game 882 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 885 of 1000 (prover-auto vs prover-off)
+Finished game 881 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 886 of 1000 (prover-off vs prover-auto)
+Finished game 883 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 887 of 1000 (prover-auto vs prover-off)
+Finished game 885 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 888 of 1000 (prover-off vs prover-auto)
+Finished game 886 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 889 of 1000 (prover-auto vs prover-off)
+Finished game 884 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 890 of 1000 (prover-off vs prover-auto)
+Finished game 887 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 891 of 1000 (prover-auto vs prover-off)
+Finished game 888 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 892 of 1000 (prover-off vs prover-auto)
+Finished game 889 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 893 of 1000 (prover-auto vs prover-off)
+Finished game 891 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 894 of 1000 (prover-off vs prover-auto)
+Finished game 890 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 895 of 1000 (prover-auto vs prover-off)
+Finished game 892 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 896 of 1000 (prover-off vs prover-auto)
+Finished game 893 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 897 of 1000 (prover-auto vs prover-off)
+Finished game 897 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 898 of 1000 (prover-off vs prover-auto)
+Finished game 895 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 899 of 1000 (prover-auto vs prover-off)
+Finished game 896 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 900 of 1000 (prover-off vs prover-auto)
+Finished game 894 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 901 of 1000 (prover-auto vs prover-off)
+Finished game 898 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 902 of 1000 (prover-off vs prover-auto)
+Finished game 901 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 903 of 1000 (prover-auto vs prover-off)
+Finished game 899 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 904 of 1000 (prover-off vs prover-auto)
+Finished game 900 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 905 of 1000 (prover-auto vs prover-off)
+Finished game 905 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 906 of 1000 (prover-off vs prover-auto)
+Finished game 903 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 907 of 1000 (prover-auto vs prover-off)
+Finished game 904 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 908 of 1000 (prover-off vs prover-auto)
+Finished game 902 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 909 of 1000 (prover-auto vs prover-off)
+Finished game 909 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 910 of 1000 (prover-off vs prover-auto)
+Finished game 906 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 911 of 1000 (prover-auto vs prover-off)
+Finished game 908 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 912 of 1000 (prover-off vs prover-auto)
+Finished game 907 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 913 of 1000 (prover-auto vs prover-off)
+Finished game 910 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 914 of 1000 (prover-off vs prover-auto)
+Finished game 911 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 915 of 1000 (prover-auto vs prover-off)
+Finished game 912 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 916 of 1000 (prover-off vs prover-auto)
+Finished game 913 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 917 of 1000 (prover-auto vs prover-off)
+Finished game 914 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 918 of 1000 (prover-off vs prover-auto)
+Finished game 915 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 919 of 1000 (prover-auto vs prover-off)
+Finished game 916 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 920 of 1000 (prover-off vs prover-auto)
+Finished game 917 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 921 of 1000 (prover-auto vs prover-off)
+Finished game 918 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 922 of 1000 (prover-off vs prover-auto)
+Finished game 920 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 923 of 1000 (prover-auto vs prover-off)
+Finished game 919 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 924 of 1000 (prover-off vs prover-auto)
+Finished game 921 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 925 of 1000 (prover-auto vs prover-off)
+Finished game 922 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 926 of 1000 (prover-off vs prover-auto)
+Finished game 923 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 927 of 1000 (prover-auto vs prover-off)
+Finished game 926 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 928 of 1000 (prover-off vs prover-auto)
+Finished game 924 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 929 of 1000 (prover-auto vs prover-off)
+Finished game 925 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 930 of 1000 (prover-off vs prover-auto)
+Finished game 927 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 931 of 1000 (prover-auto vs prover-off)
+Finished game 928 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 932 of 1000 (prover-off vs prover-auto)
+Finished game 930 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 933 of 1000 (prover-auto vs prover-off)
+Finished game 929 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 934 of 1000 (prover-off vs prover-auto)
+Finished game 932 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 935 of 1000 (prover-auto vs prover-off)
+Finished game 933 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 936 of 1000 (prover-off vs prover-auto)
+Finished game 934 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 937 of 1000 (prover-auto vs prover-off)
+Finished game 931 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 938 of 1000 (prover-off vs prover-auto)
+Finished game 935 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 939 of 1000 (prover-auto vs prover-off)
+Finished game 937 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 940 of 1000 (prover-off vs prover-auto)
+Finished game 938 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 941 of 1000 (prover-auto vs prover-off)
+Finished game 936 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 942 of 1000 (prover-off vs prover-auto)
+Finished game 941 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 943 of 1000 (prover-auto vs prover-off)
+Finished game 939 (prover-auto vs prover-off): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 944 of 1000 (prover-off vs prover-auto)
+Finished game 940 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 945 of 1000 (prover-auto vs prover-off)
+Finished game 942 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 946 of 1000 (prover-off vs prover-auto)
+Finished game 944 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 947 of 1000 (prover-auto vs prover-off)
+Finished game 943 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 948 of 1000 (prover-off vs prover-auto)
+Finished game 945 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 949 of 1000 (prover-auto vs prover-off)
+Finished game 947 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 950 of 1000 (prover-off vs prover-auto)
+Finished game 946 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 951 of 1000 (prover-auto vs prover-off)
+Finished game 948 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 952 of 1000 (prover-off vs prover-auto)
+Finished game 949 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 953 of 1000 (prover-auto vs prover-off)
+Finished game 951 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 954 of 1000 (prover-off vs prover-auto)
+Finished game 952 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 955 of 1000 (prover-auto vs prover-off)
+Finished game 950 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 956 of 1000 (prover-off vs prover-auto)
+Finished game 953 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 957 of 1000 (prover-auto vs prover-off)
+Finished game 954 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 958 of 1000 (prover-off vs prover-auto)
+Finished game 955 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 959 of 1000 (prover-auto vs prover-off)
+Finished game 956 (prover-off vs prover-auto): 1-0 {White mates}
+Started game 960 of 1000 (prover-off vs prover-auto)
+Finished game 957 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 961 of 1000 (prover-auto vs prover-off)
+Finished game 960 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 962 of 1000 (prover-off vs prover-auto)
+Finished game 958 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 963 of 1000 (prover-auto vs prover-off)
+Finished game 959 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 964 of 1000 (prover-off vs prover-auto)
+Finished game 961 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 965 of 1000 (prover-auto vs prover-off)
+Finished game 962 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 966 of 1000 (prover-off vs prover-auto)
+Finished game 963 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 967 of 1000 (prover-auto vs prover-off)
+Finished game 964 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 968 of 1000 (prover-off vs prover-auto)
+Finished game 965 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 969 of 1000 (prover-auto vs prover-off)
+Finished game 966 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 970 of 1000 (prover-off vs prover-auto)
+Finished game 968 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 971 of 1000 (prover-auto vs prover-off)
+Finished game 967 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 972 of 1000 (prover-off vs prover-auto)
+Finished game 969 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 973 of 1000 (prover-auto vs prover-off)
+Finished game 970 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 974 of 1000 (prover-off vs prover-auto)
+Finished game 972 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 975 of 1000 (prover-auto vs prover-off)
+Finished game 971 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 976 of 1000 (prover-off vs prover-auto)
+Finished game 973 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 977 of 1000 (prover-auto vs prover-off)
+Finished game 976 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 978 of 1000 (prover-off vs prover-auto)
+Finished game 975 (prover-auto vs prover-off): 0-1 {Black mates}
+Started game 979 of 1000 (prover-auto vs prover-off)
+Finished game 974 (prover-off vs prover-auto): 0-1 {Black wins by adjudication: SyzygyTB}
+Started game 980 of 1000 (prover-off vs prover-auto)
+Finished game 977 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 981 of 1000 (prover-auto vs prover-off)
+Finished game 978 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 982 of 1000 (prover-off vs prover-auto)
+Finished game 979 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 983 of 1000 (prover-auto vs prover-off)
+Finished game 980 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 984 of 1000 (prover-off vs prover-auto)
+Finished game 981 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Started game 985 of 1000 (prover-auto vs prover-off)
+Finished game 983 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 986 of 1000 (prover-off vs prover-auto)
+Finished game 982 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 987 of 1000 (prover-auto vs prover-off)
+Finished game 984 (prover-off vs prover-auto): 1/2-1/2 {Draw by fifty moves rule}
+Started game 988 of 1000 (prover-off vs prover-auto)
+Finished game 985 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 989 of 1000 (prover-auto vs prover-off)
+Finished game 986 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 990 of 1000 (prover-off vs prover-auto)
+Finished game 989 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 991 of 1000 (prover-auto vs prover-off)
+Finished game 990 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 992 of 1000 (prover-off vs prover-auto)
+Finished game 987 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 993 of 1000 (prover-auto vs prover-off)
+Finished game 988 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Started game 994 of 1000 (prover-off vs prover-auto)
+Finished game 991 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 995 of 1000 (prover-auto vs prover-off)
+Finished game 994 (prover-off vs prover-auto): 1/2-1/2 {Draw by stalemate}
+Started game 996 of 1000 (prover-off vs prover-auto)
+Finished game 992 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 997 of 1000 (prover-auto vs prover-off)
+Finished game 993 (prover-auto vs prover-off): 1/2-1/2 {Draw by fifty moves rule}
+Started game 998 of 1000 (prover-off vs prover-auto)
+Finished game 995 (prover-auto vs prover-off): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 999 of 1000 (prover-auto vs prover-off)
+Finished game 996 (prover-off vs prover-auto): 1-0 {White wins by adjudication: SyzygyTB}
+Started game 1000 of 1000 (prover-off vs prover-auto)
+Finished game 997 (prover-auto vs prover-off): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Finished game 998 (prover-off vs prover-auto): 1/2-1/2 {Draw by adjudication: SyzygyTB}
+Finished game 999 (prover-auto vs prover-off): 1/2-1/2 {Draw by 3-fold repetition}
+Finished game 1000 (prover-off vs prover-auto): 1/2-1/2 {Draw by 3-fold repetition}
+--------------------------------------------------
+Results of prover-auto vs prover-off (60+0.6, 1t, 16MB, endgames-outcome-adv100.epd):
+Elo: -6.60 +/- 7.28, nElo: -19.53 +/- 21.53
+LOS: 3.78 %, DrawRatio: 77.00 %, PairsRatio: 0.72
+Games: 1000, Wins: 155, Losses: 174, Draws: 671, Points: 490.5 (49.05 %)
+Ptnml(0-2): [0, 67, 385, 48, 0], WL/DD Ratio: 0.38
+--------------------------------------------------
+Finished match
+Total Time: 09:45:58 (hours:minutes:seconds)
+

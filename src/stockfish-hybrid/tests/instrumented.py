@@ -764,6 +764,25 @@ class TestProver(metaclass=OrderedClassMembers):
         self.stockfish.setoption("ProverLog", "false")
         self.stockfish.setoption("Prover", "mate")
 
+    def test_prover_auto_advantage_trigger(self):
+        # G3 LTC §7: con ProverAdvantage=N il prover parte anche con punteggio precedente >= N cp (seconda `go`, non la
+        # prima: nessun punteggio precedente); con il default 0 resta il solo trigger decisivo. Donna in piu': ~+9, nessun matto.
+        self.stockfish.setoption("Prover", "auto")
+        self.stockfish.setoption("ProverLog", "true")
+        self.stockfish.setoption("ProverMaxNodes", "100")
+        for adv, starts in (("0", 0), ("300", 1)):
+            self.stockfish.setoption("ProverAdvantage", adv)
+            self.stockfish.send_command("ucinewgame")
+            self.stockfish.send_command("position fen rnb1kbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+            assert self._go_clock("go depth 8")[1] == [], adv
+            prover = self._go_clock("go depth 8")[1]
+            assert len(prover) == 2 * starts, (adv, prover)
+            assert not starts or prover[0].startswith("info string prover: start win") and "no result" in prover[1], prover
+        self.stockfish.setoption("ProverAdvantage", "0")
+        self.stockfish.setoption("ProverMaxNodes", "1000000")
+        self.stockfish.setoption("ProverLog", "false")
+        self.stockfish.setoption("Prover", "mate")
+
 
 class TestInvalidFEN(metaclass=OrderedClassMembers):
     def beforeEach(self):

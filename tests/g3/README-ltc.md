@@ -364,3 +364,93 @@ semimossa della prima prova e il punteggio della mossa precedente).
    parte in 4 coppie su 70, quindi lo zero di F dice poco sul prover. Il campione misura il trigger attuale e non dice nulla su un
    trigger che parta prima del punteggio decisivo, l'unico modo di lasciare spazio al prover (`README-tuning.md` §7: il trigger "pochi
    pezzi" a 60+0.6, non misurato). `Prover=off` resta il default e §5 non cambia.
+
+## 7. Trigger anticipato del prover alla radice: `ProverAdvantage` (2026-11-01)
+
+Domanda (§6.3 punto 7; spec §13.1 punto 7 e attività (f)): un trigger che parta **prima** del punteggio decisivo dà spazio al
+prover dove `off` non converte? Risultati in `tests/results/g3-ltc/outcome-trigger/` (`run.sh`, `analysis.md`, `conversion.md`,
+`pairs.md`, `pairs-odd.csv`, `prover-log.md`, `prover-starts.csv`, `analysis-raw.md`, `baseline-sub23.md` (§6 filtrato alle stesse
+posizioni), `book.out`, `fastchess.out`, `games.pgn.xz`). Binario sha256 `d4507e96…6346` (`binary.sha256`), `bench` 2497913 con `off`.
+
+### 7.1 Opzione `ProverAdvantage` e verifiche
+
+`ProverAdvantage=N` (spin 0-10000 cp, default 0; `src/stockfish-hybrid/README.md`, tabella delle opzioni e riga H2): in `Prover=auto`
+il prover alla radice parte anche quando `bestPreviousScore` vale almeno N cp per il lato al tratto (`UCIEngine::to_cp`, i cp
+dell'output UCI, cioè la scala delle valutazioni nei PGN con cui è stato costruito il set), in direzione WIN(us), l'unico esito
+certificabile con l'orologio. Con 0 il trigger resta quello di §6 (`go mate` o punteggio decisivo). Budget (`ProverBudget‰ ·
+optimum`, soglia dei 10 ms) e memoria delle radici fallite invariati: ogni mossa è una radice nuova, quindi con il punteggio sopra
+la soglia il prover riparte a ogni mossa, al più per la quota del budget. Il trigger "pochi pezzi" di M3 non è stato ripreso: dove
+la valutazione è bassa una PROVEN_WIN(us) non è attesa.
+
+| Verifica | Esito |
+|---|---|
+| `bench` con `Prover=off` | **2497913** |
+| `src/stockfish-hybrid/tests/instrumented.py --none ./stockfish` | **89/89** (`TestProver` 13/13, nuovo `test_prover_auto_advantage_trigger`: parte alla seconda `go` con `ProverAdvantage=300` su una posizione a ~+9, mai con 0) |
+| `replay_nodes.py` (prime 2 partite di `outcome/`, `go nodes 300000`, `off` e `auto` al default) | profondità, nodi e mosse **identici** fra il binario di §6 (`5d91e4d6…`) e il nuovo (`d4507e96…`), 92 ricerche × 2 |
+| controllo con orologio (`go wtime 60000 … winc 600`, posizione di una partita di §6 a +6.09) | seconda `go`: `start win budget 142 ms` → `no result after 130247 do_move in 135 ms (budget)`; terza `go` sulla stessa radice: nessun avvio (memoria); con `ProverAdvantage=0` nessun avvio |
+
+### 7.2 Spazio del trigger nel campione di §6 (pre-analisi, zero costo)
+
+Prima del campione, dal PGN di §6.2 (1000 partite, trigger decisivo): in quante partite il **lato in vantaggio** (lato al tratto della
+FEN) ha raggiunto una valutazione non decisiva ≥ soglia nella propria mossa, cioè dove un trigger a quella soglia sarebbe partito, e
+quante di quelle partite non ha vinto (lo spazio reale: dove è partito ma `off` non converte).
+
+| Soglia | partite con valutazione max ≥ soglia (F/P/M) | di queste non vinte dal lato in vantaggio (tutte patte) (F/P/M) | posizioni (F/P/M) | posizioni con una di quelle partite non vinta |
+|---|---:|---:|---:|---:|
+| +3.00 (soglia del set) | 67 (8/59/0) | **10** (0/10/0) | 16 (1/15/0) | 4 (0/4/0) |
+| +2.00 | 76 (8/65/3) | 19 (0/16/3) | 18 (1/16/1) | 7 (0/6/1) |
+| +1.00 | 122 (10/104/8) | **65** (2/55/8) | 23 (2/20/1) | 21 (1/19/1) |
+
+Le 80 partite vinte dal lato in vantaggio sono tutte passate per un punteggio decisivo (§6.3 punto 2), e 57 di esse avevano prima
+toccato +3.00: a +3.00 il trigger sarebbe partito in ~1000 mosse di `auto` (49 partite, mediana 20 mosse per partita), per lo più in
+partite già vinte. Nelle 920 patte la valutazione massima del lato in vantaggio è **0.00 in mediana**, +0.24 / +0.82 / +1.31 ai quantili
+75 / 90 / 95 %: dove `off` non converte, a 60+0.6 la ricerca non crede al vantaggio, e il +3 delle partite veloci da cui viene il set
+(§6.1) non si ripresenta. Fumo di 4 coppie a 60+0.6 (le prime 2 posizioni P del libro e le prime 2 F, `ProverAdvantage=300`): 8
+patte, **0 avvii**, tutte e quattro le posizioni a 0.00 dalla prima mossa.
+
+Decisione dell'utente (2026-11-01, dopo il via al campione da brief e questa pre-analisi): **campione mirato** al posto del set intero
+con +3.00 (dove il trigger partirebbe nel 7 % delle partite, con spazio nell'1 %): libro `tests/books/endgames-outcome-adv100.epd`,
+le 23 posizioni della riga +1.00 (`tests/g3/adv_book.py` dal PGN di §6: posizioni con almeno una partita in cui il lato in vantaggio
+ha toccato +1.00 non decisivo), `ProverAdvantage=100`, 500 coppie (~22 per posizione). Confronto con §6 sulle stesse posizioni
+(85 coppie lì, trigger decisivo).
+
+### 7.3 Campione mirato: 500 coppie a 60+0.6 su 23 posizioni, `ProverAdvantage=100`
+
+`tests/results/g3-ltc/outcome-trigger/run.sh`, 09:10-11:36 (spegnimento della macchina a 201 partite, 99 coppie salvate da fastchess)
+e `run.sh resume` 11:45-21:31 dalla partita 199 (3 partite dei round 100-101 scartate; `fastchess -config` dallo stato salvato, stesso
+libro sequenziale, round unici), 12 h 12 di gioco (stima prima del via 8-10 h; 169 s per partita su queste posizioni, come in §6 sulle
+stesse). Controllo a 100 partite: trigger attivo (7,9 avvii per partita), costo nps +1,4 % ± 1,8 %, zero perdite per il tempo.
+
+**Il trigger anticipato non dà spazio al prover dove `off` non converte.** Punti di `auto` − punti di `off` col lato in vantaggio:
+**−0,019 per coppia [−0,044; +0,006]** (bootstrap al 95 % sulle posizioni; `auto` 155/344/1, `off` 173/327/0), vittorie −3,6 %
+[−8,8 %; +1,4 %]; §6 sulle stesse 23 posizioni (85 coppie, trigger decisivo): −0,006 [−0,066; +0,057]. Elo −6,60 ± 7,28,
+pentanomiale [0, 67, 385, 48, 0]. Coppie non pari 115: 48 per `auto` (46 con prova certificata di `auto` col lato in vantaggio, 3 di esse prima del punteggio decisivo), 67
+per `off` (nessuna con prova); nelle 107 coppie convertite da entrambi `auto` certifica in 104.
+
+| Prover | Valore |
+|---|---|
+| Avvii | 8536 in 511 partite (352 delle 500 di `auto` col lato in vantaggio; prima partenza: mediana alla seconda semimossa); §6 sulle stesse posizioni 1,7 per partita, qui 8,5 |
+| Avvii dovuti alla soglia +1.00 (valutazione della mossa non decisiva) | 6923, per fascia: [+1, +2) 2757, [+2, +3) 967, [+3, +5) 1251, [+5, +10) 1337, [+10, +100) 159, < +1 445; **6916 senza esito (budget), 7 prove** |
+| Esiti certificati | 569 in 150 partite (95 matti, 474 a foglie TB): 562 con valutazione propria precedente già decisiva, 7 prima (2 in [+5, +10), 5 in [+10, +100)) |
+| Senza esito | 7967 (7477 budget, 490 non certificabili con l'orologio), mediana 54 ms, do_move mediana 34k; 801 ms per partita con avvio ≈ 0,9 % della riflessione (§6: 110 ms, 0,2 %) |
+| nps per partita `auto`/`off` − 1 | +0,37 % ± 0,51 % (mediana −0,26 %); probe saltato −0,25 % ± 0,52 %; dopo un avvio +4,37 % ± 1,50 % (lati opposti della stessa partita) |
+| Timeout, crash, partite con punteggio decisivo non vinte | 0, 0, 0 (`auto` 155/155, `off` 174/174); una sconfitta di `auto` col lato in vantaggio (round 135, matto subito da +1.16, 19 avvii senza esito) |
+
+Carico: dalle 14:18 due `ssh-add` bloccati al 92 % di CPU (2 core) e Firefox; le misure di nps sono confronti dentro la partita.
+Dettagli e tabella per classe in `analysis.md`; `conversion.md`, `pairs.md`, `prover-log.md`, `analysis-raw.md`, `games.pgn.xz`.
+
+### 7.4 Lettura
+
+1. **Il trigger parte dove doveva, ma il prover non conclude.** Sulle 23 posizioni il lato in vantaggio è ≥ +1.00 fin dalla seconda
+   semimossa in 352 partite su 500: il prover riparte a ogni mossa (budget 3 % di `optimum`, 50-140 ms, ~35k `do_move`) e dei 6923 avvii
+   anticipati 6916 si fermano al budget. Con 11-32 pezzi e valutazione +1..+10 l'albero di prova non sta in quel budget: le prove
+   arrivano, come in §6, quando la ricerca ha già il punteggio decisivo (562 su 569); le 7 anticipate hanno valutazione precedente da
+   +8.67 a +14.39 (posizioni già nettamente vinte per la ricerca, non il +1..+3 della soglia): 4 in coppie pari, 3 in coppie a favore
+   di `auto` (round 10, 342, 425), contro 67 coppie a favore di `off`.
+2. **Nessun beneficio, costo piccolo ma col segno contro.** La stima puntuale è −0,019 per coppia e −3,6 % di vittorie con l'intervallo
+   che tocca lo zero; la conversione di `off` è identica a §6 sulle stesse posizioni (34,6 % contro 34,1 %), quella di `auto` più bassa
+   (31,0 % contro 32,9 %). Il costo diretto è lo 0,9 % della riflessione (801 ms per partita, nps invariato), più la ricerca che riparte
+   ogni mossa senza memoria utile (radice sempre nuova); il segnale a 50 coppie (+0,060) non si è confermato.
+3. **Risposta a §13.1 punto 7 / attività (f):** un trigger alla radice prima del punteggio decisivo non apre spazio al prover a 60+0.6
+   su queste posizioni; lo spazio richiederebbe un budget di ordini di grandezza maggiore o un bersaglio diverso (non la vittoria
+   dell'intera posizione). `ProverAdvantage=0` resta il default; l'opzione rimane per le misure.
