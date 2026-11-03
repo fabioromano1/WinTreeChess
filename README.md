@@ -9,7 +9,7 @@ Studio dell'integrazione dell'algoritmo WinTree (`2607.09715v2.pdf`) in Stockfis
 | Cartella | Contenuto |
 |---|---|
 | [`docs/superpowers/specs/`](docs/superpowers/specs/2026-10-15-wintree-stockfish-design.md) | specifica e relazione finale (§13, §13.1); `docs/agents/` = convenzioni per gli agenti |
-| [`tests/wintree-java/`](tests/wintree-java/README.md) | M0: Java del paper con P1 corretto (`enginep1/`, versione pubblicata), harness e fuzzing; `engine/` = originale, baseline dei test |
+| [`tests/wintree-java/`](tests/wintree-java/README.md) | M0: Java del paper con P1 e P2 corretti (`enginep1/`, versione pubblicata), harness e fuzzing; `engine/` = originale, baseline dei test |
 | [`src/wintree/`](src/wintree/README.md) | M1/M2c: nuclei generici depth-first e df-pn, test sintetici e differenziali |
 | [`src/wintree-chess/`](src/wintree-chess/README.md) | M2: adapter scacchi, verificatore, CLI `wintree-chess`, suite di matti, benchmark G0/G1 |
 | [`src/stockfish-hybrid/`](src/stockfish-hybrid/README.md) | M3: copia di Stockfish 19 con gli hook del prover e le opzioni UCI `Prover*` |
@@ -72,7 +72,7 @@ Altre opzioni UCI (`Prover=off|auto|mate|draw`, `ProverHash`, `ProverBudget`, `P
 
 - **Tutto il repository**: GPL-3.0-or-later ([`LICENSE`](LICENSE)). © 2026 Fabio Romano per il codice Java (`tests/wintree-java/`), i nuclei C++ (`src/wintree`, `src/wintree-chess`), gli hook del prover, gli script e i dati generati nel progetto.
 - **Stockfish 19**: GPL-3.0-or-later, © the Stockfish developers (`Stockfish-sf_19/Copying.txt`, `AUTHORS`). `Stockfish-sf_19/` è il riferimento intatto; `src/stockfish-hybrid/` è una copia modificata (ottobre-novembre 2026): le modifiche sono gli hook elencati in [src/stockfish-hybrid/README.md](src/stockfish-hybrid/README.md) (diff da `c8c0e01`).
-- **Java**: si pubblica la versione con P1 corretto (`tests/wintree-java/enginep1/`); l'originale del paper resta come baseline dei test (`tests/wintree-java/engine/`, sha256 in `run.sh`) e nella storia (commit `1103f81`).
+- **Java**: si pubblica la versione con P1 e P2 corretti (`tests/wintree-java/enginep1/`); l'originale del paper resta come baseline dei test (`tests/wintree-java/engine/`, sha256 in `run.sh`) e nella storia (commit `1103f81`).
 - **Paper**: CC BY-NC-SA 4.0 su arXiv; l'autore del paper è l'autore del codice, quindi la trascrizione della Sez. 3 nell'harness non pone vincoli.
 - **Rete NNUE**: non inclusa e non distribuita: la scarica chi compila (`make net`) dai server di Stockfish; la licenza del file va verificata solo per distribuire binari con la rete.
 - **Dati di terzi**: `tests/suites/mates2000.epd` da [vondele/matetrack](https://github.com/vondele/matetrack) (GPL-3.0; `fetch-mates2000.sh` lo rigenera con sha256 verificato); le fortezze di `tests/g2` sono posizioni storiche prese da en.wikipedia.

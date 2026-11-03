@@ -195,6 +195,12 @@ public class Engine {
 					} else {
 						if (qColor == null || qColor == Color.WHITE && dejavu.get(q).retainAll(path))
 							winTree(q, path);
+						else if (qColor == Color.WHITE) // P2 fix: il salto eredita i bloccanti di q (colpo virtuale, variante A)
+							for (Position x : dejavu.get(q)) {
+								Iterator<Position> itPath = path.iterator();
+								for (Position next = itPath.next(); !x.equals(next); next = itPath.next())
+									dejavu.get(next).add(x);
+							}
 						
 						Evaluation qEval = evals.get(q);
 						if (qEval != null) {

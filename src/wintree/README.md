@@ -12,7 +12,7 @@ make -C src/wintree test      # ~12 s (C++ 4 s + Java), output riproducibile; GR
 | `dfpn.h` | `DfPn<G>` (M2c, §8.1b): MID di Nagai con 1+ε sulla stessa interfaccia `G`, stessa `ProofTable` (entry `(pn, dn)` per gli irrisolti), stessi `Result`/`Budget`/`Goal`; taint di ciclo, `rev/req`, `d`, mossa testimone; vedi "M2c" sotto |
 | `graph.h` | `Graph::parse` (formato di `Gen.java`, verifica Def. 2.6), `GraphGame` (adapter), `JavaRandom` + `generate` (port di `Gen.java`: stessi grafi dagli stessi semi, verificato) |
 | `test.cpp` | oracolo `d_g` a minimo punto fisso, trascrizione di Sez. 3, regressioni P1a/P1b/P2/Sanity (entrambi i nuclei), fuzz di entrambi i nuclei, budget casuali, stop/deadline, model checker del Thm 4.8, `--java FILE` |
-| `../../tests/wintree-java/Cmp.java` | esiti del Java con P1 corretto (stati, `d`, preordine = chiamate a `legalMoves()`) per il confronto di §9.3 |
+| `../../tests/wintree-java/Cmp.java` | esiti del Java con P1 e P2 corretti (stati, `d`, preordine = chiamate a `legalMoves()`) per il confronto di §9.3 |
 
 ## Risultati (2026-10-16, g++ 16.2, OpenJDK 25, `make test`)
 
@@ -26,7 +26,7 @@ make -C src/wintree test      # ~12 s (C++ 4 s + Java), output riproducibile; GR
 
 NOWIN = 15858 = trascrizione di Sez. 3 in M0; radici UNKNOWN_CYCLE 7238 = radici NIL di Sez. 3. Seconda chiamata a tabella piena: stesso esito, 0 espansioni. Budget casuale (nodi 1..50, profondità 1..15): 0 PROVEN errati; ogni interruzione dà radice UNKNOWN_BUDGET con `cut` (4765); le 4466 radici UNKNOWN_CYCLE hanno tutte eval ≠ g (I2: un taglio non si nasconde mai dietro un UNKNOWN_CYCLE). `stop` alzato e scadenza passata: interruzione esattamente al 1024-esimo nodo (grafo n = 3000).
 
-**Java-C++ (§9.3)**: 20000 grafi (10^4 standard + 10^4 con cicli = 0): generatore identico; 6955 grafi aciclici con stati, `d` e preordine **identici** al Java con P1 corretto; 13045 ciclici: `win` uguali sui PROVEN comuni salvo i 2 errori del Java (seme 191, P2b: radice FALSE, C++ WIN); 6273 radici FALSE nel Java e UNKNOWN_CYCLE nel C++ (deviazione 3 di §2.6: il Java marca FALSE una radice NIL).
+**Java-C++ (§9.3)**: 20000 grafi (10^4 standard + 10^4 con cicli = 0): generatore identico; 6955 grafi aciclici con stati, `d` e preordine **identici** al Java con P1 corretto; 13045 ciclici: `win` uguali sui PROVEN comuni salvo i 2 errori del Java (seme 191, P2b: radice FALSE, C++ WIN); 6273 radici FALSE nel Java e UNKNOWN_CYCLE nel C++ (deviazione 3 di §2.6: il Java marca FALSE una radice NIL). **Rilancio del 2026-11-03** (Java con P2 corretto, `tests/wintree-java/README.md`): 0 PROVEN del Java non PROVEN in C++, 0 `win` diversi, 0 errori del Java.
 
 ## Cosa è emerso (scostamenti dalla spec)
 

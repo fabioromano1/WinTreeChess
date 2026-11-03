@@ -2,9 +2,9 @@ import engine.*;
 import java.lang.reflect.Field;
 import java.util.*;
 
-// Harness (Appendice A): esegue l'Engine Java originale e la copia con P1 corretto (enginep1) su grafi
+// Harness (Appendice A): esegue l'Engine Java originale e la copia con P1 e P2 corretti (enginep1) su grafi
 // sintetici e confronta con (a) un solver a minimo punto fisso e (b) una trascrizione letterale di
-// WinTreeRecursion (Sez. 3). Esce con codice 1 se P1a/P1b non risultano corretti o P2 non risulta presente.
+// WinTreeRecursion (Sez. 3). Esce con codice 1 se P1a/P1b o P2 non risultano corretti.
 public class Test {
 
     static final class Node implements Position {
@@ -138,7 +138,7 @@ public class Test {
             Node p0 = new Node("p0", P2, null).to(p);
             Node v0 = new Node("v0", P1, null).to(b, p0);
             Map<Node,Boolean> f = report("P2 dejavu incompleteness", v0, List.of(y, z, a2, q, r2, p, r, b, p0, v0), P1, v0, p0, p, q, a2, b);
-            expect(f.containsKey(v0) && f.get(v0) == null, "P2 ancora presente in p1fix: v0 NIL pur con eval = g");
+            expect(Boolean.TRUE.equals(f.get(v0)), "P2 risolto in p1fix: v0 TRUE");
 
             Engine own = new Engine(P1); own.solve(v0);
             Engine opp = new Engine(P2); opp.solve(v0);
