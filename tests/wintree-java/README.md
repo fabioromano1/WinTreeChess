@@ -1,6 +1,6 @@
 # tests/wintree-java — M0 (spec §12.1 punto 1)
 
-Harness Java di riferimento per WinTree. Nessun file originale del progetto è modificato.
+Harness Java di riferimento per WinTree. `enginep1/` è la versione pubblicata del Java del paper (P1 corretto); `engine/` è l'originale, tenuto come baseline dei test (sha256 verificati da `run.sh`; la cartella `two-players game engine/` del paper è nel commit `1103f81`).
 
 ```bash
 ./run.sh            # = ./run.sh 10000 1   (GRAFI, SEME): ~4 s, output identico a ogni esecuzione
@@ -8,8 +8,8 @@ Harness Java di riferimento per WinTree. Nessun file originale del progetto è m
 
 | File | Contenuto |
 |---|---|
-| `engine/*.java` | copia dei tre sorgenti originali; `run.sh` verifica con `cmp` che siano identici (sha256 `Engine.java` `b4749232…0521`) |
-| `enginep1/Engine.java` | copia con **P1 corretto** (§2.7), solo riferimento di test: pacchetto `enginep1`, il primo ciclo registra i figli BLACK trattati, il secondo legge l'esito di tutti gli altri (anche quelli diventati BLACK nel frattempo) senza ricorrere sui BLACK. `diff engine/Engine.java enginep1/Engine.java` = 7 righe |
+| `engine/*.java` | i tre sorgenti originali del paper (P1 e P2 presenti), baseline per `Test.java` e `Fuzz.java`; `run.sh` ne verifica gli sha256 (`Engine.java` `b4749232…0521`) |
+| `enginep1/Engine.java` | **versione pubblicata** del Java: copia con **P1 corretto** (§2.7; P2 resta, vedi sotto): pacchetto `enginep1`, il primo ciclo registra i figli BLACK trattati, il secondo legge l'esito di tutti gli altri (anche quelli diventati BLACK nel frattempo) senza ricorrere sui BLACK. `diff engine/Engine.java enginep1/Engine.java` = 7 righe |
 | `Test.java` | harness dell'Appendice A + colonna `p1fix=` e controlli `OK/FAIL` (exit 1 se falliscono). Contiene il solver a minimo punto fisso (`forced`) e la trascrizione di Sez. 3 (`Base`) |
 | `Gen.java` | generatore di grafi con seme e parser del formato testuale (con verifica di Def. 2.6) |
 | `Fuzz.java` | 10^4 grafi × 2 goal; solidità, completezza alla radice (Thm 3.4), model checker del Thm 4.8 |
