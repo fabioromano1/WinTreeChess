@@ -9,6 +9,7 @@ Studio dell'integrazione dell'algoritmo WinTree (`2607.09715v2.pdf`) in Stockfis
 | Cartella | Contenuto |
 |---|---|
 | [`docs/superpowers/specs/`](docs/superpowers/specs/2026-10-15-wintree-stockfish-design.md) | specifica e relazione finale (§13, §13.1); `docs/agents/` = convenzioni per gli agenti |
+| [`docs/paper/`](docs/paper/wintree-stockfish.pdf) | paper in LaTeX che descrive tutto il lavoro (sorgente, bibliografia, PDF; `pdflatex` + `bibtex`) |
 | [`tests/wintree-java/`](tests/wintree-java/README.md) | M0: Java del paper con P1 e P2 corretti (`enginep1/`, versione pubblicata), harness e fuzzing; `engine/` = originale, baseline dei test |
 | [`src/wintree/`](src/wintree/README.md) | M1/M2c: nuclei generici depth-first e df-pn, test sintetici e differenziali |
 | [`src/wintree-chess/`](src/wintree-chess/README.md) | M2: adapter scacchi, verificatore, CLI `wintree-chess`, suite di matti, benchmark G0/G1 |
